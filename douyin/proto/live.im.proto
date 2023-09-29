@@ -1,0 +1,6309 @@
+syntax = "proto3";
+package im;
+import "live.data.proto";
+message RoomBorderMessage {
+  im.Common common = 1;
+  data.BorderInfo border_info = 2;
+}
+message Common {
+  string method = 1;
+  int64 msg_id = 2;
+  int64 room_id = 3;
+  int64 create_time = 4;
+  int32 monitor = 5;
+  bool is_show_msg = 6;
+  string describe = 7;
+  data.Text display_text = 8;
+  int64 fold_type = 9;
+  int64 anchor_fold_type = 10;
+  int64 priority_score = 11;
+  string log_id = 12;
+  string msg_process_filter_k = 13;
+  string msg_process_filter_v = 14;
+  data.User user = 15;
+  data.Room room = 16;
+  int64 anchor_fold_type_v2 = 17;
+  int64 process_at_sei_time_ms = 18;
+  int64 random_dispatch_ms = 19;
+  bool is_dispatch = 20;
+  int64 channel_id = 21;
+  int64 diff_sei2abs_second = 22;
+  int64 anchor_fold_duration = 23;
+  int64 app_id = 24;
+}
+message PublicAreaCommon {
+  data.Image user_label = 1;
+  int64 user_consume_in_room = 2;
+  int64 user_send_gift_cnt_in_room = 3;
+  int64 individual_priority = 4;
+  int64 support_pin = 6;
+  im.SuffixText suffix_text = 7;
+  int32 im_action = 8;
+  bool forbidden_profile = 9;
+  data.ChatReplyRespInfo reply_resp = 10;
+}
+message SuffixText {
+  int64 biz_type = 1;
+  data.Text text = 2;
+}
+message LandscapeAreaCommon {
+  bool show_head = 1;
+  bool show_nickname = 2;
+  bool show_font_color = 3;
+  repeated string color_value = 4;
+  repeated int32 comment_type_tags = 5;
+}
+message FlexImageStruct {
+  repeated string url_list = 1;
+  string uri = 2;
+  repeated int64 flex_setting = 3;
+  repeated int64 text_setting = 4;
+  int64 top_border_height = 5;
+}
+message CommonBubbleConfig {
+  string content = 1;
+  int64 duration = 2;
+  data.Text rich_text = 3;
+  string scheme_url = 4;
+  im.FlexImageStruct background_image = 5;
+  data.Image arrow_image = 6;
+  int32 message_type = 7;
+  int32 arrow_position = 8;
+}
+message ActivityInteractiveMessage {
+  im.Common common = 1;
+  string extra = 2;
+}
+message ActivityMagicAsianGamesMessage {
+  im.Common common = 1;
+  string push_id = 2;
+  string push_content = 3;
+  int32 platform = 4;
+  im.VideoCardPushModule video_card = 5;
+  im.MedalRankListModule medal_list = 6;
+  im.CollectModule collect = 7;
+  im.ScheduleModule popular_star = 8;
+  im.LatestNewsModule hot_live = 9;
+}
+message LinkInfo {
+  int32 link_type = 1;
+  string link_url = 2;
+}
+message PageFilter {
+  string highlight_group_name = 1;
+}
+message VideoCardSize {
+  int64 height = 1;
+  int64 width = 2;
+}
+message StatsParam {
+  int64 ep_id = 1;
+  int64 sec_id = 2;
+  int64 r_id = 3;
+}
+message VideoCardPushModule {
+  int64 module_id = 1;
+  int64 module_version = 2;
+  repeated im.VideoBigCard update_list = 3;
+  repeated string delete_list = 4;
+}
+message MedalRankListModule {
+  int64 module_id = 1;
+  int64 module_version = 2;
+  repeated im.RankItem update_list = 3;
+  repeated string delete_list = 4;
+}
+message CollectModule {
+  int64 module_id = 1;
+  int64 module_version = 2;
+  repeated im.Highlight update_list = 3;
+  repeated string delete_list = 4;
+}
+message ScheduleModule {
+  int64 module_id = 1;
+  int64 module_version = 2;
+  repeated im.Match update_list = 3;
+  repeated string delete_list = 4;
+}
+message LatestNewsModule {
+  int64 module_id = 1;
+  int64 module_version = 2;
+  repeated im.News update_list = 3;
+  repeated string delete_list = 4;
+}
+message VideoBigCard {
+  int32 card_type = 1;
+  string cover_url = 2;
+  string title = 3;
+  string sub_title = 4;
+  im.VideoBigCard.CornerMark corner_mark = 5;
+  im.VideoCardSize video_size = 6;
+  string background_url = 7;
+  string unique_id = 8;
+  im.StatsParam stats_param = 9;
+  string video_source = 10;
+  bool is_match = 11;
+  im.LinkInfo link_info = 12;
+  string extra = 255;
+  message CornerMark {
+    int32 type = 1;
+    bool show = 2;
+  }
+}
+message RankItem {
+  int64 rank = 1;
+  string country = 2;
+  string country_img_url = 3;
+  int64 gold_medal = 4;
+  int64 silver_medal = 5;
+  int64 copper_medal = 6;
+  int64 total_medal = 7;
+  string unique_id = 8;
+  string extra = 255;
+}
+message Highlight {
+  int32 highlight_type = 1;
+  string item_id = 2;
+  string replay_id = 3;
+  string video_source = 4;
+  string unique_id = 5;
+  string cover_img_url = 6;
+  int64 play_time_ms = 7;
+  string title = 8;
+  string group_name = 9;
+}
+message AGMatchInfo {
+  string l_country = 1;
+  string r_country = 2;
+  int64 l_score = 3;
+  int64 r_score = 4;
+  string l_country_img_url = 5;
+  string r_country_img_url = 6;
+}
+message MatchLive {
+  int32 ag_live_status = 1;
+  string appointment_id = 2;
+  string room_id = 3;
+  bool has_subscribe = 4;
+  string camera_id = 5;
+}
+message Match {
+  string title = 1;
+  int64 start_time_ms = 2;
+  string focus = 3;
+  int32 tag_type = 4;
+  im.AGMatchInfo ag_match_info = 5;
+  im.MatchLive match_live = 6;
+  string unique_id = 7;
+}
+message News {
+  string title = 1;
+  int64 update_time_ms = 2;
+  im.LinkInfo link_info = 3;
+  string unique_id = 4;
+}
+message MagicGestureActivityMessage {
+  im.Common common = 1;
+  int32 status = 2;
+  string effect_id = 3;
+  int32 action_type = 4;
+  string action_schema = 5;
+  string biz_id = 6;
+}
+message ActivityMagicMessage {
+  im.Common common = 1;
+  string push_id = 2;
+  string push_content = 3;
+}
+message PixActivityMessage {
+  im.Common common = 1;
+  int32 current_level = 2;
+  bool can_change_prop = 3;
+}
+message PrizeNoticeMessage {
+  im.Common common = 1;
+  int64 asset_id = 2;
+  im.ImageInfo image_info = 3;
+  data.Image landscape_bg_img = 4;
+  string landscape_content = 5;
+  int64 scene_context_id = 6;
+  int32 landscape_height = 7;
+  int32 play_priority = 8;
+  bool use_separate_player = 10;
+}
+message ImageInfo {
+  data.Image img = 1;
+  int32 start = 2;
+  int32 duration = 3;
+  int32 x = 4;
+  int32 y = 5;
+  int32 width = 6;
+  int32 height = 7;
+  bool need_circle = 8;
+}
+message AdminPrivilegeMessage {
+  im.Common common = 1;
+  im.AdminPrivilegeStruct data = 2;
+}
+message AdminPrivilegeStruct {
+  int32 privilege = 1;
+  int64 op = 2;
+}
+message AdminRecordHandleMessage {
+  im.Common common = 1;
+  int32 handle_type = 2;
+}
+message AdminData {
+  int64 uid = 1;
+  string name = 2;
+}
+message TextExtraItem {
+  int32 start = 1;
+  int32 stop = 2;
+  int32 type = 3;
+  string user_id = 4;
+  string hashtag_name = 5;
+  string hashtag_id = 6;
+  bool is_commerce = 7;
+  string aweme_id = 8;
+  int32 sub_type = 9;
+}
+message AdminRecordMessage {
+  im.Common common = 1;
+  im.AdminData admin = 2;
+  int64 item_id = 3;
+  int64 draft_id = 4;
+  string video_text = 5;
+  repeated im.TextExtraItem video_text_extra = 6;
+}
+message AnchorBoostMessage {
+  im.Common common = 1;
+  im.AnchorBoost data = 2;
+  im.PublicAreaCommon public_area_common = 3;
+}
+message AnchorBoost {
+  int64 event_name = 1;
+  int64 anchor_id = 2;
+  int32 live_id = 3;
+  int32 event_type = 4;
+  string content = 5;
+}
+message AnswerReviewMessage {
+  im.Common common = 1;
+  int32 answerReviewMsgTypeEnum = 2;
+  int64 answer_id = 3;
+  int64 chat_id = 4;
+  int32 answerReviewResTypeEnum = 5;
+  int64 video_pin_id = 6;
+  int64 original_msg_id = 7;
+  int64 pin_id = 8;
+}
+message AssetEffectUtilMessage {
+  im.Common common = 1;
+  int64 asset_id = 2;
+  int64 priority = 3;
+  int64 price = 4;
+  data.Text text = 5;
+  int64 text_width = 6;
+  int64 text_heitht = 7;
+  string tracking = 8;
+  string dress_id = 9;
+  repeated im.EffectUtilImageInfo images = 10;
+  repeated im.EffectUtilTextInfo texts = 20;
+  string finish_self_schema = 21;
+}
+message EffectUtilImageInfo {
+  string placeholder_key = 1;
+  data.Image mix_image = 2;
+}
+message EffectUtilTextInfo {
+  string placeholder_key = 1;
+  string content = 2;
+  int64 font_size = 3;
+  string font_color = 4;
+}
+message AssetMessage {
+  im.Common common = 1;
+  int64 asset_id = 2;
+  data.Text panel_display_text = 3;
+  bool show_message = 4;
+  bool show_panel = 5;
+  data.User user = 6;
+  data.User to_user = 7;
+  data.GiftIMPriority priority = 8;
+  string log_id = 9;
+  int32 play_priority = 10;
+}
+message AudioBGImgMessage {
+  im.Common common = 1;
+  data.AudioBGData bg_list = 2;
+  int32 ReviewPass = 3;
+  int32 bg_type = 4;
+  string show_text = 5;
+}
+message AudioChatMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  string content = 3;
+  string audio_url = 4;
+  int64 audio_duration = 5;
+  im.PublicAreaCommon public_area_common = 6;
+}
+message AuthorizationNotifyMessage {
+  im.Common common = 1;
+  string from = 2;
+  string content = 3;
+  string style = 4;
+  im.AuthorizationNotifyMessage.ContentBlock user_content = 6;
+  im.AuthorizationNotifyMessage.RelationBlock user_relation = 7;
+  message ContentBlock {
+    bool show = 1;
+    bool is_authorized = 2;
+    string title = 3;
+    string content = 4;
+    string detail = 5;
+  }
+  message RelationBlock {
+    bool show = 1;
+    bool is_authorized = 2;
+    string title = 3;
+    string content = 4;
+    string detail = 5;
+  }
+}
+message AutoCoverMessage {
+  im.Common common = 1;
+  data.Image image = 2;
+}
+message AwemeShopExplainMessage {
+  im.Common common = 1;
+  im.AwemeShopExplainMessage.Extra extra = 2;
+  message Extra {
+    int64 promotion_id = 1;
+    bool active = 2;
+  }
+}
+message BackRecordVideoMessage {
+  im.Common common = 1;
+  string m3u8_url = 2;
+  repeated string ts_urls = 3;
+  string execution_id = 4;
+  bool succeed = 5;
+  int64 start_time = 6;
+  int64 end_time = 7;
+}
+message BattleAutoMatchMessage {
+  im.Common common = 1;
+  im.BattleAutoMatchMessage.ResponseData data = 2;
+  message RivalInfo {
+    int64 user_id = 1;
+    data.Room room = 2;
+  }
+  message PreviewUser {
+    string nickname = 1;
+    data.Image avatar = 2;
+  }
+  message ResponseData {
+    string default_content = 1;
+    data.Image default_avatar = 2;
+    int64 rival_user_id = 3;
+    data.Room rival_room = 4;
+    repeated im.BattleAutoMatchMessage.PreviewUser preview_user_list = 5;
+    int64 expect_time = 6;
+    string rival_user_id_str = 7;
+    bool can_high_way = 8;
+    int64 max_wait_time = 9;
+    string sign_extra = 10;
+    repeated im.BattleAutoMatchMessage.RivalInfo rivals = 11;
+    string battle_attached_info = 19;
+    string channel_id_str = 20;
+    int64 match_type = 21;
+  }
+}
+message BattleCancelMessage {
+  im.Common common = 1;
+  int64 channel_id = 2;
+}
+message BattleFeedBackCardMessage {
+  im.Common common = 1;
+  int64 rival_uid = 2;
+  int32 feedback_card_type = 3;
+  data.FeedbackCard feedback_card = 4;
+  int64 battle_id = 5;
+  int64 channel_id = 6;
+}
+message BattleFrontRankMessage {
+  im.Common common = 1;
+}
+message BattleInviteMessage {
+  im.Common common = 1;
+  int32 invite_type = 2;
+  int64 channel_id = 3;
+  string sign_extra = 4;
+  int64 invite_uid = 5;
+  int64 battle_id = 6;
+  string multiple_again_prompts = 7;
+  data.PanelTitle panel_title = 8;
+  int32 scene = 9;
+  string invite_title = 10;
+  string invite_sub_title = 11;
+  int64 wait_sec = 12;
+  data.BattleConfigSetting battle_config_setting = 14;
+  int64 duration_time = 15;
+  int32 multi_pk_mode = 16;
+  string client_attached_info = 17;
+  string lynx_data = 18;
+}
+message BattleModeMessage {
+  im.Common common = 1;
+  int64 mode = 2;
+  im.BattleModeMessage.StealTowerData steal_tower_data = 3;
+  int64 now = 4;
+  message StealTowerData {
+    int64 start_time = 1;
+    int64 finish_time = 2;
+    int64 duration = 3;
+    int64 target_score = 4;
+    int64 attacker_id = 5;
+    bool finish = 6;
+    int64 win = 7;
+    int64 open_score = 8;
+    int64 count = 9;
+  }
+}
+message BattleMultiMatchMessage {
+  im.Common common = 1;
+  int32 match_status = 2;
+  int64 expect_time = 3;
+  repeated im.BattleMultiMatchMessage.PreviewUser preview_user_list = 4;
+  int64 default_wait_limit = 5;
+  int64 invite_limit_sec = 6;
+  int64 match_type = 7;
+  message PreviewUser {
+    string nickname = 1;
+    data.Image avatar = 2;
+  }
+}
+message BattleNotifyMessage {
+  im.Common common = 1;
+  string content = 2;
+  int32 notify_type = 3;
+  int64 continue_seconds = 4;
+}
+message BattlePowerContainerMessage {
+  im.Common common = 1;
+  int64 channel_id = 2;
+  int64 battle_id = 3;
+  string reverse_info = 4;
+  message ReverseInfo {
+    data.User user = 1;
+    int64 reverse_count = 2;
+    string des = 3;
+  }
+}
+message PrecisionMatch {
+  int64 sponsor_id = 1;
+  repeated im.PrecisionMatch.Matcher matchers = 2;
+  string match_reason = 3;
+  int64 wait_seconds = 4;
+  int64 precision_match_id = 5;
+  string activity_name = 6;
+  string recommend_reason = 7;
+  int32 source = 9;
+  string not_disturb_text = 10;
+  int64 flex_activity_id = 11;
+  int64 duration = 12;
+  string battle_attached_info = 13;
+  string sign_extra = 8;
+  message Matcher {
+    int64 user_id = 1;
+    data.Room room = 2;
+    int32 status = 3;
+    repeated data.BattleRivalTag tags = 4;
+    string desc_text = 5;
+  }
+}
+message BattlePrecisionMatchMessage {
+  im.Common common = 1;
+  im.PrecisionMatch precision_match = 2;
+}
+message BattleRejectMessage {
+  im.Common common = 1;
+  int64 channel_id = 2;
+  int64 battle_id = 3;
+  int64 reject_uid = 4;
+  string multiple_again_prompts = 5;
+  int32 invite_type = 6;
+}
+message BattleSeasonPKResultMessage {
+  im.Common common = 1;
+  im.BattleSeasonPKResultMessage.PKResult pk_result = 2;
+  im.BattleSeasonPKResultMessage.UpgradeResult upgrade_result = 3;
+  message PKResult {
+    data.Image result_img = 1;
+    data.Image bg_img = 2;
+    string result_str = 3;
+  }
+  message UpgradeResult {
+    data.Image grade_img = 1;
+    data.Image upgrade_img = 2;
+    string upgrade_desc = 3;
+    data.Image desc_bg_img = 4;
+  }
+}
+message BattleStateSyncMessage {
+  im.Common common = 1;
+  im.BattleSettings battle_settings = 2;
+}
+message BattleMode {
+  int32 mode = 1;
+  im.BattleMode.StealTowerData steal_tower_data = 2;
+  message StealTowerData {
+    int64 trigger_time = 1;
+  }
+}
+message BattleSettings {
+  int64 battle_id = 2;
+  int64 start_time_ms = 3;
+  int64 duration = 4;
+  string theme = 5;
+  int64 channel_id = 6;
+  int64 match_type = 7;
+  string banner_url = 8;
+  int64 sub_type = 9;
+  int32 mode = 10;
+  string config = 11;
+  string notify_scheme_url = 12;
+  string hotsoon_notify_scheme_url = 13;
+  data.Image unknwon_field1 = 14;
+  string unknwon_field2 = 15;
+  string unknwon_field3 = 16;
+  data.BattleTitleConfig title_config = 17;
+  data.BattleTitleConfig punish_config = 18;
+  int64 punish_duration = 19;
+  int64 punish_start_time_ms = 20;
+  int32 optimize_version = 21;
+  bool punish_optimize_on = 22;
+  int64 blood_display_duration = 23;
+  int64 status_display_duration = 24;
+  string toast = 25;
+  bool need_close_linkmic = 26;
+  bool display_last_result = 27;
+  string normal_activity_name = 28;
+  int32 invite_type = 29;
+  data.BattleConfigSetting battle_config_setting = 31;
+  data.BattleBarConfig bar_config = 32;
+  data.BattleBarConfig hotsoon_bar_config = 33;
+  int64 initiator_id = 34;
+  int32 battle_type = 35;
+  int64 finished = 36;
+  repeated int32 play_tags = 37;
+  int64 steal_tower_duration = 38;
+  string lynx_data = 39;
+}
+message BattleTask {
+  bool enable_task = 1;
+}
+message LinkMicBattle {
+  im.Common common = 1;
+  im.BattleSettings battle_settings = 2;
+  im.BattleMode battle_mode = 3;
+  im.BattleTask battle_task = 4;
+  int32 skin_type = 5;
+  data.OperationalPlay operational_play = 7;
+  int32 battle_type = 8;
+  bool relative_score = 9;
+  bool normal_to_multiple = 10;
+  data.BattleSkinConfig skin_config = 11;
+  data.LinkIconConfig link_icon_config = 12;
+}
+message BattleTeamTaskAskMessage {
+  im.Common common = 1;
+  string team_task_json = 2;
+}
+message BattleTeamTaskMessage {
+  im.Common common = 1;
+  data.TeamTask team_task = 2;
+  string team_task_json = 3;
+}
+message BattleUseCardMessage {
+  im.Common common = 1;
+  data.ItemCardInfo info = 2;
+  string extra = 4;
+}
+message BeginnerGuideMessage {
+  im.Common common = 1;
+  int32 message_type = 2;
+  string prompts = 3;
+}
+message LinkmicBigEventMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  im.InitLinkmicContent init_linkmic_content = 3;
+  im.SwitchSceneContent switch_scene_content = 4;
+  im.SwitchEarphoneMonitorContent switch_earphone_monitor_content = 5;
+  im.SwitchKtvModeContent switch_ktv_mode_content = 6;
+  im.SwitchLyricStatusContent switch_lyric_status_content = 7;
+  im.SwitchFullSongStatusContent switch_full_song_status_content = 8;
+  im.SwitchTuningEffectContent switch_tuning_effect_content = 9;
+}
+message InitLinkmicContent {
+  int32 target_mode = 1;
+}
+message SwitchSceneContent {
+  int32 target_mode = 1;
+}
+message SwitchEarphoneMonitorContent {
+  int32 to_status = 1;
+}
+message SwitchKtvModeContent {
+  int32 ktv_mode = 1;
+}
+message SwitchLyricStatusContent {
+  int32 to_status = 1;
+}
+message SwitchFullSongStatusContent {
+  int32 to_status = 1;
+}
+message SwitchTuningEffectContent {
+  string to_effect_name = 1;
+}
+message BridgeData {
+  im.Common common = 1;
+  string bridge_message_json = 2;
+}
+message BridgeMessage {
+  im.Common common = 1;
+  im.BridgeData bridge = 2;
+}
+message BrotherhoodMessage {
+  im.Common common = 1;
+  string content = 2;
+}
+message CarBallShowMessage {
+  im.Common common = 1;
+  bool is_show = 2;
+}
+message CarSeriesInfoMessage {
+  im.Common common = 1;
+  int64 action_type = 2;
+  int64 series_id = 3;
+  string series_name = 4;
+  string official_price = 5;
+  string image_url = 6;
+  string open_url = 7;
+}
+message CarnivalMessage {
+  im.Common common = 1;
+  data.CombinedText text = 2;
+  int64 carnival_seq_id = 3;
+  int64 danmaku_style_type = 4;
+  int32 special_mark = 5;
+  int64 priority = 6;
+}
+message CategoryChangeMessage {
+  im.Common common = 1;
+  string category_id = 2;
+  string category_name = 3;
+  string challenge_id = 4;
+  string challenge_name = 5;
+}
+message ChatCarnivalMessage {
+  im.Common common = 1;
+  int64 notify_type = 2;
+  int64 anchor_start_timestamp = 3;
+  int64 anchor_start_second = 4;
+  int64 user_start_timestamp = 5;
+  int64 user_start_second = 6;
+  int64 duration = 7;
+  string background_color = 8;
+  data.Image title_image = 9;
+  string pre_content = 10;
+  string content = 11;
+  int64 orientations = 12;
+  int64 move_speed = 13;
+  repeated im.ChatItem chat_style = 14;
+  repeated im.EggItem egg_style = 15;
+  int64 word_orientation = 16;
+  int64 move_direction = 17;
+  repeated int64 egg_show_range = 18;
+  repeated int64 size_and_alpha = 19;
+  repeated int64 vertical_offset = 20;
+  int64 path = 21;
+  string word_color = 22;
+  int64 show_webp = 23;
+  int64 use_privilege_region = 24;
+  int64 can_open_contour = 25;
+  int64 support_show_type = 26;
+}
+message EggItem {
+  data.Image background = 1;
+  int64 background_hight = 2;
+  int64 background_width = 3;
+  int64 use_rate = 4;
+  int64 is_dynamic_egg = 5;
+}
+message ChatItem {
+  int64 head_size = 1;
+  int64 content_size = 2;
+  string content_color = 3;
+  im.FlexImageStruct background = 4;
+  int64 background_hight = 5;
+  int64 background_width = 6;
+  int64 use_rate = 7;
+}
+message ChatMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  string content = 3;
+  bool visible_to_sender = 4;
+  data.Image background_image = 5;
+  string full_screen_text_color = 6;
+  data.Image background_image_v2 = 7;
+  im.PublicAreaCommon public_area_common = 9;
+  data.Image gift_image = 10;
+  int64 agree_msg_id = 11;
+  int32 priority_level = 12;
+  im.LandscapeAreaCommon landscape_area_common = 13;
+  int64 event_time = 15;
+  bool send_review = 16;
+  bool from_intercom = 17;
+  bool intercom_hide_user_card = 18;
+  repeated int32 chat_tags = 19;
+  int64 chat_by = 20;
+  int32 individual_chat_priority = 21;
+  data.Text rtf_content = 40;
+  data.Text rtf_content_v2 = 41;
+}
+message EmojiChatMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  int64 emoji_id = 3;
+  data.Text emoji_content = 4;
+  string default_content = 5;
+  data.Image background_image = 6;
+  bool from_intercom = 7;
+  bool intercom_hide_user_card = 8;
+  im.PublicAreaCommon public_area_common = 9;
+}
+message FriendChatMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  string content = 3;
+}
+message ChorusMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  im.OpenChorusContent open_chorus_content = 100;
+  im.CloseChorusContent close_chorus_content = 101;
+  im.ChorusOrderedSongListChangeContent chorus_ordered_song_list_change_content = 102;
+}
+message OpenChorusContent {
+  data.ChorusInfo chorus_info = 1;
+  string sub_singer_toast = 2;
+}
+message CloseChorusContent {
+  data.ChorusInfo chorus_info = 1;
+  int64 close_user_id = 2;
+  string close_toast = 3;
+  int32 close_reason = 4;
+}
+message ChorusOrderedSongListChangeContent {
+  repeated data.ChorusSongInfo list_info = 1;
+}
+message ClientFallbackDynamicMessage {
+  im.Common common = 1;
+}
+message CNYReward {
+  im.Common common = 1;
+  string award_content = 2;
+  string banner_content = 3;
+}
+message CNYATaskMessage {
+  im.Common common = 1;
+  int64 watch_duration = 2;
+  int64 watch_total = 3;
+  int32 current_round = 7;
+  int32 pct = 8;
+  repeated int64 round_target = 9;
+}
+message CommentaryChangeMessage {
+  im.Common common = 1;
+  data.CommentaryRoomInfo commentary_room_info = 2;
+  int32 operation = 3;
+}
+message CommentsMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  string content = 3;
+  string color = 4;
+  data.Image back_ground = 5;
+  int64 action_type = 6;
+  string action_content = 7;
+}
+message CommerceSaleMessage {
+  im.Common common = 1;
+  bool has_commerce_sale = 2;
+}
+message CommerceMessage {
+  im.Common common = 1;
+  int64 message_type = 2;
+  string content = 3;
+}
+message CommonCardAreaMessage {
+  im.Common common = 1;
+  int32 message_type = 2;
+  data.BottomRightCardArea bottom_right_card_data = 3;
+}
+message ComplexContent {
+  string type = 1;
+  string text = 2;
+  string font_color = 3;
+  int64 font_size = 4;
+  int64 weight = 5;
+  data.Image img = 6;
+}
+message CommonGuideMessage {
+  im.Common common = 1;
+  int64 message_type = 2;
+  data.Text main_content = 3;
+  repeated im.ComplexContent secondary_content = 4;
+  data.Image icon = 5;
+  data.Text button_content = 6;
+  string button_action_schema = 7;
+  data.Image button_icon = 8;
+  int64 duration = 9;
+  bool is_rounded_icon = 10;
+}
+message CommonLuckyMoneyMessage {
+  im.Common common = 1;
+  int64 diamond_count = 2;
+  int64 luckymoney_id = 3;
+  int64 send_time = 4;
+  int64 delay_time = 5;
+  data.User user = 6;
+  int64 style = 7;
+  im.CommonLuckyMoneyMessage.LuckyIcon lucky_icon = 8;
+  data.Image background = 9;
+  bool is_official = 10;
+  message LuckyIcon {
+    repeated string url_list = 1;
+    string uri = 2;
+  }
+}
+message TaskPanelMessage {
+  im.Common common = 1;
+  im.TaskPanel data = 2;
+}
+message TaskPanel {
+  int32 task_id = 1;
+  int32 task_type = 2;
+  int32 watch_time = 3;
+  string title = 4;
+  string sub_title = 5;
+  string tag_icon_url = 6;
+  string tag_text = 7;
+  string tag_text_color = 8;
+  string button_name = 9;
+  string schema = 10;
+  int64 expire_at = 11;
+  int32 status = 12;
+  int32 expire_after = 13;
+  int32 reward_type = 14;
+  string panel_title = 15;
+  string sub_title_color = 16;
+}
+message TaskRewardToastMessage {
+  im.Common common = 1;
+  im.TaskRewardToast data = 2;
+}
+message TaskRewardToast {
+  int32 task_id = 1;
+  int32 task_type = 2;
+  int32 reward_type = 3;
+  string title = 4;
+  string sub_title = 5;
+  string icon_url = 6;
+  string bg_pic_url = 7;
+}
+message CommonPopupMessage {
+  im.Common common = 1;
+  string schema_url = 2;
+  bool anchor_pop_up = 3;
+}
+message CommonPushMessage {
+  im.Common common = 1;
+  data.Image icon = 2;
+  string title = 3;
+  string text = 4;
+  string button = 5;
+  string schema = 6;
+  int64 duration = 7;
+  string scene = 8;
+}
+message CommonTextMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  string scene = 3;
+  im.PublicAreaCommon public_area_common = 4;
+}
+message CommonToastMessage {
+  im.Common common = 1;
+  bool discardable = 2;
+  bool immediate = 3;
+  int64 duration = 4;
+  string text_color = 5;
+  string background_color_start = 6;
+  string background_color_end = 7;
+  int64 position = 8;
+  data.Image top_img = 9;
+  int64 top_img_width = 10;
+  int64 top_img_height = 11;
+  bool show_mongolia_layer = 12;
+}
+message ControlMessage {
+  im.Common common = 1;
+  int64 action = 2;
+  string tips = 3;
+  im.ControlMessage.Extra extra = 4;
+  im.PublicAreaCommon public_area_common = 5;
+  message Extra {
+    string ban_info_url = 1;
+    int64 reason_no = 2;
+    data.Text title = 3;
+    data.Text violation_reason = 4;
+    data.Text content = 5;
+    data.Text got_it_button = 6;
+    data.Text ban_detail_button = 7;
+    string source = 8;
+  }
+}
+message WebcastLifeLotteryDrawResultEventMessage {
+  im.Common common = 1;
+  int64 lottery_id = 2;
+  repeated int64 user_ids = 3;
+  string extra = 4;
+}
+message DataLifeLiveMessage {
+  im.Common common = 1;
+  int32 type = 2;
+  string body = 3;
+}
+message DecorationModifyMessage {
+  im.Common common = 1;
+  string extra = 2;
+}
+message DecorationUpdateMessage {
+  im.Common common = 1;
+  data.DecotationDetail detai = 2;
+}
+message DiggMessage {
+  im.Common common = 1;
+  int64 digg_count = 2;
+  int64 duration = 3;
+  int64 color = 4;
+  data.User user = 5;
+  string icon = 6;
+}
+message DLiveMessage {
+  im.Common common = 1;
+  repeated string rooms = 2;
+  int64 max_push_delay_time = 3;
+}
+message OfficialRoomMessage {
+  im.Common common = 1;
+  data.OfficialRoomInfo official_room_info = 2;
+}
+message CeremonyMessage {
+  im.Common common = 1;
+  repeated im.UserRoom items = 2;
+  int64 max_push_delay_time = 3;
+}
+message UserRoom {
+  int64 type = 1;
+  string room = 2;
+  string user = 3;
+}
+message RcmdUser {
+  string user = 1;
+  string text_before_action = 2;
+  string text_after_action = 3;
+  string authentication_info = 4;
+  string edit_script = 5;
+}
+message RecommendUsersMessage {
+  im.Common common = 1;
+  string list_title = 2;
+  repeated im.RcmdUser users = 3;
+  data.Image img_vertical = 4;
+  data.Image img_horizontal = 5;
+  int64 display_time = 6;
+  int64 max_push_delay_time = 7;
+  bool check_alive = 8;
+}
+message DolphinSettingUpdateMessage {
+  im.Common common = 1;
+  int64 settingVersion = 2;
+}
+message DonationMessage {
+  im.Common common = 1;
+  int64 total = 2;
+  string currency = 3;
+  repeated data.User sponsor = 4;
+  repeated data.User user = 5;
+}
+message DoodleGiftMessage {
+  im.Common common = 1;
+  int64 gift_id = 2;
+  int64 fan_ticket_count = 3;
+  data.User user = 4;
+  data.User to_user = 5;
+  string compose = 6;
+  int64 room_fan_ticket_count = 7;
+  data.GiftIMPriority priority = 8;
+  string log_id = 9;
+  im.PublicAreaCommon public_area_common = 10;
+  data.Text tray_display_text = 11;
+  data.GiftTrayInfo tray_info = 12;
+}
+message LikeUserDetail {
+  data.User user = 1;
+  int64 count = 2;
+}
+message DoubleLikeHeartMessage {
+  im.Common common = 1;
+  im.DoubleLikeDetail double_like_detail = 2;
+  data.Text self_display_text = 3;
+  data.Text normal_display_text = 4;
+  repeated im.LikeUserDetail like_user_list = 5;
+}
+message DoubleLikeTopUserMessage {
+  im.Common common = 1;
+  repeated im.LikeUserDetail like_user_list = 2;
+}
+message PicoDisplayInfo {
+  int64 combo_sum_count = 1;
+  string emoji = 2;
+  data.Image emoji_icon = 3;
+  string emoji_text = 4;
+}
+message DoubleLikeDetail {
+  bool double_flag = 1;
+  int32 seq_id = 2;
+  int32 renewals_num = 3;
+  int32 triggers_num = 4;
+}
+message DisplayControlInfo {
+  bool show_text = 1;
+  bool show_icons = 2;
+}
+message LikeMessage {
+  im.Common common = 1;
+  int64 count = 2;
+  int64 total = 3;
+  int64 color = 4;
+  data.User user = 5;
+  string icon = 6;
+  im.DoubleLikeDetail double_like_detail = 7;
+  im.DisplayControlInfo display_control_info = 8;
+  int64 linkmic_guest_uid = 9;
+  string scene = 10;
+  im.PicoDisplayInfo pico_display_info = 11;
+  im.PublicAreaCommon public_area_common = 12;
+}
+message DouplusIndicatorMessage {
+  im.Common common = 1;
+  int64 number = 2;
+  int64 status = 3;
+  string toast = 4;
+  string buyer_nickname = 5;
+}
+message DouplusMessage {
+  im.Common common = 1;
+  int64 promotion = 2;
+}
+message DressAssetMessage {
+  im.Common common = 1;
+  repeated string dress_id = 2;
+}
+message DriveGiftMessage {
+  im.Common common = 1;
+  int64 new_count = 2;
+  string popup_url = 3;
+}
+message DrumMessage {
+  im.Common common = 1;
+  int32 drum_result = 2;
+  int32 dump_msg_type = 3;
+  int64 drum_count = 4;
+  int64 report_time_gap = 5;
+  int64 push_id = 6;
+  string push_id_str = 7;
+  repeated im.DrumMessage.User users = 8;
+  message User {
+    int64 user_id = 1;
+    string nick_name = 2;
+    string avatar = 3;
+    string user_id_str = 4;
+  }
+}
+message ProjectDModifyH5 {
+  im.Common common = 1;
+  string top_left = 2;
+  string buttom_right = 3;
+}
+message ProjectDTaskInfo {
+  im.Common common = 1;
+  int32 atype = 2;
+  data.Image icon = 3;
+  string count = 4;
+  string fallback_context = 5;
+  string award_url = 6;
+  int64 left_task_count = 7;
+  int64 sub_task_id = 8;
+}
+message DutyGiftMessage {
+  im.Common common = 1;
+  int32 speedy_gift_id = 5;
+  int32 target_score = 6;
+  int32 stage_count = 7;
+  int32 status = 8;
+  int32 score = 9;
+  data.User contribute_most = 10;
+  int32 contribute_most_score = 11;
+  int64 duty_id = 12;
+}
+message EasterEggMessage {
+  im.Common common = 1;
+  im.EasterEggMessageData data = 2;
+}
+message EasterEggMessageData {
+  bool has_easter_egg = 1;
+  int64 stage = 2;
+  int64 total_stage = 3;
+  int64 effects_num = 4;
+  int64 start_count = 5;
+  int64 end_count = 6;
+  int64 count = 7;
+}
+message EcomFansClubMessage {
+  im.Common common = 1;
+  int32 action = 2;
+  im.UserInfo user = 3;
+}
+message UserInfo {
+  int64 user_id = 1;
+  int32 level = 2;
+}
+message CornerReachMessage {
+  im.Common common = 1;
+  int64 duration = 2;
+  int64 elem_type = 3;
+}
+message TempStateAreaReachMessage {
+  im.Common common = 1;
+  int64 elem_type = 2;
+  int64 elem_id = 3;
+  int64 item_id = 4;
+  int64 status = 5;
+  im.TempStateAreaReachMessage.Resource resource = 6;
+  message Resource {
+    string name = 1;
+    string icon = 2;
+    string description = 3;
+    string extra = 4;
+  }
+}
+message EpisodeChatMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  string content = 3;
+  bool visible_to_sender = 4;
+  data.Image background_image = 5;
+  im.PublicAreaCommon public_area_common = 6;
+  data.Image gift_image = 7;
+  int64 agree_msg_id = 8;
+  repeated string color_value = 9;
+}
+message FansGroupGuideMessage {
+  im.Common common = 1;
+  int32 type = 2;
+  string title = 3;
+  string content = 4;
+  int64 auto_record_duration_ms = 5;
+  data.Text rich_text = 6;
+  string scheme_url = 7;
+}
+message FansclubStatisticsMessage {
+  im.Common common = 1;
+  string name = 2;
+  int64 fans_count = 3;
+}
+message FansclubMessage {
+  im.Common common = 1;
+  int32 action = 2;
+  string content = 3;
+  data.User user = 4;
+  im.FansclubMessage.UpgradePrivilege upgrade_privilege = 5;
+  im.PublicAreaCommon public_area_common = 6;
+  message UpgradePrivilege {
+    string content = 1;
+    string description = 2;
+    int32 button_type = 3;
+  }
+}
+message FansclubReviewMessage {
+  im.Common common = 1;
+  int32 action = 2;
+  string content = 3;
+}
+message FansclubGuideMessage {
+  im.Common common = 1;
+  data.Text title = 2;
+  data.Text sub_title = 3;
+}
+message FeedbackActionMessage {
+  im.Common common = 1;
+  int64 action_id = 2;
+}
+message FeedbackCardMessage {
+  im.Common common = 1;
+  int64 questionnaire_id = 2;
+  int64 scatterMills = 3;
+}
+message FireworkMessage {
+  im.Common common = 1;
+  int64 count = 2;
+  int64 report_time_gap = 3;
+  int64 push_id = 4;
+  string push_id_str = 5;
+  repeated im.FireworkMessage.User users = 6;
+  message User {
+    int64 user_id = 1;
+    string nick_name = 2;
+    string avatar = 3;
+    string user_id_str = 4;
+  }
+}
+message FireworkMultiMessage {
+  im.Common common = 1;
+  bytes biz_msg = 2;
+}
+message FollowGuideMessage {
+  im.Common common = 1;
+  data.Image avatarUrl = 2;
+  string content = 3;
+  string hourRankInfo = 4;
+  int64 giftId = 5;
+  int64 duration = 6;
+  string popupReason = 7;
+}
+message BrokerNotifyMessage {
+  im.Common common = 1;
+  int64 msg_type = 2;
+  string content = 3;
+  int64 timestamp = 4;
+  int64 msg_sub_type = 5;
+  int64 msg_id = 6;
+}
+message FreeCellGiftMessage {
+  im.Common common = 1;
+  int64 gift_id = 2;
+  int64 fan_ticket_count = 3;
+  int64 group_count = 4;
+  int64 repeat_count = 5;
+  int64 combo_count = 6;
+  data.User user = 7;
+  data.User to_user = 8;
+  im.FreeCellGiftMessage.FreeCellData free_cell = 9;
+  int64 room_fan_ticket_count = 10;
+  string log_id = 11;
+  im.PublicAreaCommon public_area_common = 12;
+  message FreeCellData {
+    int64 time_now_ms = 1;
+    int64 time_start_ms = 2;
+    int64 time_freeze_end_ms = 3;
+    int64 time_double_end_ms = 4;
+    int64 time_end_ms = 5;
+    int64 free_cell_length = 6;
+    bool is_freeze = 7;
+    bool is_double = 8;
+    data.User contribute_most_user = 9;
+    int64 contribute_most_coins = 10;
+    int64 distance_from_previous_one = 11;
+    int64 index_in_day_ranklist = 12;
+  }
+}
+message FreeGiftMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  data.FreeGift free_gift = 3;
+}
+message GamblingStatusChangedMessage {
+  im.Common common = 1;
+  int64 prev_status = 2;
+  im.GamblingStatusChangedMessage.GameQuizInfo game_quiz_info = 3;
+  message GameQuizInfo {
+    int64 id = 1;
+    int64 room_id = 2;
+    int64 status = 3;
+  }
+}
+message GameChannelMessage {
+  im.Common common = 1;
+  int64 game_id = 2;
+  int64 message_type = 3;
+  string extra = 4;
+  data.User user = 5;
+}
+message HostVersion {
+  int64 host_id = 1;
+  string min_version = 2;
+  string max_version = 3;
+}
+message GameAncAudEntranceMessage {
+  im.Common common = 1;
+  int64 game_id = 2;
+  int64 game_kind = 3;
+  string extra = 4;
+  bool show_audience_float_entrance = 5;
+  repeated im.HostVersion version_range = 6;
+  string app_id = 7;
+  string meta_version = 8;
+  string name = 9;
+  string icon_url = 10;
+  int64 start_id = 11;
+}
+message GameAncAudStatusMessage {
+  im.Common common = 1;
+  int64 game_id = 2;
+  int64 send_type = 3;
+  int64 game_status = 4;
+  string extra = 5;
+}
+message GameAncAudPanelCtrlMessage {
+  im.Common common = 1;
+  int64 game_id = 2;
+  int64 send_type = 3;
+  int64 panel_type = 4;
+  string extra = 5;
+}
+message GameAncAudDataFromAncMessage {
+  im.Common common = 1;
+  int64 game_id = 2;
+  int64 send_type = 3;
+  string data = 4;
+  string extra = 5;
+}
+message GameAncAudDataFromAudMessage {
+  im.Common common = 1;
+  int64 game_id = 2;
+  string data = 3;
+  string extra = 4;
+}
+message GameDevelopMessage {
+  im.Common common = 1;
+  int64 game_id = 2;
+  int32 develop = 3;
+  string app_id = 4;
+  string sign = 5;
+}
+message GameGiftMessage {
+  im.Common common = 1;
+  int64 gift_id = 2;
+  int64 fan_ticket_count = 3;
+  data.User user = 4;
+  data.User to_user = 5;
+  string normalContent = 6;
+  im.GameGiftMessage.MonkeyData monkey_data = 8;
+  string log_id = 9;
+  im.PublicAreaCommon public_area_common = 10;
+  message MonkeyData {
+    int32 score = 1;
+    bool break_record = 2;
+    bool need_popup = 3;
+    string popup_content = 4;
+  }
+}
+message GameGiftStatusMessage {
+  im.Common common = 1;
+  int64 game_id = 2;
+  int32 status = 3;
+  string extra = 4;
+}
+message GameStatusMessage {
+  im.Common common = 1;
+  int64 gameID = 2;
+  int32 status = 3;
+  string config_extra = 4;
+}
+message GameIntroduceMessage {
+  im.Common common = 1;
+  im.GameIntroduceShowMessage game_introduce = 2;
+}
+message GameIntroduceShowMessage {
+  int32 type = 1;
+  im.AtmosphereContent atmosphere_content = 11;
+}
+message AtmosphereContent {
+  int64 show_duration = 1;
+  string count = 2;
+}
+message GameInviteMessage {
+  im.Common common = 1;
+  data.GameInvite invite_item = 2;
+  data.InvitationSwitch invitation_switch = 3;
+  string config_extra = 4;
+}
+message GameInviteReplyMessage {
+  im.Common common = 1;
+  int32 reply = 2;
+  string extra = 3;
+}
+message GamePVPMessage {
+  im.Common common = 1;
+  int64 game_id = 2;
+  string extra = 3;
+}
+message GameStatusUpdateMessage {
+  im.Common common = 1;
+  int64 anchor_id = 2;
+  int64 room_id = 3;
+  int32 game_kind = 4;
+  int64 game_id = 5;
+  int64 round_id = 6;
+  int32 event_time = 7;
+  int32 present_msg_type = 8;
+  string config_extra = 9;
+  int64 play_kind = 10;
+  int64 switch_id = 11;
+}
+message GameCPAnchorPromoteInfoMessage {
+  im.Common common = 1;
+  repeated im.SimpleGameInfo game_info = 2;
+}
+message SimpleGameInfo {
+  string game_id = 1;
+  int32 stage = 2;
+  int32 biz_type = 3;
+  string biz_id = 4;
+  string biz_mode = 5;
+  string biz_extra = 6;
+  string game_attr = 7;
+  string component_extra = 8;
+  bool is_introduce = 9;
+}
+message GameCPBaseMessage {
+  im.Common common = 1;
+  im.GameCPShowMessage show_info = 2;
+}
+message GameCPShowMessage {
+  int32 type = 1;
+  data.Text introduce_download_info = 2;
+  string game_image = 3;
+  string game_name = 4;
+  string game_download_url = 5;
+  string game_trace_info = 6;
+  repeated string game_tag_names = 7;
+  string game_background_color = 8;
+  int32 introduce_time_limit = 9;
+  int64 introduce_start_time = 10;
+  int32 introduce_stop_type = 11;
+  data.Text introduce_stop_message = 12;
+  string game_id = 13;
+  bool audit_result = 14;
+  string ios_app_id = 15;
+  string company_name = 16;
+  string download_extra = 17;
+  string android_privacy_url = 18;
+  string android_authorization_url = 19;
+  string ios_privacy_url = 20;
+  string ios_authorization_url = 21;
+  string android_version = 22;
+  string ios_version = 23;
+  string active_link = 24;
+  int64 download_count = 25;
+  bool is_show_animate = 26;
+  int64 animate_start_time = 27;
+  int64 animate_duration = 28;
+  string anti_hijack_content = 29;
+  string anti_hijack_image = 30;
+  string ios_sale_point = 31;
+  bool is_forbid_jump_ios_app = 32;
+  bool has_platform_gift = 33;
+  string open_game_url = 44;
+  string prop_icon = 45;
+  string prop_name = 46;
+  string prop_id = 47;
+  int64 market_price = 48;
+  int64 selling_price = 49;
+  int64 prop_sku_id = 50;
+  im.ReserveItem reserve_item = 51;
+  int64 prop_type = 52;
+  int64 game_access_type = 53;
+  bool is_prop_exp_game = 54;
+  repeated string component_ids = 55;
+  int32 biz_type = 56;
+  int64 install_user_count = 57;
+  string android_sale_point = 58;
+  im.MiniGameMeta mini_game_meta = 59;
+  int64 support_platforms = 60;
+  im.MiniPlayMeta mini_play_meta = 61;
+  string play_introduce = 62;
+  string small_icon = 63;
+  string game_introduction_url = 64;
+  data.GameImageBundler game_icon = 65;
+  im.CloudGameMeta cloud_game_meta = 66;
+  im.AtmosphereContent atmosphere_content = 67;
+  im.FeaturedContent featured_content = 68;
+}
+message CloudGameMeta {
+  string schema = 1;
+}
+message MiniGameMeta {
+  string schema = 1;
+  string version = 2;
+}
+message MiniPlayMeta {
+  string schema = 1;
+  string game_name = 2;
+  string icon = 3;
+  string game_id = 4;
+  string app_id = 5;
+  repeated int64 support_live_scene = 6;
+  string version = 7;
+  int32 game_type = 8;
+  string developer = 9;
+  string extra = 10;
+}
+message ReserveItem {
+  string reserve_today_num = 1;
+  string reserve_total_num = 2;
+  int32 reserve_status = 3;
+}
+message GameCPUserDownloadMessage {
+  im.Common common = 1;
+  string user_nick_name = 2;
+  int64 user_download_count = 3;
+  string user_download_content = 4;
+  string download_game_name = 5;
+  int32 type = 6;
+}
+message GameCPAnchorReminderMessage {
+  im.Common common = 1;
+  int32 type = 2;
+  string game_id = 3;
+  string title = 4;
+  string game_name = 5;
+  string game_icon_url = 6;
+}
+message GameCPUserRoomMetaMessage {
+  im.Common common = 1;
+  int64 oper = 2;
+  im.UserIntroduceCardStatus user_introduce_card_status = 3;
+  repeated im.UserGiftStatus user_gift_status = 4;
+}
+message UserIntroduceCardStatus {
+  bool is_show_card = 1;
+  int64 introduce_duration = 2;
+  int64 timer_span = 3;
+  int64 timer_loop_cnt = 4;
+}
+message UserGiftStatus {
+  string play_id = 1;
+  string game_id = 2;
+  string hint = 3;
+  string title = 4;
+  int32 focus_index = 5;
+  int32 login_days = 6;
+}
+message Content {
+  int32 type = 1;
+  string content = 2;
+  repeated string avatar = 3;
+}
+message FeaturedContent {
+  int32 rotation_time = 1;
+  repeated im.Content contents = 2;
+}
+message CloudGamingPodMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  string text = 3;
+  int64 remain_seconds = 4;
+}
+message GamePlayTeamStatusMessage {
+  im.Common common = 1;
+  repeated data.PlayTeamMember member_list = 2;
+  int32 total_num = 3;
+  int64 play_id = 4;
+  string toast = 5;
+}
+message GamePlayInviteMessage {
+  im.Common common = 1;
+  string schema = 2;
+  int64 play_id = 3;
+}
+message GamePlayStatusMessage {
+  im.Common common = 1;
+  int32 status = 2;
+  int64 play_id = 3;
+  string audit_deny_toast = 4;
+  string toast = 5;
+}
+message LynxParam {
+  int32 style = 1;
+  string main_text = 2;
+  string expire_day_text = 3;
+  string sub_text = 4;
+}
+message GiftConsumeRemindMessage {
+  im.Common common = 1;
+  string lynx_schema = 2;
+  im.LynxParam lynx_param = 3;
+  int32 remind_type = 4;
+}
+message GiftCycleReleaseMessage {
+  im.Common common = 1;
+  int64 release_id = 2;
+  im.GiftCycleReleaseMessage.GiftIcon gift_icon = 3;
+  repeated int64 gift_ids = 4;
+  message GiftIcon {
+    int64 gift_id = 1;
+    data.Image icon = 2;
+  }
+}
+message ExhibitionTopLeftMessage {
+  im.Common common = 1;
+  data.Text display_text = 2;
+  string top_title = 3;
+  data.Image gift_icon = 4;
+  string exhibition_entrance_url = 5;
+}
+message ExhibitionChatMessage {
+  im.Common common = 1;
+  data.Text display_text = 2;
+  int32 unlighted_item = 3;
+  int32 lighted_item = 4;
+  int32 biz_type = 5;
+  int32 app_id = 6;
+  im.PublicAreaCommon public_area_common = 7;
+}
+message GiftIconFlashMessage {
+  im.Common common = 1;
+  repeated int64 user_ids = 2;
+  int64 recommend_time = 3;
+  int64 not_flash_after = 4;
+}
+message GiftUpdateMessage {
+  im.Common common = 1;
+  int32 update_type = 2;
+  repeated int64 update_gift_ids = 3;
+  repeated int64 update_asset_ids = 4;
+}
+message GiftVoteMessage {
+  im.Common common = 1;
+  int64 msg_type = 2;
+  int64 vote_id = 3;
+  repeated data.GiftVoteResult results = 4;
+  int64 finish_time = 5;
+  int64 current_time = 6;
+  int64 vote_type = 7;
+  string extra = 8;
+  message Result {
+    string text = 1;
+    int64 count = 2;
+    data.Image icon = 3;
+    int64 gift_id = 4;
+  }
+}
+message GiftMessage {
+  im.Common common = 1;
+  int64 gift_id = 2;
+  int64 fan_ticket_count = 3;
+  int64 group_count = 4;
+  int64 repeat_count = 5;
+  int64 combo_count = 6;
+  data.User user = 7;
+  data.User to_user = 8;
+  int32 repeat_end = 9;
+  im.GiftMessage.TextEffect text_effect = 10;
+  int64 group_id = 11;
+  int64 income_taskgifts = 12;
+  int64 room_fan_ticket_count = 13;
+  data.GiftIMPriority priority = 14;
+  data.GiftStruct gift = 15;
+  string log_id = 16;
+  int64 send_type = 17;
+  im.PublicAreaCommon public_area_common = 18;
+  data.Text tray_display_text = 19;
+  int64 banned_display_effects = 20;
+  data.GiftTrayInfo tray_info = 21;
+  data.AssetEffectMixInfo asset_effect_mix_info = 24;
+  bool display_for_self = 25;
+  string interact_gift_info = 26;
+  string diy_item_info = 27;
+  repeated int64 min_asset_set = 28;
+  int64 total_count = 29;
+  int32 client_gift_source = 30;
+  data.AnchorGiftData anchor_gift = 31;
+  repeated int64 to_user_ids = 32;
+  int64 send_time = 33;
+  int64 force_display_effects = 34;
+  string trace_id = 35;
+  int64 effect_display_ts = 36;
+  data.SendTogether send_together = 37;
+  data.ExtraEffect extra_effect = 38;
+  im.RoomHotInfo room_hot_info = 39;
+  string GiftPlayParam = 40;
+  int32 multi_send_effect_level = 41;
+  repeated data.SeriesPlayGift series_gift_data = 42;
+  message TextEffect {
+    im.GiftMessage.TextEffect.Detail portrait = 1;
+    im.GiftMessage.TextEffect.Detail landscape = 2;
+    message Detail {
+      data.Text text = 1;
+      int32 text_font_size = 2;
+      data.Image background = 3;
+      int32 start = 4;
+      int32 duration = 5;
+      int32 x = 6;
+      int32 y = 7;
+      int32 width = 8;
+      int32 height = 9;
+      int32 shadow_dx = 10;
+      int32 shadow_dy = 11;
+      int32 shadow_radius = 12;
+      string shadow_color = 13;
+      string stroke_color = 14;
+      int32 stroke_width = 15;
+    }
+  }
+}
+message RoomHotInfo {
+  int32 local_hot_strategy = 1;
+  int32 public_area_level = 2;
+  int32 gift_level = 3;
+}
+message BindingGiftMessage {
+  im.GiftMessage msg = 1;
+  im.Common common = 2;
+}
+message GradeBuffAnchorShareMessage {
+  im.Common common = 1;
+  string scheme_url = 2;
+  data.Text content = 3;
+  int64 score = 4;
+}
+message GroupShowUserUpdateMessage {
+  im.Common common = 1;
+  data.GroupShowInfo info = 2;
+}
+message GrowthTaskMessage {
+  im.Common common = 1;
+  data.GrowthTask task = 2;
+  int32 action = 3;
+  im.GrowthTaskMessage.CurrentContribution current_contribution = 4;
+  repeated data.GrowthTaskContributorRank contributors = 5;
+  message CurrentContribution {
+    data.User user = 1;
+  }
+}
+message GuestBattleScoreMessage {
+  im.Common common = 1;
+  data.GuestBattleInfo battle_info = 2;
+  bool crown_upgrade = 3;
+}
+message GuestBattleMessage {
+  im.Common common = 1;
+  int64 msg_type = 2;
+  data.GuestBattleInfo battle_info = 3;
+  string finish_toast = 4;
+  im.GuestBattleUpdateContent update_content = 100;
+  im.GuestBattleFinishContent finish_content = 101;
+}
+message GuestBattleUpdateContent {
+  bool crown_upgrade = 1;
+}
+message GuestBattleFinishContent {
+  int32 reason = 1;
+  int64 finish_user_id = 2;
+}
+message GuideMessage {
+  im.Common common = 1;
+  int64 guide_type = 2;
+  int64 gift_id = 3;
+  string description = 4;
+  int64 duration = 5;
+}
+message HighlightCommentPosition {
+  im.Common common = 1;
+  int64 event_time = 3;
+  double x = 4;
+  double y = 5;
+}
+message HighlightComment {
+  im.Common common = 1;
+  int64 id = 2;
+  int64 event_time = 3;
+  int64 comment_msg_id = 4;
+  int32 review_result = 5;
+  string review_comment = 6;
+  string content = 7;
+  data.User user = 8;
+  int32 action_type = 9;
+  int64 msg_time = 10;
+  int64 end_time = 11;
+  int32 countdown_style = 12;
+  int32 trigger = 13;
+  int64 operator_id = 14;
+  string operator_nickname = 15;
+}
+message HotChatMessage {
+  im.Common common = 1;
+  string title = 2;
+  string content = 3;
+  repeated int64 num = 4;
+  int64 duration = 5;
+  repeated int64 show_duration = 6;
+  int64 sequence_id = 7;
+  repeated string hot_list = 8;
+}
+message HotRoomMessage {
+  im.Common common = 1;
+  data.HotRoomInfo info = 2;
+}
+message ImDeleteMessage {
+  im.Common common = 1;
+  repeated int64 delete_msg_ids = 2;
+}
+message InRoomBannerRedPoint {
+  im.Common common = 1;
+  int64 count = 2;
+  int64 banner_id = 3;
+  int64 show_type = 4;
+}
+message InRoomBannerRefreshMessage {
+  im.Common common = 1;
+  int64 max_delay_seconds = 2;
+  int32 position = 3;
+}
+message InRoomBannerMessage {
+  im.Common common = 1;
+  string extra = 2;
+  int32 position = 3;
+  int32 action_type = 4;
+  string container_url = 5;
+  string lynx_container_url = 6;
+  int32 container_type = 7;
+  int32 op_type = 8;
+}
+message InRoomBannerEvent {
+  im.Common common = 1;
+  int32 position = 2;
+  data.BannerData data = 3;
+}
+message InfoBoxMessage {
+  im.Common common = 1;
+  int64 scene = 2;
+  string sub_scene = 3;
+  int64 msg_type = 4;
+  int64 delay = 5;
+  data.Text title = 6;
+  data.Text fold_title = 7;
+  data.Text content = 8;
+  int64 drag_type = 9;
+  im.InfoBoxMessageBackGround background = 10;
+}
+message InfoBoxMessageBackGround {
+  int64 background_alpha = 1;
+  string background_color = 2;
+  data.Image background_image = 3;
+}
+message OpenSchemaCommand {
+  string url = 1;
+}
+message InstantCommandMessage {
+  im.Common common = 1;
+  int32 command_type = 2;
+  im.OpenSchemaCommand open_schema_command = 11;
+}
+message PopBoxContent {
+  int32 large_type = 1;
+  int32 icon_type = 2;
+  string control_type = 3;
+  string title = 4;
+  string description = 5;
+  string url = 6;
+  int32 count_down_sec = 7;
+  string button_desc = 8;
+}
+message ClientOperation {
+  string app_id = 1;
+  int32 operation_type = 2;
+  im.PopBoxContent pop_box_content = 3;
+  int32 show_time = 4;
+}
+message InteractControlMessage {
+  im.Common common = 1;
+  string room_id = 2;
+  string time_stamp = 3;
+  repeated im.ClientOperation anchor_operation = 4;
+  repeated im.ClientOperation audience_operation = 5;
+}
+message InteractOpenDevelopMessage {
+  im.Common common = 1;
+  string app_id = 2;
+  int32 develop = 3;
+  string sign = 4;
+  int64 game_id = 5;
+  int64 app_kind = 6;
+}
+message InteractionInfoMessage {
+  im.Common common = 1;
+  data.LikeIconInfo like_icon_info = 2;
+  data.ChatEmojiGuideInfo chat_emoji_guide_info = 3;
+  data.ChatImageGuideInfo chat_image_guide_info = 4;
+  repeated int32 update_info_type = 50;
+}
+message IntercomInviteMessage {
+  im.Common common = 1;
+  int64 channel_id = 2;
+}
+message IntercomReplyMessage {
+  im.Common common = 1;
+  int64 channel_id = 2;
+  int64 reply_status = 3;
+  string toast = 4;
+}
+message ItemShareMessage {
+  im.Common common = 1;
+  data.ShareItemStyle item_style = 2;
+  data.Text share_text = 3;
+  im.PublicAreaCommon public_area_common = 4;
+}
+message JackfruitMessage {
+  im.Common common = 1;
+  bytes biz_msg = 2;
+}
+message EcomBuyIntentionMessage {
+  im.Common common = 1;
+  repeated im.EcomBuyIntentionMessage.Count counts = 2;
+  int64 unix_time = 3;
+  message Count {
+    int64 id = 1;
+    string title = 2;
+    int64 count = 3;
+  }
+}
+message KtvAtmosphereVideoMessage {
+  im.Common common = 1;
+  im.KtvAtmosphereVideoContent ktv_atmosphere_video_content = 2;
+}
+message KtvAtmosphereVideoContent {
+  int64 uid = 1;
+  int64 song_id = 2;
+  data.KtvAtmosphereVideoInfo video_info = 3;
+}
+message KTVContestSupportMessage {
+  im.Common common = 1;
+  int64 support_count = 2;
+  int64 supportee_id = 3;
+  int64 supportor_id = 4;
+  int64 song_id = 5;
+  int64 song_unique_id = 6;
+}
+message AddKTVDressContent {
+  data.AddDressPrompt add_dress_prompt = 1;
+}
+message ChangeKTVDressContent {
+  string change_global_dress_toast = 1;
+}
+message KtvDressMessage {
+  im.Common common = 1;
+  int32 message_type = 2;
+  im.AddKTVDressContent add_dress_content = 3;
+  im.ChangeKTVDressContent change_dress_content = 4;
+}
+message KtvGrabSongResultMessage {
+  im.Common common = 1;
+  int64 song_id = 2;
+  int64 term_id = 3;
+  bool success = 4;
+  string prompt = 5;
+}
+message KTVPlayModeStartMessage {
+  im.Common common = 1;
+  string prompt = 2;
+  int32 play_mode_type = 3;
+  repeated int32 linkmic_play_modes = 4;
+}
+message KTVShortVideoCreatedMessage {
+  im.Common common = 1;
+  im.KTVShortVideoCreatedMessage.ShortVideoStruct short_video_info = 2;
+  message ShortVideoStruct {
+    string short_video_url = 1;
+  }
+}
+message KTVSingerHotRankPosMessage {
+  im.Common common = 1;
+  int64 hot = 2;
+  int64 rank = 3;
+  int64 singer = 4;
+}
+message KtvChallengeConfigMessage {
+  im.Common common = 1;
+  int64 switch_status = 2;
+  int64 target_score = 3;
+  int64 target_duration_second = 4;
+  int32 ktv_challenge_type = 5;
+}
+message KTVChallengeRankMessage {
+  im.Common common = 1;
+  repeated im.KTVChallengeRankMessage.ChallengeRankUser user_list = 2;
+  int64 singer_id = 3;
+  string singer_nickname = 4;
+  data.Image singer_avatar_thumb = 5;
+  message ChallengeRankUser {
+    int64 user_id = 1;
+    string nickname = 2;
+    int64 score = 3;
+    data.Image avatar_thumb = 4;
+    data.Image avatar_medium = 5;
+    data.Image avatar_large = 6;
+  }
+}
+message KTVChallengeStatusMessage {
+  im.Common common = 1;
+  int64 challenge_id = 2;
+  int64 status = 3;
+  int64 current_score = 4;
+  int64 target_score = 5;
+  int64 countdown_second = 6;
+  int64 target_duration_second = 7;
+  int64 increment_duration_second = 8;
+  int32 gift_type = 9;
+  int32 emoji_location = 10;
+  int32 ktv_challenge_type = 11;
+}
+message KTVStartGrabSongMessage {
+  im.Common common = 1;
+  bool isStart = 2;
+}
+message KTVUserSingingHotMessage {
+  im.Common common = 1;
+  int64 hot = 2;
+  int32 hot_status = 3;
+  int32 hot_level = 4;
+  int64 song_id = 5;
+  int64 user_id = 6;
+  int64 level2_threshold = 7;
+  int64 level3_threshold = 8;
+}
+message KtvMessage {
+  im.Common common = 1;
+  int64 message_type = 2;
+  im.SetSettingOrderSongContent set_setting_order_song_content = 3;
+  im.AudienceOrderSongContent audience_order_song_content = 4;
+  im.AudienceOrderSongChatContent audience_order_song_chat_content = 5;
+  im.PausePlaySongContent pause_play_song_content = 6;
+  im.OpenKtvComponentContent open_ktv_component_content = 7;
+  im.AudienceAddSongSettingChangedContent audience_add_song_setting_changed = 9;
+  im.SongWaitingListChangedContent song_waiting_list_changed = 10;
+  im.WantToListenSongListChangedContent want_to_listen_song_list_changed = 11;
+  im.PermitWantToListenSongContent permit_want_to_listen_song = 12;
+  im.WantToListenSongRemovedContent want_to_listen_song_removed = 13;
+  im.AudienceMultiChorusSettingChangedContent audience_multi_chorus_setting_changed = 14;
+  im.MultiChorusWaitingListChangedContent multi_chorus_waiting_list_changed = 15;
+}
+message SetSettingOrderSongContent {
+  bool can_order_song = 1;
+}
+message AudienceOrderSongContent {
+  int64 order_song_count = 1;
+}
+message AudienceOrderSongChatContent {
+  data.User user = 1;
+  data.Text display_text = 2;
+  bool display_user_role = 3;
+}
+message PausePlaySongContent {
+  int64 song_id = 1;
+  int32 action_type = 2;
+  int64 from_user_id = 3;
+  int64 singer_id = 4;
+}
+message OpenKtvComponentContent {
+  bool open_audience_add_song_switch = 1;
+  bool open_audience_multi_chorus_switch = 2;
+}
+message AudienceAddSongSettingChangedContent {
+  bool open = 1;
+}
+message AudienceMultiChorusSettingChangedContent {
+  bool open = 1;
+  string toast = 2;
+}
+message SongWaitingListChangedContent {
+  int64 anchor_unread_count = 1;
+}
+message MultiChorusWaitingListChangedContent {
+  int64 anchor_unread_count = 1;
+}
+message WantToListenSongListChangedContent {
+  int64 anchor_unread_count = 1;
+}
+message PermitWantToListenSongContent {
+  repeated int64 song_id = 1;
+  bool is_multi_add_song = 2;
+  string song_name = 3;
+}
+message WantToListenSongRemovedContent {
+  repeated int64 song_id = 1;
+}
+message LevelUpMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  int32 pre_level = 3;
+  int32 current_level = 4;
+}
+message LightGiftMessage {
+  im.Common common = 1;
+  int64 group_count = 2;
+  int64 repeat_count = 3;
+  int64 combo_count = 4;
+  int64 to_user_id = 5;
+  data.GiftIMPriority priority = 6;
+  im.GiftInfo gift_info = 7;
+  im.GiftLiteTrayInfo tray_info = 8;
+  int64 send_type = 9;
+  int64 count = 10;
+}
+message GiftLiteTrayInfo {
+  int64 duration_ms = 1;
+}
+message GiftInfo {
+  int64 gift_id = 1;
+  data.Image gift_icon = 2;
+  int64 diamond_count = 3;
+}
+message RoomChannelLinkMessage {
+  im.Common common = 1;
+  int64 message_type = 2;
+  int64 linker_id = 3;
+  int64 scene = 4;
+  im.ChannelLinkerCreateContent create_content = 5;
+  im.ChannelLinkerCloseContent close_content = 6;
+  im.ChannelLinkerInviteContent invite_content = 7;
+  im.ChannelLinkerReplyContent reply_content = 8;
+  im.ChannelLinkerPermitContent permit_content = 9;
+  im.ChannelLinkerEnterContent enter_content = 10;
+  im.ChannelLinkerLeaveContent leave_content = 11;
+  im.ChannelLinkerKickOutContent kick_out_content = 12;
+  im.ChannelLinkerLinkedListChangeContent linked_list_change_content = 13;
+  im.ChannelLinkerSilenceContent silence_status_content = 14;
+  im.ChannelLinkerApplyContent apply_content = 15;
+}
+message ChannelLinkerApplyContent {
+  int64 applicant_user_id = 1;
+  string applicant_sec_user_id = 2;
+  data.User applicant_user = 3;
+}
+message ChannelLinkerCreateContent {
+  int64 owner_id = 1;
+  int64 room_id = 2;
+  int64 link_type = 3;
+  string sec_owner_id = 4;
+}
+message ChannelLinkerCloseContent {
+  int32 source = 1;
+}
+message ChannelLinkerInviteContent {
+  int64 inviter_user_id = 1;
+  int64 invitee_user_id = 2;
+  string prompt = 3;
+  string inviter_sec_user_id = 4;
+  string invitee_sec_user_id = 5;
+}
+message ChannelLinkerReplyContent {
+  int64 inviter_user_id = 1;
+  int64 invitee_user_id = 2;
+  int32 reply_result = 3;
+  string prompt = 4;
+  string inviter_sec_user_id = 5;
+  string invitee_sec_user_id = 6;
+}
+message ChannelLinkerPermitContent {
+  int64 applicant_user_id = 1;
+  int64 approver_user_id = 2;
+  int32 permit_result = 3;
+  string prompt = 4;
+  string applicant_sec_user_id = 5;
+  string approver_sec_user_id = 6;
+}
+message ChannelLinkerEnterContent {
+  int64 user_id = 1;
+  string sec_user_id = 2;
+}
+message ChannelLinkerLeaveContent {
+  int64 user_id = 1;
+  string sec_user_id = 2;
+}
+message ChannelLinkerKickOutContent {
+  int64 from_user_id = 1;
+  string prompt = 2;
+  string sec_from_user_id = 3;
+}
+message ChannelLinkerLinkedListChangeContent {
+  repeated data.ChannelListUser channel_linkmic_users = 1;
+  uint64 version = 2;
+  string rtc_room_id_str = 3;
+}
+message ChannelLinkerSilenceContent {
+  int32 silence_status = 1;
+  int64 from_user_id = 2;
+  int64 to_user_id = 3;
+  string ack_message = 4;
+  uint64 version = 5;
+  string sec_from_user_id = 6;
+  string sec_to_user_id = 7;
+  int32 silence_source = 8;
+}
+message UserContribute {
+  int64 user_id = 1;
+  int64 rank = 2;
+  int64 score = 3;
+  string nickname = 4;
+  data.Image avatar_thumb = 5;
+}
+message LinkerContributeMessage {
+  im.Common common = 1;
+  int64 user_id = 2;
+  int64 total_score = 3;
+  repeated im.UserContribute user_contribute_list = 4;
+  int64 micro_time_stamp = 5;
+  int64 scene = 6;
+  string total_score_real_str = 7;
+  string total_score_str = 8;
+  data.LinkmicQuickInteract quick_interact = 9;
+}
+message LinkMessage {
+  im.Common common = 1;
+  int64 message_type = 2;
+  int64 linker_id = 3;
+  int64 scene = 4;
+  im.LinkerInviteContent invite_content = 5;
+  im.LinkerReplyContent reply_content = 6;
+  im.LinkerCreateContent create_content = 7;
+  im.LinkerCloseContent close_content = 8;
+  im.LinkerEnterContent enter_content = 9;
+  im.LinkerLeaveContent leave_content = 10;
+  im.LinkerCancelContent cancel_content = 11;
+  im.LinkerKickOutContent kick_out_content = 12;
+  im.LinkerLinkedListChangeContent linked_list_change_content = 13;
+  im.LinkerUpdateUserContent update_user_content = 14;
+  im.LinkerWaitingListChangeContent waiting_list_change_content = 15;
+  im.LinkerBanContent ban_content = 16;
+  im.LinkerItemContent item_content = 17;
+  im.LinkerViolationReminderContent violation_reminder_content = 18;
+  im.LinkerUpdateLinkTypeApplyContent update_link_type_apply_content = 19;
+  im.LinkerUpdateLinkTypeReplyContent update_link_type_reply_content = 20;
+  im.LinkerAvatarAuditContent avatar_audit_content = 21;
+  im.LinkerApplyExpiredContent apply_expired_content = 22;
+  im.LinkerApplyStrongReminderContent apply_strong_reminder_content = 23;
+  im.LinkerAnchorStreamSwitchContent anchor_stream_switch_content = 24;
+  im.LinkerClickScreenContent click_screen_content = 25;
+  im.LinkerLockPositionContent lock_position_content = 26;
+  im.LinkerFollowStrongGuideContent follow_strong_guide_content = 27;
+  im.LinkerShareVideoImContent share_video_im_content = 28;
+  im.LinkerGuestInviteContent guest_invite_content = 29;
+  im.LinkerGuestExitCastScreenContent exit_cast_screen_content = 30;
+  im.LinkerSwitchSceneContent switch_scene_content = 31;
+  im.LinkPhaseEnterNextNotifyContent link_phase_enter_next_content = 32;
+  im.LinkerChangePlayModeContent change_play_mode_content = 33;
+  im.LinkerLowBalanceForPaidLinkmicContent low_balance_for_paid_linkmic_content = 34;
+  im.LinkerDegradeAlertContent degrade_alert_content = 35;
+  im.LinkerEnlargeGuestInviteContent enlarge_guest_invite_content = 36;
+  im.LinkerEnlargeGuestReplyContent enlarge_guest_reply_content = 37;
+  im.LinkerEnlargeGuestApplyContent enlarge_guest_apply_content = 38;
+  im.LinkPrepareApplyContent prepare_apply_content = 39;
+  im.LinkerCrossRoomUpdateContent cross_room_update_content = 40;
+  im.LinkerChangeMultiPKTeamInfoContent change_multi_pk_team_info_content = 41;
+  im.CrossRoomLinkInviteContent cross_room_link_invite_content = 42;
+  im.CrossRoomLinkReplyContent cross_room_link_reply_content = 43;
+  im.CrossRoomLinkCancelInviteContent cross_room_link_cancel_invite_content = 44;
+  im.LinkerResumeAudienceContent linker_resume_audience_content = 45;
+  im.LinkerBattleConnectContent linker_battle_connect_content = 46;
+  im.LinkerResumeApplyContent linker_resume_apply_content = 47;
+  im.CrossRoomRTCInfoContent cross_room_rtc_info_content = 48;
+  im.AnchorUpdateLinkmicConfigContent anchor_update_linkmic_config_content = 49;
+  im.AnchorUpdateLayoutContent anchor_update_layout_content = 50;
+  im.LinkerApplyRankChangeContent apply_rank_change_content = 52;
+  im.LinkerChangeMediaInfoContent change_media_content = 53;
+  im.LinkerUILayoutChangeContent linker_ui_layout_change_content = 54;
+  im.LinkerUpdateWaitingUserOffsetContent linker_update_waiting_user_offset_content = 55;
+  im.LinkerRemoveWaitingUserContent linker_remove_waiting_user_content = 56;
+  im.LinkerSysKickOutContent sys_kick_out_content = 101;
+  int64 fallback_scene = 199;
+  string extra = 200;
+  data.LinkerBaseInfo linker_base_info = 201;
+  im.PublicAreaCommon public_area_common = 202;
+}
+message LinkmicInfo {
+  string access_key = 1;
+  int64 link_mic_id = 2;
+  bool joinable = 3;
+  int32 confluence_type = 4;
+  string rtc_ext_info = 5;
+  string rtc_app_id = 6;
+  string rtc_app_sign = 7;
+  string linkmic_id_str = 8;
+  int64 vendor = 9;
+  string live_core_ext_info = 10;
+  data.MultiRtcInfo multi_rtc_info = 11;
+  data.MultiLiveCoreInfo multi_live_core_info = 12;
+}
+message LinkerSetting {
+  int64 max_member_limit = 1;
+  int64 link_type = 2;
+  int64 scene = 3;
+  int64 owner_user_id = 4;
+  int64 owner_room_id = 5;
+  int64 vendor = 6;
+}
+message LinkerInviteContent {
+  int64 from_user_id = 1;
+  int64 from_room_id = 2;
+  string to_rtc_ext_info = 3;
+  bool rtc_join_channel = 4;
+  int64 vendor = 5;
+  string sec_from_user_id = 6;
+  string to_linkmic_id_str = 7;
+  bool rtc_push_stream = 8;
+  string sign_extra = 9;
+  int32 invite_source = 10;
+  im.LinkmicInfo from_user_linkmic_info = 11;
+  data.MultiRtcInfo multi_rtc_info = 12;
+  data.MultiLiveCoreInfo multi_live_core_info = 13;
+  int32 multi_pk_mode = 14;
+  bool support_multi_pk_team_mode = 15;
+  data.LinkmicInfo to_user_linkmic_info = 16;
+  data.MultiChannelInfo multi_channel_info = 17;
+  string invite_reject_temporary_text = 18;
+  string audience_linker_description = 19;
+  bool inviter_with_audience = 20;
+  repeated data.ListUser invitee_followed_users = 21;
+  repeated data.ListUser inviter_users = 22;
+  int64 to_user_id = 23;
+  int64 to_room_id = 24;
+  data.ListUser applied_user = 25;
+  data.PreRTCInfo pre_rtc_info = 26;
+  bool support_multi_invite = 27;
+  int64 cur_invite_num = 28;
+  int64 wait_sec = 29;
+  repeated data.BattleRivalTag tags = 30;
+  data.ListUser invite_user = 31;
+  string client_attached_info = 32;
+}
+message LinkPrepareApplyContent {
+  int64 from_user_id = 1;
+  int64 from_room_id = 2;
+  int64 vendor = 3;
+  string sec_from_user_id = 4;
+  int64 count = 5;
+}
+message LinkerReplyContent {
+  int64 from_user_id = 1;
+  int64 from_room_id = 2;
+  im.LinkmicInfo from_user_linkmic_info = 3;
+  int64 to_user_id = 4;
+  im.LinkmicInfo to_user_linkmic_info = 5;
+  int64 link_type = 6;
+  int64 reply_status = 7;
+  im.LinkerSetting linker_setting = 8;
+  bool biz_join_channel = 9;
+  int32 multi_pk_mode = 10;
+  data.MultiChannelInfo multi_channel_info = 11;
+  string toast = 12;
+  data.AnchorLinkmicChannelInfo backup_linkmic_info = 14;
+  string kicked_users_unique_id = 15;
+  int64 match_type = 16;
+  int64 version = 17;
+  int64 anchor_ui_layout = 18;
+  repeated data.ListUser linked_users = 19;
+  int32 switch_to_scene = 20;
+  string battle_config_setting = 21;
+}
+message LinkerCreateContent {
+  int64 owner_id = 1;
+  int64 owner_room_id = 2;
+  int64 link_type = 3;
+}
+message MatchEffect {
+  bool show_effect = 1;
+  data.Image effect_resource = 2;
+}
+message CityEffect {
+  data.Image effect_resource = 1;
+  string city = 2;
+  repeated int64 show_effect_user_id_list = 3;
+}
+message LinkerEnterContent {
+  repeated data.ListUser linked_users = 1;
+  int64 user_id = 2;
+  int32 apply_type = 3;
+  repeated data.ListUser pre_link_users = 4;
+  im.MatchEffect match_effect = 5;
+  im.CityEffect city_effect = 6;
+  uint64 version = 7;
+  data.MsgBoardItemInfo msg_board_item = 9;
+  data.LinkIconConfig link_icon_config = 10;
+}
+message LinkerViolationReminderContent {
+  string title = 1;
+  string content = 2;
+}
+message LinkerCloseContent {
+  int32 source = 1;
+  data.BanUser ban_anchor_info = 2;
+  int32 reason = 3;
+}
+message LinkerLeaveContent {
+  int64 user_id = 1;
+  repeated data.ListUser linked_users = 2;
+  data.ListUser user = 3;
+  repeated data.ListUser pre_link_users = 4;
+  uint64 version = 5;
+  int32 leave_source = 7;
+  data.PreRTCInfo pre_rtc_info = 8;
+  data.MultiChannelInfo multi_channel_info = 9;
+  repeated data.ListUser list_users = 10;
+  int64 pre_rtc_version = 11;
+}
+message LinkerCancelContent {
+  int64 from_user_id = 1;
+  int64 to_user_id = 2;
+  int64 cancel_type = 3;
+  int32 invite_source = 4;
+}
+message LinkerKickOutContent {
+  int64 from_user_id = 1;
+  int32 control_type = 2;
+  int64 paid_count = 3;
+  int64 link_duration = 4;
+  int32 kick_out_source = 5;
+}
+message LinkerSysKickOutContent {
+  int64 user_id = 1;
+  string linkmic_id_str = 2;
+  string toast_msg = 3;
+}
+message LinkerWaitingListChangeContent {
+  data.PreRTCInfo pre_rtc_info = 1;
+  data.MultiChannelInfo multi_channel_info = 2;
+  repeated data.ListUser list_users = 3;
+  int64 version = 4;
+}
+message LinkerLinkedListChangeContent {
+  repeated data.ListUser linked_users = 1;
+  repeated data.ListUser pre_link_users = 2;
+  uint64 version = 3;
+  int32 push_type = 4;
+  int32 update_mode = 6;
+}
+message LinkerBanContent {
+  repeated data.BanUser ban_users = 1;
+}
+message LinkerUpdateUserContent {
+  int64 from_user_id = 1;
+  int64 to_user_id = 2;
+  repeated data.ListUser linked_users = 4;
+  string extra = 5;
+  uint64 version = 6;
+  string ack_message = 8;
+}
+message ChannelNoticeContent {
+  int64 channel_id = 1;
+  int32 action = 2;
+  string extra_info = 3;
+}
+message LinkerItemContent {
+  int64 item_id = 1;
+  int64 author_id = 2;
+  string author_name = 3;
+  data.Image avatar_thumb = 4;
+  data.Image avatar_medium = 5;
+  data.Image avatar_large = 6;
+  string item_description = 7;
+  string music_id = 8;
+  string music_title = 9;
+  string music_author = 10;
+  string music_url = 11;
+  int64 comment_count = 12;
+}
+message LinkerUpdateLinkTypeApplyContent {
+  int64 from_user_id = 1;
+  int64 to_user_id = 2;
+  int32 link_type = 3;
+  int32 source = 4;
+  string ack_message = 5;
+}
+message LinkerUpdateLinkTypeReplyContent {
+  int64 from_user_id = 1;
+  int64 to_user_id = 2;
+  int32 reply_type = 3;
+  string reply_prompts = 4;
+}
+message LinkerAvatarAuditContent {
+  int32 audit_res = 1;
+  string reason = 2;
+  int64 review_id = 3;
+}
+message LinkerApplyExpiredContent {
+  int64 user_id = 1;
+}
+message LinkerApplyStrongReminderContent {
+  int32 source = 1;
+  data.User user = 2;
+}
+message LinkerAnchorStreamSwitchContent {
+  bool use_backup_stream = 1;
+  int64 anchor_user_id = 2;
+  repeated data.ListUser linked_users = 3;
+  uint64 version = 4;
+}
+message LinkerClickScreenContent {
+  int64 device_width = 1;
+  int64 device_height = 2;
+  int64 point_x = 3;
+  int64 point_y = 4;
+  int64 from_user_id = 5;
+  data.Image avatar_medium = 6;
+}
+message LinkerFollowStrongGuideContent {
+  data.User from_user = 1;
+  int64 to_user_id = 2;
+  int32 from_user_type = 3;
+}
+message LinkerLockPositionContent {
+  repeated data.LinkmicPositionItem locked_positions = 1;
+}
+message LinkerShareVideoImContent {
+  string im_content = 1;
+}
+message LinkerGuestInviteContent {
+  data.Text invite_content = 1;
+}
+message LinkerGuestExitCastScreenContent {
+  int64 user_id = 1;
+}
+message LinkerSwitchSceneContent {
+  data.SwitchSceneData switch_scene_data = 1;
+}
+message LinkPhaseEnterNextNotifyContent {
+  int64 room_id = 1;
+  data.User anchor_user = 2;
+  data.User link_user = 3;
+  data.LinkPhase next_phase = 4;
+  int32 current_phase_id = 5;
+  int32 current_linktime_seconds = 6;
+  data.LinkPhaseConfig phase_config = 7;
+}
+message LinkerChangePlayModeContent {
+  data.ChangePlayModeData change_play_mode_data = 1;
+}
+message LinkerLowBalanceForPaidLinkmicContent {
+  string toast = 1;
+}
+message LinkerDegradeAlertContent {
+  data.User user = 1;
+  string degrade_content = 2;
+}
+message LinkerEnlargeGuestInviteContent {
+  int64 from_user_id = 1;
+  int64 to_user_id = 2;
+  int32 invite_type = 3;
+}
+message LinkerEnlargeGuestReplyContent {
+  int64 from_user_id = 1;
+  int64 to_user_id = 2;
+  int32 reply_type = 3;
+  string reply_prompts = 4;
+}
+message LinkerEnlargeGuestApplyContent {
+  int64 from_user_id = 1;
+  string apply_prompts = 2;
+}
+message CrossRoomLinkInviteContent {
+  data.User inviter = 1;
+  data.InviteRoomInfo room_info = 2;
+  string invite_tips = 3;
+  int32 inviter_room_join_status = 4;
+  data.RoomBattleMode room_battle_mode = 5;
+}
+message CrossRoomLinkReplyContent {
+  int32 reply_type = 1;
+  int64 invitee_room_id = 2;
+  int32 cross_type = 3;
+  repeated data.CrossRoomLinkReplyGuestInfo guest_infos = 4;
+  int64 invitee_anchor_id = 5;
+  int64 follow_status = 6;
+  int64 invite_source = 7;
+  int64 reply_user_id = 8;
+  string reply_toast = 9;
+  int32 reply_operate = 10;
+  data.RoomBattleProcessInfo process_info = 11;
+}
+message CrossRoomLinkCancelInviteContent {
+  int64 canceller_room_id = 1;
+}
+message LinkerCrossRoomUpdateContent {
+  int64 from_room_id = 1;
+  int64 to_room_id = 2;
+  repeated data.ListUser linked_users = 4;
+  uint64 version = 5;
+}
+message LinkerChangeMultiPKTeamInfoContent {
+  data.MultiPKModeInfo multi_pk_mode_info = 1;
+  string toast = 2;
+}
+message LinkerResumeAudienceContent {
+  string rtc_ext_info = 1;
+  string live_core_ext_info = 2;
+  repeated data.ListUser linked_users = 3;
+  uint64 version = 4;
+}
+message LinkerBattleConnectContent {
+  string live_core_ext_info = 1;
+  string rtc_ext_info = 2;
+  data.MultiChannelInfo multi_channel_info = 4;
+  uint64 version = 5;
+  repeated data.ListUser anchor_user_list = 6;
+}
+message LinkerResumeApplyContent {
+  im.LinkerResumeApplyContent.ApplyParam param = 1;
+  int64 apply_user = 2;
+  int64 room_id = 3;
+  message ApplyParam {
+    int32 apply_type = 1;
+  }
+}
+message CrossRoomRTCInfoContent {
+  data.MultiChannelInfo multi_channel_info = 1;
+}
+message AnchorUpdateLinkmicConfigContent {
+  bool forbid_invite_by_general = 1;
+  bool forbid_apply_from_other = 2;
+}
+message AnchorUpdateLayoutContent {
+  int32 layout_type = 1;
+  int64 update_user_id = 2;
+  int32 anchor_ui_layout = 3;
+  int32 anchor_layout_range = 4;
+  int64 operator_id = 5;
+}
+message LinkerApplyRankChangeContent {
+  int64 room_id = 1;
+}
+message LinkerChangeMediaInfoContent {
+  repeated int32 scene_list = 1;
+  repeated int32 play_mode_list = 2;
+  data.LinkmicMediaParam linkmic_media_param = 3;
+}
+message LinkerUILayoutChangeContent {
+  int64 ui_layout = 1;
+  string rtc_ext_info = 2;
+  string live_core_ext_info = 3;
+  data.MultiRtcInfo multi_rtc_info = 4;
+  data.MultiLiveCoreInfo multi_live_core_info = 5;
+  uint64 version = 6;
+  repeated data.ListUser linked_list_users = 7;
+}
+message LinkerUpdateWaitingUserOffsetContent {
+  int64 offset = 1;
+  int32 sort_strategy = 2;
+  int64 total_count = 3;
+}
+message LinkerRemoveWaitingUserContent {
+  string waiting_user_toast = 1;
+}
+message LinkMicArmies {
+  im.Common common = 1;
+  repeated im.LinkMicArmies.UserArmies user_armies_list = 3;
+  data.BattleContributorsRankListV2 rank_list_v2 = 4;
+  string top_show_text = 5;
+  message UserArmies {
+    repeated im.LinkMicArmies.UserArmies.UserArmy user_armies = 1;
+    message UserArmy {
+      int64 user_id = 1;
+      int64 score = 2;
+      string nickname = 3;
+      data.Image avatar_thumb = 4;
+    }
+  }
+}
+message LinkMicBattleFinish {
+  im.Common common = 1;
+  im.BattleSettings battle_settings = 2;
+  repeated data.BattleArmy battle_armies = 3;
+  repeated data.BattleScore battle_scores = 4;
+  repeated data.User anchors = 5;
+  data.OperationalPlay operational_play = 7;
+  int32 end_reason = 8;
+  string cut_short_prompt = 9;
+  string cut_short_toast = 10;
+  bool cut_short_win = 11;
+  int32 kill_finish_type = 13;
+  data.BreakthroughInfo breakthrough_info = 14;
+  data.BattleSkinConfig skin_config = 15;
+  int32 skin_type = 16;
+}
+message PunishEffect {
+  int64 effect_id = 1;
+  string effect_name = 2;
+  data.Image effect_image = 3;
+  int64 lowest_score = 4;
+  int64 duration = 5;
+  int64 need_medicine_count = 6;
+  bool usable = 7;
+  int32 level = 8;
+}
+message LinkMicBattlePunish {
+  im.Common common = 1;
+  int64 message_type = 2;
+  repeated im.PunishEffect punish_effect_list = 3;
+  string prompts = 4;
+  data.User mvp = 5;
+  int64 medicine_count = 6;
+  im.PunishEffect target_effect = 7;
+  int64 start_time = 8;
+  data.User target_user = 9;
+  int64 speedy_gift_id = 11;
+  int64 duration = 12;
+  int64 channel_id = 13;
+  int64 battle_id = 14;
+}
+message LinkMicBattleTaskMessage {
+  im.Common common = 1;
+  string content = 2;
+}
+message ChijiNoticeMessage {
+  im.Common common = 1;
+  int32 message_type = 2;
+  string banner_url = 3;
+}
+message LinkMicEnterNoticeMessage {
+  im.Common common = 1;
+  im.BattleSettings battle_settings = 2;
+}
+message LinkMicFriendOnlineMessage {
+  im.Common common = 1;
+  data.User friend = 2;
+  bool in_room = 3;
+}
+message LinkMicGuideMessage {
+  im.Common common = 1;
+  im.LinkMicGuideMessage.AnchorInfo anchor_info = 2;
+  int64 cue_threshold = 3;
+  int64 guideline_type = 4;
+  im.LinkMicGuideMessage.FastMatchGuideline fast_match_guideline = 5;
+  im.CallToLinkmicContent call_to_linkmic_content = 20;
+  im.KtvAddSongGuideContent ktv_add_song_guide_content = 21;
+  im.CreateGroupChatGuideContent create_group_chat_guide_content = 22;
+  im.JoinGroupChatGuideContent join_group_chat_guide_content = 23;
+  im.GuestBattleBubbleGuideContent guest_battle_bubble_guide_content = 24;
+  im.CreateTeamfightGuideContent create_teamfight_guide_content = 25;
+  im.NormalPaidLinkmicExplainCardContent normal_paid_linkmic_explain_card_content = 26;
+  im.NormalPaidLinkmicMigrateToPlayContent normal_paid_linkmic_migrate_to_play_content = 27;
+  im.LinkmicFollowEffectContent linkmic_follow_effect_content = 28;
+  im.PKLinkBubbleContent pk_link_bubble_content = 29;
+  im.PlayModeGuideBubbleContent play_mode_guide_bubble_content = 30;
+  message AnchorInfo {
+    repeated im.LinkMicGuideMessage.AnchorInfo.InfoItem infoList = 1;
+    message InfoItem {
+      data.Image icon = 1;
+      string content = 2;
+    }
+  }
+  message FastMatchGuideline {
+    string title = 1;
+    string subtitle = 2;
+  }
+}
+message LinkmicFollowEffectContent {
+  int64 room_id = 1;
+  int64 from_user_id = 2;
+  repeated im.LinkmicFollowEffectContent.FollowInfo follow_infos = 3;
+  message FollowInfo {
+    int64 target_user_id = 1;
+    int64 follow_status = 2;
+  }
+}
+message GuestBattleBubbleGuideContent {
+  data.Text text = 1;
+}
+message CallToLinkmicContent {
+  data.Text text = 1;
+}
+message KtvAddSongGuideContent {
+  data.Text text = 1;
+}
+message CreateGroupChatGuideContent {
+  int64 anchor_id = 1;
+  string header_text = 2;
+  string body_text = 3;
+}
+message JoinGroupChatGuideContent {
+  int64 group_id = 1;
+  string conversation_id = 2;
+  string header_text = 3;
+  string body_text = 4;
+  repeated data.Image icons = 5;
+  int32 group_type = 6;
+  int32 guide_source = 7;
+}
+message CreateTeamfightGuideContent {
+  data.Text toast_text = 4;
+}
+message NormalPaidLinkmicExplainCardContent {
+  data.PaidLinkmicExplainCardInfo explain_card_info = 1;
+}
+message NormalPaidLinkmicMigrateToPlayContent {
+  string toast = 1;
+}
+message PKLinkBubbleContent {
+  string toast = 1;
+}
+message PlayModeGuideBubbleContent {
+  int32 play_mode = 1;
+  string toast = 2;
+  int32 play_mode_enhance_type = 3;
+  data.Text text = 4;
+  string schema = 5;
+}
+message LinkMicHostModifyMsg {
+  im.Common common = 1;
+  repeated int64 host_uids = 2;
+}
+message LinkMicKtvBeatRankMessage {
+  im.Common common = 1;
+  repeated data.User user_list = 2;
+  data.User singer = 3;
+  int64 song_id = 4;
+}
+message LinkMicKtvEffectMessage {
+  im.Common common = 1;
+  data.User from_user = 2;
+  data.User singer = 3;
+  int64 song_id = 4;
+}
+message LinkMicMethod {
+  im.Common common = 1;
+  int64 message_type = 2;
+  string access_key = 3;
+  int64 anchor_linkmic_id = 4;
+  int64 user_id = 5;
+  int64 fan_ticket = 6;
+  int64 total_linkmic_fan_ticket = 7;
+  int64 channel_id = 8;
+  int64 layout = 9;
+  int64 vendor = 10;
+  int64 dimension = 11;
+  string theme = 12;
+  int64 invite_uid = 13;
+  int64 answer = 14;
+  int64 start_time = 15;
+  int64 duration = 16;
+  repeated im.LinkMicMethod.UserScores user_scores = 17;
+  int64 match_type = 18;
+  bool win = 19;
+  string prompts = 20;
+  int64 to_user_id = 21;
+  int64 linkmic_layout = 23;
+  int64 from_user_id = 24;
+  string tips = 25;
+  int64 start_time_ms = 26;
+  int32 confluence_type = 27;
+  int64 from_room_id = 28;
+  int64 invite_type = 29;
+  int64 sub_type = 30;
+  data.RivalExtraInfo inviter_rival_extra = 31;
+  string rtc_ext_info = 32;
+  string rtc_app_id = 33;
+  string app_id = 34;
+  string app_sign = 35;
+  string rtc_app_sign = 36;
+  string anchor_linkmic_id_str = 37;
+  int64 rival_anchor_id = 38;
+  int64 rival_linkmic_id = 39;
+  string rival_linkmic_id_str = 40;
+  bool show_popup = 41;
+  int64 sec_invite_uid = 42;
+  int64 scene = 43;
+  int64 sec_apply_uid = 44;
+  repeated data.User linked_users = 45;
+  string sec_from_user_id = 46;
+  int32 reply_type = 47;
+  string reply_prompts = 48;
+  string sec_to_user_id = 49;
+  im.LinkMicMethod.InvitorInfo invitor_info = 50;
+  bool rtc_join_channel = 51;
+  int32 sub_scene = 52;
+  bool support_update_link_type = 53;
+  int32 link_type = 54;
+  int32 source = 55;
+  data.AnchorLinkmicInfo backup_anchor_linkmic_info = 56;
+  repeated int32 play_modes = 57;
+  repeated data.ListUser linked_list_users = 58;
+  repeated data.LinkmicPositionItem locked_positions = 59;
+  int32 end_reason = 60;
+  data.MultiRtcInfo multi_rtc_info = 61;
+  data.MultiLiveCoreInfo multi_live_core_info = 62;
+  int32 layout_config_version = 63;
+  int32 control_type = 64;
+  data.BanUser ban_anchor_info = 65;
+  uint64 version = 66;
+  data.JoinTeamfightInfo join_teamfight_info = 67;
+  int64 paid_count = 68;
+  int64 link_duration = 69;
+  string live_core_ext_info = 70;
+  data.GameInviteInfo game_invite_info = 71;
+  int32 ui_layout = 72;
+  data.Text invite_message = 73;
+  data.MultiChannelInfo multi_channel_info = 74;
+  int32 kick_out_source = 75;
+  string function_type = 77;
+  data.MsgBoardItemInfo msg_board_item = 78;
+  string from_user_linkmic_id_str = 79;
+  string ack_message = 80;
+  string init_source = 81;
+  string score_update_log_id = 82;
+  int32 switch_play_mode = 83;
+  int32 update_message_from = 84;
+  data.LinkmicMediaInfo guest_linkmic_info = 85;
+  data.MCUContent mcu_content = 86;
+  data.BreakthroughInfo breakthrough_info = 87;
+  data.LinkerBaseInfo linker_base_info = 88;
+  data.AudienceActionSource action_source = 89;
+  data.BattleBarConfig battle_bar_config = 90;
+  data.User from_user = 91;
+  message UserScores {
+    int64 score = 1;
+    int64 user_id = 2;
+    int64 weekly_rank = 3;
+    string score_relative_text = 4;
+    bool is_large_pk_score = 5;
+    bool room_like_trigger = 6;
+    string score_blur_text = 7;
+    int64 battle_rank = 8;
+    bool new_score_open = 9;
+    string multi_pk_team_score_text = 10;
+    int64 multi_pk_team_score = 11;
+    int64 multi_pk_team_rank = 12;
+    bool is_multi_pk_relative_text = 13;
+    string cur_add_score_text = 14;
+  }
+  message Contributor {
+    int64 score = 1;
+    int64 rank = 2;
+    int64 user_id = 3;
+    data.User user = 4;
+  }
+  message ContributorList {
+    repeated im.LinkMicMethod.Contributor contributor_list = 1;
+  }
+  message InvitorInfo {
+    string invitor_nick_name = 1;
+    data.Image invitor_avatar = 2;
+  }
+}
+message LinkMicOChannelKickOutMsg {
+  im.Common common = 1;
+  int64 kick_out_uid = 2;
+  string toast_msg = 3;
+}
+message LinkMicOChannelNotifyMsg {
+  im.Common common = 1;
+  int32 type = 2;
+  string toast_msg = 3;
+}
+message LinkmicOrderSingListMessage {
+  im.Common common = 1;
+  im.LinkmicOrderSingListContent order_sing_list_content = 2;
+}
+message LinkmicOrderSingListContent {
+  repeated im.OrderSingItemByPosition user_list = 1;
+}
+message OrderSingItemByPosition {
+  repeated string order_sing_item_str_list = 1;
+  int64 wait_for_start_item_num = 2;
+  data.User order_user = 3;
+}
+message LinkmicOrderSingMessage {
+  im.Common common = 1;
+  int64 message_type = 2;
+  im.LinkmicOrderSingCreateContent order_sing_create_content = 3;
+  im.LinkmicOrderSingFinishContent order_sing_finish_content = 4;
+  im.LinkmicOrderSingActionToastContent order_sing_action_toast_content = 5;
+  im.LinkmicOrderSingActionContent order_sing_action_content = 6;
+}
+message LinkmicOrderSingCreateContent {
+  string open_order_sing_toast = 1;
+  int64 gift_id = 2;
+  bool auto_enlarge = 3;
+  repeated int64 gift_ids = 4;
+}
+message LinkmicOrderSingFinishContent {
+  string close_order_sing_toast = 1;
+  bool auto_enlarge = 2;
+}
+message LinkmicOrderSingActionToastContent {
+  string start_sing_toast = 1;
+  string finish_sing_toast = 2;
+  string oder_sing_toast = 3;
+  string order_sing_action_toast = 4;
+}
+message LinkmicOrderSingActionContent {
+  string order_sing_item_id = 1;
+  int32 order_sing_item_action = 2;
+  data.User order_user = 3;
+  int64 timestamp = 4;
+  data.CurrentOrderSingItemV2 current_order_sing_item = 5;
+  data.Image order_sing_gift_icon = 6;
+}
+message LinkmicOrderSingScoreMessage {
+  im.Common common = 1;
+  im.LinkmicOrderSingScoreContent order_sing_score_content = 2;
+}
+message LinkmicOrderSingScoreContent {
+  im.OrderSingUserScore user_score = 1;
+}
+message OrderSingUserScore {
+  int64 user_id = 1;
+  int64 silver_microphone_num = 2;
+  int64 golden_microphone_num = 3;
+  int32 current_task_microphone_type = 4;
+  int64 current_score = 5;
+  int64 need_score_to_next = 6;
+  int32 order_sing_stage = 7;
+  int64 current_round_mic_count = 8;
+}
+message LinkMicPositionMessage {
+  im.Common common = 1;
+  int32 message_type = 2;
+  im.LinkMicPositionListChangeContent list_change_content = 3;
+  im.LinkMicPositionVerifyContent verify_content = 4;
+}
+message LinkMicPositionListChangeContent {
+  repeated data.LinkmicPositionItem positions = 1;
+}
+message LinkMicPositionVerifyItem {
+  int64 position = 1;
+  string position_name = 2;
+  int32 verify_status = 3;
+  int32 position_type = 4;
+}
+message LinkMicPositionVerifyContent {
+  int64 current_verify_position = 1;
+  repeated im.LinkMicPositionVerifyItem verify_position_items = 2;
+  repeated data.LinkmicPositionItem final_position_items = 3;
+}
+message LinkMicSendEmojiMessage {
+  im.Common common = 1;
+  data.User from_user = 2;
+  data.LinkmicAudienceEmoji emoji = 3;
+  data.Image emoji_image_result = 4;
+  data.User to_user = 5;
+  string source = 6;
+  im.PublicAreaCommon public_area_common = 7;
+}
+message LinkSettingNotifyMessage {
+  im.Common common = 1;
+  repeated data.LinkmicSetting settings = 2;
+  im.PaiedOrTimeLimitChangeContent paied_or_time_limit_change_content = 10;
+}
+message PaiedOrTimeLimitChangeContent {
+  bool need_leave = 1;
+  string toast = 2;
+}
+message LinkMicSignalingMethod {
+  im.Common common = 1;
+  string content = 2;
+}
+message LinkMicAdventureScoreMessage {
+  im.Common common = 1;
+  repeated data.AdventurePairInfo pair_list = 2;
+}
+message LinkMicAdventureMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  im.LinkMicAdventureStartContent start_content = 100;
+  im.LinkMicAdventureFinishContent finish_content = 101;
+  im.LinkMicAdventureInviteContent invite_content = 102;
+  im.LinkMicAdventureReplyContent reply_content = 103;
+  im.LinkMicAdventureCardContent card_content = 105;
+  im.LinkMicAdventureCallInviteContent call_invite_content = 106;
+  im.LinkMicAdventureCallReplyContent call_reply_content = 107;
+  im.LinkMicAdventurePlayModeInfoChangeContent play_mode_info_change = 108;
+  im.LinkMicAdventurePairInfoChangeContent pair_info_change = 109;
+  im.LinkMicAdventurePairFinishContent pair_finish_content = 110;
+  im.LinkMicAdventureCallCancelContent call_cancel_content = 111;
+}
+message LinkMicAdventurePairFinishContent {
+  data.AdventurePairInfo pair_info = 1;
+  string toast = 2;
+  int32 finish_reason = 3;
+}
+message LinkMicAdventurePairInfoChangeContent {
+  data.AdventurePairInfo pair_info = 1;
+}
+message LinkMicAdventurePlayModeInfoChangeContent {
+  data.AdventurePlayModeInfo play_mode_info = 1;
+}
+message LinkMicAdventureCallReplyContent {
+  int64 to_user_id = 1;
+  int32 status = 2;
+  data.AdventurePairInfo pair_info = 3;
+  int64 next_call_time = 4;
+  string inviter_rtc_ext_info = 5;
+  string inviter_live_core_info = 6;
+}
+message LinkMicAdventureCallInviteContent {
+  int64 to_user_id = 1;
+  int64 invite_timeout_duration_s = 2;
+  int64 inviter_id = 3;
+}
+message LinkMicAdventureCardContent {
+  data.AdventureUserInfo from_user = 1;
+  data.AdventureUserInfo to_user = 2;
+  repeated data.AdventureCardInfo card_list = 3;
+}
+message LinkMicAdventureReplyContent {
+  int64 to_user_id = 1;
+  int32 status = 2;
+  data.AdventurePairInfo pair_info = 3;
+  string invite_source = 4;
+}
+message LinkMicAdventureInviteContent {
+  int64 to_user_id = 1;
+}
+message LinkMicAdventureStartContent {
+  data.AdventurePlayModeInfo play_mode_info = 2;
+}
+message LinkMicAdventureFinishContent {
+  int64 duration = 1;
+  int64 pair_count = 2;
+  int64 audience_join = 3;
+  data.AdventurePlayModeInfo play_mode_info = 4;
+  int64 operator_id = 5;
+}
+message LinkMicAdventureCallCancelContent {
+  int64 invitee_user_id = 1;
+  int64 pair_id = 2;
+  string pair_id_str = 4;
+}
+message LinkMicAudienceKtvMessage {
+  im.Common common = 1;
+  int64 message_type = 2;
+  repeated im.LinkMicAudienceKtvMessage.ListInfo list_info = 3;
+  int64 want_sing_count = 4;
+  int64 want_sing_song_threshold = 5;
+  int64 sung_song_count = 6;
+  message ListInfo {
+    data.KtvSongStruct music = 1;
+    bool is_self_seeing = 2;
+  }
+}
+message LinkmicChatMatchMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  im.LinkmicChatMatchUserJoinContent chat_match_user_join_content = 21;
+  im.LinkmicChatMatchUserLeaveContent chat_match_user_leave_content = 22;
+  im.LinkmicChatMatchFinishGroupContent chat_match_finish_group_content = 23;
+  im.LinkmicChatMatchResultContent chat_match_result_content = 24;
+  im.LinkmicChatMatchStartCountDownContent chat_match_start_count_down_content = 25;
+}
+message LinkmicChatMatchUserJoinContent {
+  data.ChatMatchGroupInfo group_info = 1;
+}
+message LinkmicChatMatchUserLeaveContent {
+  data.ChatMatchGroupInfo group_info = 1;
+  string user_id = 2;
+  string device_id = 3;
+}
+message LinkmicChatMatchFinishGroupContent {
+  string join_room_id = 1;
+}
+message LinkmicChatMatchResultContent {
+  data.ChatMatchGroupInfo group_info = 1;
+}
+message LinkmicChatMatchStartCountDownContent {
+  int64 disband_time = 1;
+}
+message LinkmicEcologyMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  im.LiveMatrixEntranceChangeContent live_matrix_entrance_change_content = 3;
+  im.LinkmicWebAntiCheatContent web_anti_cheat_content = 4;
+}
+message LiveMatrixEntranceChangeContent {
+  int64 room_id = 1;
+  int64 matrix_id = 2;
+  string name = 3;
+  bool show = 4;
+}
+message LinkmicWebAntiCheatContent {
+  string auth_ticket = 1;
+  string entry_web_page_address = 2;
+  string popup_text = 3;
+  int64 web_page_display_duration = 4;
+  int32 face_verify_type = 5;
+  bool authorization = 6;
+  string request_source = 7;
+}
+message LinkmicEnlargeGuestMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  repeated int32 play_modes = 3;
+  im.LinkmicEnlargeGuestTurnOnContent turn_on_content = 21;
+  im.LinkmicEnlargeGuestTurnOffContent turn_off_content = 22;
+  im.LinkmicEnlargeGuestChangeUserContent change_user_content = 23;
+}
+message LinkmicEnlargeGuestTurnOnContent {
+  int64 enlarged_user_id = 1;
+  int32 source = 2;
+}
+message LinkmicEnlargeGuestTurnOffContent {
+  int32 source = 1;
+}
+message LinkmicEnlargeGuestChangeUserContent {
+  int64 enlarged_user_id = 1;
+}
+message LinkmicProfitMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  im.LinkmicProfitBidPaidLinkmicBidContent bid_paid_linkmic_bid_content = 21;
+  im.LinkmicProfitBidPaidLinkmicDealContent bid_paid_linkmic_deal_content = 22;
+  im.LinkmicProfitBidPaidLinkmicAbortContent bid_paid_linkmic_abort_content = 23;
+  im.LinkmicProfitBidPaidLinkmicStartContent bid_paid_linkmic_start_content = 24;
+  im.LinkmicProfitBidPaidLinkmicTerminateContent bid_paid_linkmic_terminate_content = 25;
+  im.LinkmicProfitNormalPaidLinkmicOpenContent normal_paid_linkmic_open_content = 26;
+  im.LinkmicProfitNormalPaidLinkmicCloseContent normal_paid_linkmic_close_content = 27;
+  im.LinkmicProfitNormalPaidLinkmicConfigUpdateContent normal_paid_linkmic_config_update_content = 28;
+  im.LinkmicProfitBidPaidLinkmicTurnOnContent bid_paid_linkmic_turn_on_content = 29;
+  im.LinkmicProfitBidPaidLinkmicTurnOffContent bid_paid_linkmic_turn_off_content = 30;
+  im.LinkmicRoomBattleInviteContent room_battle_invite_content = 31;
+  im.LinkmicRoomBattleReplyContent room_battle_reply_content = 32;
+  im.LinkmicProfitNormalPaidLinkmicAddPriceContent normal_paid_linkmic_add_price_content = 33;
+  im.LinkmicProfitInteractiveScreenCastOpenContent interactive_screen_cast_open_content = 34;
+  im.LinkmicProfitInteractiveScreenCastCloseContent interactive_screen_cast_close_content = 35;
+  im.LinkmicRoomBattleMatchSuccessContent room_battle_match_success_content = 36;
+  im.LinkmicGiftRecipientContent gift_recipient_content = 37;
+  im.LinkmicProfitAudioSubtitleCheckInContent audio_subtitle_check_in_content = 38;
+  im.LinkmicProfitAudioSubtitleStartContent audio_subtitle_start_content = 39;
+  im.LinkmicProfitAudioSubtitleCloseContent audio_subtitle_close_content = 40;
+  im.LinkmicGameBarrageStartContent game_barrage_start_conetent = 41;
+  im.LinkmicGameBarrageStopContent game_barrage_stop_conetent = 42;
+}
+message LinkmicProfitBidPaidLinkmicBidContent {
+  data.BidPaidLinkmicBidInfo bid_info = 1;
+  repeated data.BidPaidLinkmicBidRecord bid_records = 2;
+  bool has_more = 3;
+}
+message LinkmicProfitBidPaidLinkmicDealContent {
+  data.BidPaidLinkmicDealInfo deal_info = 1;
+  repeated data.LinkmicPositionItem positions = 2;
+}
+message LinkmicProfitBidPaidLinkmicStartContent {
+  string start_toast = 1;
+  repeated data.LinkmicPositionItem positions = 2;
+  bool waiting_user_need_leave = 3;
+  string waiting_user_toast = 4;
+}
+message LinkmicProfitBidPaidLinkmicAbortContent {
+  int64 win_user_id = 1;
+  string anchor_toast = 2;
+  string win_user_toast = 3;
+  string other_bid_users_toast = 4;
+}
+message LinkmicProfitBidPaidLinkmicTerminateContent {
+  string bid_user_toast = 1;
+  string other_bid_users_toast = 2;
+}
+message LinkmicProfitNormalPaidLinkmicOpenContent {
+  data.NormalPaidLinkmicInfo normal_paid_linkmic_info = 1;
+  bool waiting_user_need_leave = 2;
+  string waiting_user_toast = 3;
+  int32 source = 4;
+}
+message LinkmicProfitNormalPaidLinkmicCloseContent {
+  bool waiting_user_need_leave = 1;
+  string waiting_user_toast = 2;
+}
+message LinkmicProfitNormalPaidLinkmicConfigUpdateContent {
+  bool waiting_user_need_leave = 1;
+  string waiting_user_toast = 2;
+  data.NormalPaidLinkmicInfo normal_paid_linkmic_info = 3;
+}
+message LinkmicProfitNormalPaidLinkmicAddPriceContent {
+  int64 add_price_user_id = 1;
+  int64 add_price_value = 2;
+  data.Text text = 3;
+}
+message LinkmicProfitBidPaidLinkmicTurnOnContent {
+  data.BidPaidLinkmicContent bid_paid_linkmic_info = 1;
+  string prompts = 2;
+  bool waiting_user_need_leave = 3;
+  string waiting_user_toast = 4;
+}
+message LinkmicProfitBidPaidLinkmicTurnOffContent {
+  string prompts = 1;
+}
+message LinkmicRoomBattleInviteContent {
+  data.User inviter = 1;
+  data.InviteRoomInfo room_info = 2;
+  int32 start_type = 3;
+  string invite_tips = 4;
+  data.RoomBattleMode room_battle_mode = 5;
+}
+message LinkmicRoomBattleReplyContent {
+  int32 reply_type = 1;
+  int32 start_type = 2;
+  int64 invitee_room_id = 3;
+  int64 invitee_anchor_id = 4;
+  int64 follow_status = 5;
+  int64 reply_user_id = 6;
+  string reply_toast = 7;
+  int32 reply_operate = 8;
+}
+message LinkmicProfitInteractiveScreenCastOpenContent {
+  data.InteractiveScreenCastInfo screen_cast_info = 1;
+  string rtc_ext_info = 2;
+  string live_core_ext_info = 3;
+}
+message LinkmicProfitInteractiveScreenCastCloseContent {
+  data.InteractiveScreenCastInfo screen_cast_info = 1;
+  string rtc_ext_info = 2;
+  string live_core_ext_info = 3;
+}
+message LinkmicRoomBattleMatchSuccessContent {
+  int32 match_type = 1;
+  data.RoomBattleProcessInfo process_info = 2;
+  int64 rival_anchor_id = 3;
+  int64 rival_user_count = 4;
+  int64 rival_chat_room_rank = 5;
+  int64 rival_follow_status = 6;
+  int64 invite_source = 7;
+  int64 operator_user_id = 8;
+}
+message LinkmicGiftRecipientContent {
+  int64 gift_recipient_user_id = 1;
+  int32 reason = 2;
+}
+message LinkmicProfitAudioSubtitleCheckInContent {
+  int64 version_id = 1;
+}
+message LinkmicProfitAudioSubtitleStartContent {
+  int64 version_id = 1;
+}
+message LinkmicProfitAudioSubtitleCloseContent {
+  int64 version_id = 1;
+}
+message LinkmicGameBarrageStartContent {
+  data.LinkmicGameInfo game_info = 1;
+  string audience_toast = 2;
+  repeated int64 kick_out_user_ids = 3;
+}
+message LinkmicGameBarrageStopContent {
+  data.LinkmicGameInfo game_info = 1;
+}
+message LinkmicReviewMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  im.LinkmicReviewNormalPaidDescContent normal_paid_desc_content = 21;
+}
+message LinkmicReviewNormalPaidDescContent {
+  int32 status = 1;
+  string toast = 2;
+}
+message SelfDisciplinePunchMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  int64 to_user_id = 3;
+  int64 start_time = 4;
+  int64 punch_duration = 5;
+  string toast_text = 6;
+  int32 punch_status = 7;
+}
+message LinkmicSelfDisciplineMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  im.LinkmicSelfDisciplineConfigContent config_content = 21;
+  im.LinkmicSelfDisciplineLikeContent like_content = 22;
+}
+message LinkmicSelfDisciplineConfigContent {
+  int32 switch_status = 1;
+  string current_target = 2;
+  string target_icon_uri = 3;
+  string text = 4;
+  int64 punch_duration = 5;
+  string toast = 6;
+}
+message LinkmicSelfDisciplineLikeContent {
+  int64 from_user_id = 1;
+  int64 to_user_id = 2;
+  int32 source = 3;
+}
+message LinkmicTeamfightScoreMessage {
+  im.Common common = 1;
+  data.LinkmicTeamfightInfo teamfight_info = 2;
+  data.LinkmicQuickInteract quick_interact = 3;
+}
+message LinkmicTeamfightMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  data.LinkmicTeamfightInfo teamfight_info = 3;
+  im.LinkmicTeamfightFinishContent finish_content = 100;
+  im.LinkmicTeamfightCreateContent create_content = 101;
+  im.LinkmicTeamfightSettleContent settle_content = 102;
+}
+message LinkmicTeamfightFinishContent {
+  string finish_toast = 1;
+  string guest_finish_toast = 2;
+  int32 reason = 3;
+  int64 finish_room_id = 4;
+  int64 finish_user_id = 5;
+}
+message LinkmicTeamfightCreateContent {
+  int32 reason = 3;
+}
+message LinkmicTeamfightSettleContent {
+  string disable_show_toast = 1;
+}
+message LinkmicThemedCompetitionMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  im.LinkmicThemedCompetitionStartContent start_content = 100;
+  im.LinkmicThemedCompetitionCloseContent close_content = 101;
+  im.LinkmicThemedCompetitionScoreChangeContent score_change_content = 102;
+  im.LinkmicThemedCompetitionOnceMoreContent once_more_content = 103;
+  im.LinkmicThemedCompetitionShowTimeStartContent show_time_start_content = 104;
+  im.LinkmicThemedCompetitionShowTimeFinishContent show_time_finish_content = 105;
+  im.LinkmicThemedCompetitionBannerMessageForPC banner_message_for_pc = 106;
+  im.LinkmicThemedCompetitionToastMessageForPC toast_message_for_pc = 107;
+}
+message LinkmicThemedCompetitionStartContent {
+  data.ThemedCompetitionInfo info = 1;
+}
+message LinkmicThemedCompetitionOnceMoreContent {
+  data.ThemedCompetitionInfo info = 1;
+  int64 old_competition_id = 2;
+}
+message LinkmicThemedCompetitionCloseContent {
+  int64 competition_id = 1;
+}
+message LinkmicThemedCompetitionScoreChangeContent {
+  data.ThemedCompetitionInfo info = 1;
+  int64 score_change_user_id = 2;
+  data.LinkmicQuickInteract quick_interact = 3;
+  im.LinkmicThemedCompetitionScoreChangeContent.WinContent new_advance_user = 4;
+  message WinContent {
+    int64 rank = 1;
+    int64 user_id = 2;
+    int32 win_type = 3;
+  }
+}
+message LinkmicThemedCompetitionShowTimeStartContent {
+  int64 competition_id = 1;
+  data.ThemedCompetitionInfo info = 2;
+}
+message LinkmicThemedCompetitionShowTimeFinishContent {
+  int64 competition_id = 1;
+}
+message LinkmicThemedCompetitionBannerMessageForPC {
+  im.LinkmicThemedCompetitionBannerMessageForPC.BannerContent content = 1;
+  int32 refresh_type = 2;
+  message Content {
+    int64 rank = 1;
+    string nickname = 2;
+    int64 delta_score = 3;
+    int32 win_type = 4;
+  }
+  message BannerContent {
+    string title = 1;
+    data.User current_performer = 2;
+    int64 rank = 3;
+    int64 total_performer_count = 4;
+    int32 status = 5;
+    repeated im.LinkmicThemedCompetitionBannerMessageForPC.Content rotate_content = 6;
+    int64 version = 7;
+  }
+}
+message LinkmicThemedCompetitionToastMessageForPC {
+  string toast = 1;
+}
+message TraceTimeMetricV2 {
+  int64 op_timestamp = 1;
+  int64 producer_duration = 2;
+  int64 consumer_duration = 3;
+  int64 msg_send_timestamp = 4;
+}
+message LiveEcomGeneralMessage {
+  im.Common common = 1;
+  string content_type = 2;
+  string content_format = 3;
+  int64 logic_clock = 4;
+  im.TraceTimeMetricV2 trace_time_metric = 5;
+  bytes data = 6;
+  int64 target_room_id = 50;
+}
+message CouponActivityInfoMessage {
+  int64 activity_type = 1;
+  string before_text = 2;
+  string before_button = 3;
+  string after_text = 4;
+  string after_button = 5;
+}
+message CouponMetaInfoMessage {
+  string coupon_meta_id = 1;
+  string start_time = 2;
+  string expire_time = 3;
+  int64 period_type = 4;
+  int64 valid_period = 5;
+  string start_apply_time = 6;
+  string end_apply_time = 7;
+  string coupon_name = 8;
+  string url = 9;
+  int64 threshold = 10;
+  int64 credit = 11;
+  int64 max_apply_times = 12;
+  int64 type = 13;
+  string type_detail = 14;
+  double discount = 15;
+  string shop_id = 16;
+  int64 pay_type = 17;
+  int64 max_discount_limit = 18;
+  string shop_name = 19;
+  string type_string = 20;
+  string what_coupon = 21;
+  string coupon_string = 22;
+  int64 channel_id = 23;
+  int64 left_amount = 24;
+  int64 has_applied = 25;
+  int64 status = 26;
+  string shop_logo = 27;
+  int64 is_show = 28;
+  int64 total_amount = 29;
+  int32 live_coupon_status = 30;
+  int32 coupon_source = 31;
+  int64 user_apply_times = 32;
+  bool can_continue_apply = 33;
+  bool coupon_status = 34;
+  bool coupon_reset = 35;
+  int64 start_time_timestamp = 36;
+  int64 expire_time_timestamp = 37;
+  string avatar = 38;
+  int64 kol_uid = 39;
+  repeated int64 product_ids = 40;
+  int64 platform_sub_type = 41;
+  bool has_available_goods = 42;
+  string type_title = 43;
+  int64 kol_user_tag = 45;
+  string type_icon = 46;
+  int64 type_icon_width = 47;
+  int64 type_icon_height = 48;
+  string coupon_category = 49;
+  string extra_data = 50;
+}
+message LiveEcomMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  string nick_name = 3;
+  int64 purchase_cnt = 4;
+  string text = 5;
+  string icon = 6;
+  int64 meta_id = 7;
+  int64 server_time = 8;
+  int64 countdown = 9;
+  string activity_json_str = 10;
+  int32 coupon_type = 11;
+  im.CouponActivityInfoMessage activity_info = 12;
+  im.CouponMetaInfoMessage coupon_meta = 13;
+  string meta_id_str = 14;
+}
+message LiveMateDemoteMessage {
+  im.Common common = 1;
+  bool re_push = 2;
+}
+message ProductChangeMessage {
+  im.Common common = 1;
+  int64 update_timestamp = 2;
+  string update_toast = 3;
+  repeated im.ProductInfo update_product_info = 4;
+  int64 total = 5;
+  repeated int64 target_uid = 6;
+  repeated string sec_target_uid = 7;
+  repeated im.CategoryInfo update_category_info = 8;
+}
+message ProductInfo {
+  int64 promotion_id = 1;
+  int32 index = 2;
+  repeated int64 target_flash_uids = 3;
+  int64 explain_type = 4;
+}
+message CategoryInfo {
+  int32 id = 1;
+  string name = 2;
+  repeated string promotion_ids = 3;
+  string type = 4;
+  string unique_index = 5;
+}
+message UpdatedProductInfo {
+  int64 price = 1;
+  string title = 2;
+  string cover = 3;
+  int64 status = 4;
+  string pop_upicon = 5;
+}
+message UpdatedCouponInfo {
+  string tag = 1;
+  string coupon_url = 2;
+  string coupon_applet = 3;
+  bool is_valid = 4;
+  string coupon_meta_id = 5;
+}
+message UpdatedCampaignInfo {
+  bool is_valid = 1;
+  string label = 2;
+  string price = 3;
+  string pic = 4;
+  string start_time = 5;
+  string end_time = 6;
+  string time_start_label = 7;
+  string time_end_label = 8;
+  string user_limit = 9;
+  string is_preheat = 10;
+  string campaign_id = 11;
+}
+message SkuInfo {
+  string sku_id = 1;
+  int64 stock_num = 2;
+  int64 price = 3;
+  int64 coupon_price = 4;
+}
+message TraceTimeMetric {
+  int64 op_timestamp = 1;
+  int64 producer_duration = 2;
+  int64 consumer_duration = 3;
+  int64 msg_send_timestamp = 4;
+}
+message UpdatedSkuInfo {
+  int64 min_price = 2;
+  int64 max_price = 3;
+  int64 unuse_min_price = 4;
+  int64 coupon_price = 5;
+}
+message UpdatedCommentaryVideoInfo {
+  int64 action = 1;
+}
+message UpdatedGroupInfo {
+  repeated string avatar_list = 1;
+  int64 joined = 2;
+  int64 group_size = 3;
+  int64 persent = 4;
+}
+message UserBid {
+  string pic = 1;
+  string name = 2;
+  int64 price = 3;
+}
+message Img {
+  repeated string url_list = 1;
+  int32 height = 2;
+  int32 width = 3;
+}
+message CurrentUserInfo {
+  im.Img user_pic = 1;
+  string user_name = 2;
+  int64 user_id = 3;
+}
+message IncrPriceList {
+  int64 price = 1;
+  int64 range = 2;
+}
+message AuctionInfo {
+  int64 price = 1;
+  string price_label = 2;
+  int32 status = 3;
+  string jump_url = 4;
+  im.CurrentUserInfo current_user_info = 5;
+  repeated im.IncrPriceList incr_price_lists = 6;
+  string button_label = 7;
+  int64 product_id = 8;
+  int64 end_time = 9;
+  int32 biz_id = 10;
+}
+message AuctionSuccess {
+  string title = 1;
+  int64 product_id = 2;
+  string product_name = 3;
+  string product_pic = 4;
+  int64 price = 5;
+  int64 charge = 6;
+  int64 freight = 7;
+  int64 total = 8;
+  string button_label = 9;
+  string jump_url = 10;
+  string freight_collect = 11;
+  int64 left_payment_time = 12;
+  int32 biz_id = 13;
+  string deposit_info = 14;
+}
+message RedpackActivityInfo {
+  int64 redpack_type = 1;
+  string redpack_activity_id = 2;
+  string redpack_activity_name = 3;
+  int64 start_apply_time = 4;
+  int64 end_apply_time = 5;
+  int64 preheat_time = 6;
+  int64 total_amount = 7;
+  string author_avatar_url = 8;
+  string author_name = 9;
+  string pendant_background_url = 10;
+  string redpack_front_background_url = 11;
+  string redpack_label = 12;
+  string redpack_after_background_url = 13;
+  string redpack_after_belt_url = 14;
+  int64 scatter_time = 15;
+  int64 server_time = 16;
+  int64 max_amount = 17;
+  int64 show_type = 18;
+  string shorttouch_pendant_background_url = 19;
+  string shorttouch_pendant_icon_url = 20;
+  string shorttouch_lottie_url = 21;
+}
+message UpdatedCartInfo {
+  data.CartVertical vertical = 1;
+  data.CartHorizontal horizontal = 2;
+  data.GlobalCustomIcons global_custom_icons = 3;
+}
+message LotteryProductShortInfo {
+  int64 product_id = 1;
+  string img = 2;
+}
+message LotteryInfo {
+  int64 lottery_type = 1;
+  string enter_icon = 2;
+  string icon = 3;
+  string activity_id = 4;
+  int64 open_time = 5;
+  im.LotteryProductShortInfo product_info = 6;
+}
+message LotteryUnusualInfo {
+  string product_name = 1;
+  int64 open_time = 2;
+}
+message WinLotteryAlert {
+  string title = 1;
+  string content = 2;
+  string button_label = 3;
+}
+message WinLotteryInfo {
+  string title = 1;
+  string name = 2;
+  string img = 3;
+  string button_label = 4;
+  string win_record_id = 5;
+  string activity_id = 6;
+  bool is_addressed = 7;
+  im.WinLotteryAlert alert = 8;
+  bool is_win = 9;
+  string jump_url = 10;
+  int64 product_id = 11;
+  repeated int64 activity_price = 12;
+  int64 buy_time = 13;
+  int64 lottery_type = 14;
+  string product_id_str = 15;
+}
+message BenefitLabel {
+  string LeftText = 1;
+  string RightText = 2;
+  int32 TextStyle = 3;
+  int32 ColorStyle = 4;
+  int32 DivLine = 5;
+}
+message LotteryInfoList {
+  string activity_id = 1;
+  int64 task_type = 2;
+  int64 open_time = 3;
+  int64 user_activity_status = 4;
+  string win_record_id = 5;
+  string result_label = 6;
+  string button_label = 7;
+  repeated string text = 8;
+  string jump_url = 9;
+  int64 lottery_type = 10;
+  string elastic_title = 11;
+  im.BenefitLabel benefit_label = 12;
+}
+message HotAtmosphere {
+  string img = 1;
+  string sale_num = 2;
+  int64 type = 3;
+  string num = 4;
+  string bg_color = 5;
+  string border_color = 6;
+  int64 left_margin = 7;
+  int64 ui_type = 8;
+  repeated string bg_colors = 9;
+  repeated string border_colors = 10;
+  string top_img = 11;
+}
+message UpIcon {
+  string name = 1;
+  string up_icon = 2;
+  string up_desc = 3;
+  string public_screen_notice = 4;
+}
+message FilterSwitchChangeData {
+  bool enable = 1;
+  im.UpIcon up_icon = 2;
+}
+message RoomTagOfflineInfo {
+  int64 tag_type = 1;
+  string user_toast = 2;
+}
+message InteractionData {
+  bool full = 1;
+  repeated im.InteractionContent contents = 2;
+}
+message InteractionContent {
+  im.InteractionContentCheck check = 1;
+  int32 priority = 2;
+  int32 loop_count = 3;
+  repeated im.InteractionElement content = 4;
+}
+message InteractionContentCheck {
+  int64 product_id = 1;
+  int32 index = 2;
+}
+message InteractionElement {
+  int32 element_type = 1;
+  string text = 2;
+  string text_color = 3;
+  im.InteractionAvatar avatars = 4;
+  int32 blank_width = 5;
+}
+message InteractionAvatar {
+  repeated string url_list = 1;
+  int32 width = 2;
+  int32 height = 3;
+}
+message LiveShoppingMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  int64 promotion_id = 3;
+  repeated int64 target_uid = 4;
+  int32 bubble_type = 5;
+  int64 screenshot_timestamp = 6;
+  repeated string sec_target_uid = 7;
+  string ecom_notice = 8;
+  repeated int64 updated_product_ids = 9;
+  int32 update_type = 10;
+  im.UpdatedProductInfo updated_product_info = 11;
+  bool sold_out = 12;
+  im.UpdatedCouponInfo updated_coupon_info = 13;
+  im.UpdatedCampaignInfo updated_campaign_info = 14;
+  int64 update_timestamp = 15;
+  string button_label = 16;
+  int64 promotions_num = 17;
+  im.UpdatedSkuInfo update_sku_info = 18;
+  im.UpdatedCommentaryVideoInfo updated_commentary_video_info = 19;
+  im.UpdatedGroupInfo updated_group_info = 20;
+  string commerce_authority_change_toast = 21;
+  im.TraceTimeMetric trace_time_metric = 22;
+  im.AuctionSuccess auction_success = 23;
+  im.AuctionInfo auction_info = 24;
+  im.RedpackActivityInfo redpack_activity_info = 25;
+  im.UpdatedCartInfo updated_cart_info = 26;
+  im.LotteryInfo lottery_info = 27;
+  im.WinLotteryInfo win_lotteryinfo = 28;
+  im.LotteryInfoList lottery_info_list = 29;
+  im.HotAtmosphere hot_atmosphere = 30;
+  string update_toast = 31;
+  bool can_sold = 32;
+  int64 logical_clock = 33;
+  im.RoomTagOfflineInfo room_tag_offline_info = 34;
+  im.FilterSwitchChangeData filter_switch_change_data = 35;
+  im.InteractionData interaction_data = 36;
+}
+message LiveStreamControlMessage {
+  im.Common common = 1;
+  string control_params = 2;
+}
+message LotteryBurstMessage {
+  im.Common common = 1;
+  int64 burst_time_remain_seconds = 2;
+  int64 multiple = 3;
+  int64 property_definition_id = 4;
+  data.Image property_icon = 5;
+}
+message LotteryMessage {
+  im.Common common = 1;
+}
+message XGLotteryMessage {
+  im.Common common = 1;
+  data.LotteryInfo lottery_info = 2;
+}
+message LotteryEventMessage {
+  im.Common common = 1;
+  int64 lottery_id = 2;
+  int32 lottery_status = 3;
+  int64 lottery_start_time = 4;
+  int64 lottery_draw_time = 5;
+  int64 lottery_current_time = 6;
+  string rule_page_scheme = 7;
+}
+message LotteryExpandEventMessage {
+  im.Common common = 1;
+  int64 expand_prize_type = 2;
+  string extra = 3;
+}
+message LotteryEventNewMessage {
+  im.Common common = 1;
+  int64 lottery_id = 2;
+  int32 lottery_status = 3;
+  int64 lottery_start_time = 4;
+  int64 lottery_draw_time = 5;
+  int64 lottery_current_time = 6;
+  string rule_page_scheme = 7;
+  int64 prize_type = 8;
+  string lottery_audit_failure_reason = 9;
+  repeated int32 conditions = 10;
+  bool use_new_draw_interaction = 12;
+  int64 prize_count = 13;
+  int64 lucky_count = 14;
+  string client_biz_data = 15;
+  string server_biz_data = 16;
+  string ui_config = 17;
+}
+message LotteryCandidateEventMessage {
+  im.Common common = 1;
+  int64 lottery_id = 2;
+  int64 user_id = 3;
+  bool participate_success = 4;
+  int64 version = 5;
+}
+message LotteryDrawResultEventMessage {
+  im.Common common = 1;
+  int64 lottery_id = 2;
+  repeated int64 user_ids = 3;
+  string extra = 4;
+}
+message LuckyBoxTempStatusMessage {
+  im.Common common = 1;
+}
+message LuckyBoxMessage {
+  im.Common common = 1;
+  int64 diamond_count = 2;
+  int64 box_id = 3;
+  int64 send_time = 4;
+  int64 delay_time = 5;
+  int64 box_type = 6;
+  string title = 7;
+  bool large = 8;
+  data.Image background = 9;
+  bool is_official = 10;
+  int64 priority = 11;
+  data.User user = 12;
+  repeated im.LuckyBoxMessage.ImgText description_list = 13;
+  data.Image lucky_icon = 14;
+  int64 display_duration = 15;
+  int32 box_status = 16;
+  int32 flat_duration = 17;
+  int32 unpack_type = 18;
+  im.LuckyBoxMessage.BoxMeta meta = 19;
+  im.LuckyBoxMessage.Extra extra = 20;
+  int64 business_type = 21;
+  data.Image top_cover_image = 22;
+  data.Image bottom_cover_image = 23;
+  string box_id_str = 24;
+  im.LuckyBoxMessage.BottomCommentMsg bottom_comment_msg = 25;
+  bool is_risky_owner = 26;
+  string activity_id = 27;
+  im.LuckyBoxMessage.Dress dress = 28;
+  im.PublicAreaCommon public_area_common = 29;
+  message ImgText {
+    data.Image image = 1;
+    string text = 2;
+  }
+  message BoxMeta {
+    string title_desc = 1;
+    string content_count_desc = 2;
+    string content_amount_desc = 3;
+    string animation_desc = 4;
+    string before_unpack_desc = 5;
+    string success_unpack_desc = 6;
+    string fail_unpack_desc = 7;
+    data.Image ad_image = 8;
+    string im_desc = 9;
+  }
+  message Extra {
+    int32 current_round = 3;
+    int32 pct = 4;
+    repeated int64 round_target = 5;
+  }
+  message BottomCommentMsg {
+    data.Text text = 1;
+    data.Image background = 2;
+    data.Image left_icon = 3;
+    data.Image right_icon = 4;
+  }
+  message Dress {
+    string dress_id = 1;
+    int64 dress_offline_time = 2;
+    string jump_text = 3;
+  }
+}
+message LuckyBoxEndMessage {
+  im.Common common = 1;
+  int64 box_id = 2;
+  string box_id_str = 3;
+}
+message LuckyMoneyMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  int64 luckymoney_id = 3;
+  int64 diamond_count = 4;
+}
+message MagicBoxMessage {
+  im.Common common = 1;
+  int64 diamond_count = 2;
+  int64 magic_box_id = 3;
+  int64 send_time = 4;
+  int64 delay_time = 5;
+  int64 box_type = 6;
+  string title = 7;
+  bool large = 8;
+  data.Image background = 9;
+  bool is_official = 10;
+  int64 priority = 11;
+  data.User user = 12;
+  repeated im.MagicBoxMessage.ImgText description_list = 13;
+  message ImgText {
+    data.Image image = 1;
+    string text = 2;
+  }
+}
+message MediaLiveReplayVidMessage {
+  im.Common common = 1;
+  string vid = 2;
+}
+message MemberMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  int64 member_count = 3;
+  data.User operator = 4;
+  bool is_set_to_admin = 5;
+  bool is_top_user = 6;
+  int64 rank_score = 7;
+  int64 top_user_no = 8;
+  int64 enter_type = 9;
+  int64 action = 10;
+  string action_description = 11;
+  int64 user_id = 12;
+  im.MemberMessage.EffectConfig effect_config = 13;
+  string pop_str = 14;
+  im.MemberMessage.EffectConfig enter_effect_config = 15;
+  data.Image background_image = 16;
+  data.Image background_image_v2 = 17;
+  data.Text anchor_display_text = 18;
+  im.PublicAreaCommon public_area_common = 19;
+  int64 user_enter_tip_type = 20;
+  int64 anchor_enter_tip_type = 21;
+  message EffectConfig {
+    int64 type = 1;
+    data.Image icon = 2;
+    int64 avatar_pos = 3;
+    data.Text text = 4;
+    data.Image text_icon = 5;
+    int32 stay_time = 6;
+    int64 anim_asset_id = 7;
+    data.Image badge = 8;
+    repeated int64 flex_setting_array = 9;
+    data.Image text_icon_overlay = 10;
+    data.Image animated_badge = 11;
+    bool has_sweep_light = 12;
+    repeated int64 text_flex_setting_array = 13;
+    int64 center_anim_asset_id = 14;
+    data.Image dynamic_image = 15;
+    int64 mp4_anim_asset_id = 17;
+    int64 priority = 18;
+    int64 max_wait_time = 19;
+    string dress_id = 20;
+    int64 alignment = 21;
+    int64 alignment_offset = 22;
+    string effect_scene = 23;
+  }
+}
+message NabobImNoticeMessage {
+  im.Common common = 1;
+}
+message NobleEnterLeaveMessage {
+  im.Common common = 1;
+  int64 noble_count = 2;
+}
+message NobleToastMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  data.Image toast_icon = 3;
+}
+message NobleUpgradeMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  string open_url = 3;
+  data.Image background_pop = 4;
+  data.Image background_normal = 5;
+  int32 display_style = 6;
+  data.GiftIMPriority priority = 7;
+}
+message NoticeMessage {
+  im.Common common = 1;
+  string content = 2;
+  int64 notice_type = 3;
+  string style = 4;
+  data.Text title = 5;
+  data.Text violation_reason = 6;
+  data.Text display_text = 7;
+  data.Text tips_title = 8;
+  string tips_url = 9;
+  data.Text notice_title = 10;
+  data.Text notice_content = 11;
+  int64 notice_time = 12;
+  string limit_notice_key = 13;
+  data.Text button_confirm = 14;
+  data.Text button_cancel = 15;
+  string event_name = 16;
+  string top_icon_url = 17;
+  string decoration_audited_content = 18;
+  int64 punish_time = 19;
+  int64 countdown_time = 20;
+  string education_url = 21;
+  int64 education_task_record_id = 22;
+  string log_extra = 23;
+}
+message NotifyMessage {
+  im.Common common = 1;
+  string schema = 2;
+  int64 notify_type = 3;
+  string content = 4;
+  data.User user = 5;
+  im.NotifyMessage.Extra extra = 6;
+  int64 notify_class = 7;
+  repeated int64 flex_setting = 8;
+  string biz_scene = 100;
+  message Background {
+    int32 width = 1;
+    int32 height = 2;
+    repeated string url_list = 3;
+    string uri = 4;
+  }
+  message Content {
+    string content = 1;
+    bool need_high_light = 2;
+  }
+  message ContentList {
+    repeated im.NotifyMessage.Content contents = 1;
+    string high_light_color = 2;
+  }
+  message Extra {
+    int64 duration = 1;
+    im.NotifyMessage.Background background = 2;
+    im.NotifyMessage.ContentList content_list = 3;
+    bool need_gift_frequency = 6;
+  }
+}
+message OChannelAnchorMessage {
+  im.Common common = 1;
+  int64 start_timestamp = 2;
+  int64 end_timestamp = 3;
+  string content = 4;
+  int64 room_id = 5;
+  data.User channel_user = 6;
+}
+message OChannelUserMessage {
+  im.Common common = 1;
+  int64 start_timestamp = 2;
+  int64 end_timestamp = 3;
+  int64 max_enter_time = 4;
+  int64 room_id = 5;
+  int64 max_next_time = 6;
+}
+message OChannelModifyMessage {
+  im.Common common = 1;
+  int64 start_timestamp = 2;
+  int64 end_timestamp = 3;
+  int64 channel_uid = 4;
+  string showlist_schema = 5;
+}
+message OChannelLastestShowMessage {
+  im.Common common = 1;
+  int64 start_ts = 2;
+  string showlist_schema = 5;
+}
+message OChannelGrabMicShowMessage {
+  im.Common common = 1;
+  int64 show_id = 2;
+  string text = 3;
+  int64 start_timestamp = 4;
+  int64 end_timestamp = 5;
+  data.User channel_user = 6;
+  string showlist_name = 7;
+}
+message PopularCardMessage {
+  im.Common common = 1;
+  im.PopularCardMessage.PopularCardInfo popular_card_info = 2;
+  message PopularCardInfo {
+    int32 status = 1;
+    int64 start_time = 2;
+    int64 end_time = 3;
+    int32 enter_number = 4;
+  }
+}
+message PortalMessage {
+  im.Common common = 1;
+  int64 type = 2;
+  int64 portal_id = 3;
+  int64 room_id = 4;
+  im.PortalBuy portal_buy = 5;
+  im.PortalInvite portal_invite = 6;
+  im.PortalFinish portal_finish = 7;
+  data.Portal portal = 8;
+  int64 next_ping_time = 9;
+}
+message PortalBuy {
+  data.User sugar_daddy = 1;
+}
+message PortalInvite {
+  int64 invite_count_down = 1;
+  int64 reward_count_down = 2;
+  data.User sugar_daddy = 3;
+  data.User anchor = 4;
+  data.Image cover = 5;
+}
+message PortalFinish {
+  data.User lucky_person = 1;
+}
+message PropertyNoticeMessage {
+  im.Common common = 1;
+  string content = 2;
+  int64 user_id = 3;
+  int64 property_event_type = 4;
+}
+message PushMessage {
+  im.Common common = 1;
+  string content = 2;
+  string color = 3;
+  string traceid = 4;
+  data.Image icon = 5;
+  string action_content = 6;
+  int64 action_type = 7;
+  int64 push_message_display_time = 8;
+  im.FlexImageStruct background_image = 9;
+  data.Image action_icon = 10;
+  im.FlexImageStruct new_background_image = 11;
+  string source = 12;
+}
+message FansclubV1PushMessage {
+  im.Common common = 1;
+  string content = 2;
+  string color = 3;
+  string traceid = 4;
+  data.Image icon = 5;
+  string action_content = 6;
+  int64 action_type = 7;
+  int64 push_message_display_time = 8;
+  im.FlexImageStruct background_image = 9;
+  data.Image action_icon = 10;
+  im.FlexImageStruct new_background_image = 11;
+  string source = 12;
+}
+message QuizStartMessage {
+  im.Common common = 1;
+  data.Text display_text = 2;
+}
+message QuizResult {
+  string title = 1;
+  data.Text result = 2;
+  data.Text gain = 3;
+}
+message QuizResultMessage {
+  im.Common common = 1;
+  im.QuizResult quiz_result = 3;
+}
+message QuizChangeData {
+  int64 quiz_id = 1;
+  int64 status = 2;
+  repeated data.BetOption options = 4;
+}
+message QuizChangeMessage {
+  im.Common common = 1;
+  repeated im.QuizChangeData quiz_change_data = 2;
+}
+message CreateRedPacketMessage {
+  im.Common common = 1;
+  repeated im.RedPacket red_packets = 2;
+}
+message RushRedPacketMessage {
+  im.Common common = 1;
+  repeated im.RedPacketRushRecord red_packet_rush_records = 2;
+}
+message RedPacketRushRecord {
+  int64 red_packet_group_id = 1;
+  int64 user_id = 2;
+  string user_name = 3;
+  int64 bonus_count = 4;
+  int64 bonus_type = 5;
+  int64 room_id = 6;
+  string im_text = 7;
+  int64 create_time = 8;
+}
+message RedPacket {
+  int64 red_packet_group_id = 1;
+  int64 bonus_type = 2;
+  int64 combo_count = 3;
+  int64 bonus_count = 4;
+  int64 count_down = 5;
+  int64 rush_time = 6;
+  string icon_url = 7;
+  int64 disappear_time = 8;
+  data.User owner = 9;
+  int64 total_count_down = 10;
+  string red_packet_source = 11;
+}
+message PushRoomAdCard {
+  im.Common common = 1;
+  string action_content = 2;
+  string content = 3;
+  int64 target_num = 4;
+  int64 show_num = 5;
+  bool is_finished = 6;
+  int32 adcard_type = 7;
+  int32 hotvalue = 8;
+}
+message RoomAuthMessage {
+  im.Common common = 1;
+  bool show_user_card = 2;
+}
+message RoomBottomMessage {
+  im.Common common = 1;
+  string color = 3;
+  string action_content = 6;
+  int64 action_type = 7;
+  int64 push_message_display_time = 8;
+  data.Image action_icon = 10;
+  im.FlexImageStruct new_background_image = 11;
+  string source = 12;
+}
+message RoomChallengeMessage {
+  im.Common common = 1;
+  string challenge_info = 2;
+  int64 notify_type = 3;
+  string toast_content = 4;
+}
+message RoomHotSentenceMessage {
+  im.Common common = 1;
+  string hot_sentence_info = 2;
+}
+message RoomImgMessage {
+  im.Common common = 1;
+  string content = 2;
+  int64 action = 3;
+  string bg_img_url = 4;
+}
+message RoomManageMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  int64 action = 3;
+  int64 member_count = 4;
+  int64 popularity = 5;
+  string popularity_str = 6;
+  int64 device_id = 7;
+  string content = 8;
+}
+message RoomStartMessage {
+  im.Common common = 1;
+  string content = 2;
+  string image_url = 3;
+  int32 instation_push_type = 4;
+}
+message RoomUserSeqMessage {
+  im.Common common = 1;
+  repeated im.RoomUserSeqMessage.Contributor ranks = 2;
+  int64 total = 3;
+  string pop_str = 4;
+  repeated im.RoomUserSeqMessage.Contributor seats = 5;
+  int64 popularity = 6;
+  int64 total_user = 7;
+  string total_user_str = 8;
+  string total_str = 9;
+  string online_user_for_anchor = 10;
+  string total_pv_for_anchor = 11;
+  string up_right_stats_str = 12;
+  string up_right_stats_str_complete = 13;
+  message Contributor {
+    int64 score = 1;
+    data.User user = 2;
+    int64 rank = 3;
+    int64 delta = 4;
+    bool is_hidden = 5;
+    string score_description = 6;
+    string exactly_score = 7;
+  }
+}
+message RoomVerifyMessage {
+  im.Common common = 1;
+  int32 action = 2;
+  string content = 3;
+  int64 notice_type = 4;
+  bool close_room = 5;
+  int32 unable_style = 6;
+  string tip_content = 7;
+  int32 anchor_switch = 8;
+  string switch_status_tip_msg = 9;
+  string switch_status_anchor_tip_msg = 10;
+}
+message RoomMessage {
+  im.Common common = 1;
+  string content = 2;
+  bool supprot_landscape = 3;
+  int32 roomMessageType = 4;
+  bool system_top_msg = 5;
+  bool forced_guarantee = 6;
+  im.PublicAreaCommon public_area_common = 7;
+  string biz_scene = 20;
+}
+message ScreenChatMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  int64 screen_chat_type = 3;
+  string content = 4;
+  int64 priority = 5;
+  im.ScreenChatMessage.Effect effect = 6;
+  data.Image background_image = 7;
+  im.ScreenChatMessage.Effect effect_v2 = 8;
+  data.Image background_image_v2 = 9;
+  im.PublicAreaCommon public_area_common = 10;
+  im.ScreenChatMessage.OfficialCommentConfig official_comment_config = 11;
+  int64 event_time = 12;
+  bool send_review = 13;
+  data.ChatIdentity chat_identity_info = 14;
+  data.Text rtf_content = 30;
+  bool public_area_does_not_display = 31;
+  data.Text rtf_content_v2 = 32;
+  message OfficialCommentConfig {
+    bool official = 1;
+  }
+  message Effect {
+    im.FlexImageStruct icon = 1;
+    data.Image avatar_icon = 2;
+    string background_color = 3;
+  }
+}
+message ShareGuideMessage {
+  im.Common common = 1;
+  string share_channel = 2;
+}
+message SocialMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  int64 share_type = 3;
+  int64 action = 4;
+  string share_target = 5;
+  int64 follow_count = 6;
+  im.PublicAreaCommon public_area_common = 7;
+}
+message SpecialPushMessage {
+  im.Common common = 1;
+  string content = 2;
+  string color = 3;
+  string traceid = 4;
+  data.Image icon = 5;
+  string action_content = 6;
+  int64 action_type = 7;
+  int64 push_message_display_time = 8;
+}
+message UpdateKoiRoomStatusMessage {
+  im.Common common = 1;
+  data.Image director_icon = 2;
+  int32 cur_round_index = 3;
+  int32 status = 4;
+  string director_schema_url = 5;
+}
+message StampMessage {
+  im.Common common = 1;
+  repeated data.StampInfo stamps = 2;
+}
+message AudienceEntranceMessage {
+  im.Common common = 1;
+  repeated data.AudienceEntranceInfo entrances = 2;
+}
+message CustomizedCardMessage {
+  im.Common common = 1;
+  data.CustomizedCardInfo card = 2;
+  string app_id = 3;
+  string start_id = 4;
+  int32 scene_source = 5;
+}
+message GameCardMessage {
+  im.Common common = 1;
+  data.GameCardInfo card = 2;
+  string app_id = 3;
+  string start_id = 4;
+}
+message MicroAppShelfMessage {
+  im.Common common = 1;
+  data.ShelfInfo shelf_info = 2;
+}
+message SunDailyRankMessage {
+  im.Common common = 1;
+  string content = 2;
+  int64 duration = 3;
+  string after_content = 4;
+  int64 message_type = 5;
+  string schema = 6;
+  string extra = 7;
+  string style = 8;
+  data.Text after_display_text = 9;
+  int64 rank = 10;
+  string rich_content = 11;
+  string user_side_content = 12;
+  int64 content_type = 13;
+  string city_code = 14;
+  int32 rank_stage = 15;
+  repeated im.SunDailyRankMessage.RankInfo ranks = 16;
+  int64 begin_time = 17;
+  int64 delta_time = 18;
+  data.Text entrance_appearing_text = 19;
+  data.Text display_text_v2 = 20;
+  data.Text after_display_text_v2 = 21;
+  int64 duration_v2 = 22;
+  message RankInfo {
+    int64 rank_type = 1;
+    int64 rank = 2;
+  }
+}
+message SystemMessage {
+  im.SystemMessage.Common common = 1;
+  string content = 2;
+  message Common {
+    string method = 1;
+    int64 msg_id = 2;
+    int64 room_id = 3;
+    int64 create_time = 4;
+    int32 monitor = 5;
+  }
+}
+message BubbleConfig {
+  string content = 1;
+  int64 duration = 2;
+  data.Text rich_text = 3;
+  string scheme_url = 4;
+  im.FlexImageStruct background_image = 5;
+  data.Image arrow_image = 6;
+}
+message ToolbarItemBehaviourParam {
+  int32 behaviour_type = 1;
+  string values = 2;
+}
+message ToolbarItemBehaviourParams {
+  string key = 1;
+  repeated im.ToolbarItemBehaviourParam params = 2;
+}
+message ToolbarItemMessage {
+  im.Common common = 1;
+  int32 toolbar_item_id = 2;
+  int32 action_type = 3;
+  im.BubbleConfig bubble_config = 4;
+  int32 message_type = 6;
+  im.ToolbarItemBehaviourParams behaviour_params = 7;
+}
+message TurntableBurstMessage {
+  im.Common common = 1;
+  int64 burst_time_remain_seconds = 2;
+  int64 multiple = 3;
+  int64 property_definition_id = 4;
+  data.Image property_icon = 5;
+}
+message UploadCoverMessage {
+  im.Common common = 1;
+  int64 msg_type = 2;
+  data.Text title = 3;
+  data.Text content = 4;
+  data.Text tips_title = 5;
+  string tips_url = 6;
+  int64 cover_type = 7;
+}
+message UserStatsMessage {
+  im.Common common = 1;
+  string content = 2;
+  int64 user_id = 3;
+  int64 action_type = 4;
+}
+message VerificationCodeMessage {
+  im.Common common = 1;
+  int64 id = 2;
+  int64 duration = 3;
+}
+message VIPInfoMessage {
+  im.Common common = 1;
+  data.UserVIPInfo user_vip_info = 2;
+  int64 action = 3;
+}
+message VIPSeatMessage {
+  im.Common common = 1;
+  repeated data.User top_users = 2;
+  int64 total_count = 3;
+}
+message WebcastBattleBonusMessage {
+  im.Common common = 1;
+  im.WebcastBattleBonusMessage.MvpMessage mvp_info = 2;
+  repeated im.WebcastBattleBonusMessage.PlayerMessage player_list = 3;
+  message MvpMessage {
+    int64 user_id = 1;
+    string user_name = 2;
+    data.PropSummary prop_info = 3;
+  }
+  message PlayerMessage {
+    int64 user_id = 1;
+    string user_name = 2;
+    int64 diamond_count = 3;
+  }
+}
+message WebcastBattlePropertyMessage {
+  im.Common common = 1;
+  repeated im.WebcastBattlePropertyMessage.RoomPropDesc room_prop_list = 2;
+  message RoomPropDesc {
+    int64 room_id = 1;
+    repeated data.PropSummary prop_desc_list = 2;
+    message PropertyDesc {
+      data.PropSummary prop_info = 1;
+      int64 start_time = 2;
+      int64 duration = 3;
+      int64 from_user_id = 4;
+    }
+  }
+}
+message WebcastPopularCardMessage {
+  im.Common common = 1;
+  im.WebcastPopularCardMessage.PopularCardInfo popular_card_info = 2;
+  message PopularCardInfo {
+    int32 status = 1;
+    int64 start_time = 2;
+    int64 end_time = 3;
+    int32 enter_number = 4;
+  }
+}
+message VideoLiveGoodsRcmdMessage {
+  im.Common common = 1;
+  int64 rcmd_goods_id = 2;
+}
+message VideoLiveCouponRcmdMessage {
+  im.Common common = 1;
+  int64 rcmd_coupon_id = 2;
+}
+message VideoLiveGoodsOrderMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  im.VideoLiveGoodsOrderMessage.GoodsOrder goods_order = 3;
+  message GoodsOrder {
+    int64 goods_room_order = 1;
+    int64 order_num = 2;
+    int64 order_money = 3;
+    string order_id = 4;
+  }
+}
+message RankListAwardMessage {
+  im.Common common = 1;
+  int64 asset_id = 2;
+  bool effect_open = 3;
+  int64 rank_type = 4;
+  int64 rank = 5;
+  data.BattleStarActivityGradeMedal star_activity_grade_medal = 6;
+  string scheme_url = 7;
+  data.Image asset_image = 8;
+  int32 play_priority = 9;
+  data.Text text = 10;
+}
+message MatchAgainstScoreMessage {
+  im.Common common = 1;
+  data.Against against = 2;
+  int32 match_status = 3;
+  int32 display_status = 4;
+  int64 match_id = 5;
+  string match_id_str = 6;
+}
+message MatchCollectionMessage {
+  im.Common common = 1;
+  data.CollectionItem collection_item = 2;
+}
+message MatchHighLightPointMessage {
+  im.Common common = 1;
+  repeated data.EpisodeHighLight points = 2;
+}
+message MatchHostChangeMessage {
+  im.Common common = 1;
+  int64 team_id = 2;
+  string team_name = 3;
+  string schema_url = 4;
+  data.Image team_icon = 5;
+  data.Image team_badge = 6;
+  data.Image team_background = 7;
+  string system_msg = 8;
+}
+message MatchHotMessage {
+  im.Common common = 1;
+  int32 msg_type = 2;
+  string content = 3;
+  int64 count = 4;
+  int64 sequence_id = 5;
+  int32 group = 6;
+  int64 IconIndex = 7;
+  int64 TriggerTimestamp = 8;
+}
+message VideoSize {
+  int32 Height = 1;
+  int32 Width = 2;
+}
+message Avatar {
+  string url_big = 1;
+  string url_mid = 2;
+  string url_small = 3;
+}
+message Team {
+  string team_name = 1;
+  string country_code = 2;
+  int32 score = 3;
+  string flag = 4;
+  string team_id = 5;
+  int32 score_addition = 6;
+}
+message VenueInfo {
+  int32 stage = 1;
+  int64 target_time = 2;
+  int64 current_time = 3;
+  string room_id = 4;
+  int64 polling_interval = 5;
+  int64 update_time = 6;
+  int64 distribute_time = 7;
+}
+message VideoCard {
+  int32 card_type = 1;
+  string cover_url = 2;
+  string schema = 3;
+  string title = 4;
+  string sub_title = 5;
+  string uid = 6;
+  string rid = 7;
+  string epid = 8;
+  string tag = 9;
+  string creator_id = 10;
+  im.VideoSize size = 11;
+  string background_url = 12;
+  string card_id = 13;
+  string video_resource = 14;
+  int32 link_type = 15;
+}
+message MatchCard {
+  int32 match_type = 1;
+  int32 status = 2;
+  string title = 3;
+  string description = 4;
+  string start_time = 5;
+  string uid = 6;
+  im.Team team_left = 7;
+  im.Team team_right = 8;
+  bool reserved = 9;
+  string schema = 10;
+  string epid = 11;
+  string reservation_id = 12;
+  string card_id = 13;
+  string room_id = 14;
+  string match_id = 15;
+}
+message Profile {
+  int32 status = 1;
+  im.Avatar avatar_url = 2;
+  string nick_name = 3;
+  string description = 4;
+  bool followed = 5;
+  int64 start_time = 6;
+  string room_id = 7;
+  string uid = 8;
+  string reservation_id = 9;
+  string card_id = 10;
+  int64 follow_count = 12;
+  int32 color = 13;
+  int64 src_id = 14;
+}
+message StarProfile {
+  int32 status = 1;
+  im.Avatar avatar_url = 2;
+  string nick_name = 3;
+  string description = 4;
+  bool followed = 5;
+  string room_id = 6;
+  string uid = 7;
+  int64 start_time = 8;
+  string reservation_id = 9;
+  string card_id = 10;
+  int64 follow_count = 11;
+  int32 color = 12;
+}
+message HotVideoCard {
+  string title = 1;
+  string cover_url = 2;
+  string schema = 3;
+  string card_id = 4;
+  string sub_title = 5;
+}
+message VideoCardModule {
+  int64 module_id = 1;
+  int64 module_version = 2;
+  int32 update_type = 3;
+  repeated im.VideoCard update_list = 4;
+  repeated string delete_list = 5;
+}
+message MatchReservationModule {
+  int64 module_id = 1;
+  int64 module_version = 2;
+  int32 update_type = 3;
+  repeated im.MatchCard update_list = 4;
+  repeated string delete_list = 5;
+}
+message FootballTalkingModule {
+  int64 module_id = 1;
+  int64 module_version = 2;
+  int32 update_type = 3;
+  repeated im.Profile update_list = 4;
+  repeated string delete_list = 5;
+}
+message PopularStarModule {
+  int64 module_id = 1;
+  int64 module_version = 2;
+  int32 update_type = 3;
+  repeated im.StarProfile update_list = 4;
+  repeated string delete_list = 5;
+}
+message HotLiveModule {
+  int64 module_id = 1;
+  int64 module_version = 2;
+  int32 update_type = 3;
+  repeated im.HotVideoCard update_list = 4;
+  repeated string delete_list = 5;
+}
+message MatchVenueMessage {
+  im.VideoCardModule video_card = 1;
+  im.MatchReservationModule match_reservation = 2;
+  im.FootballTalkingModule football_talking = 3;
+  im.PopularStarModule popular_star = 4;
+  im.HotLiveModule hot_live = 5;
+  im.VenueInfo venue_info = 6;
+  im.MatchReservationModule team_reservation = 7;
+  im.Common common = 8;
+}
+message MediaRoomNoticeMessage {
+  im.Common common = 1;
+  string intro = 2;
+  int64 duration = 3;
+  bool review_pass = 4;
+  string review_fail_text = 5;
+  string notice_title = 6;
+  im.PublicAreaCommon public_area_common = 7;
+}
+message MotorCustomMessage {
+  im.Common common = 1;
+  string type = 2;
+  string title = 3;
+  string image = 4;
+  string extra = 5;
+  repeated im.MotorCustomMessage.Data data = 6;
+  message Data {
+    string image = 1;
+    string url = 2;
+    string content = 3;
+    string extra = 4;
+  }
+}
+message AuctionMessage {
+  im.Common common = 1;
+  string extra = 2;
+}
+message AuctionPublicScreenMessageExtra {
+  string im_type = 1;
+  repeated im.AuctionPublicScreenMessageExtra.AuctionIMBody core_data = 2;
+  message AuctionIMBody {
+    int64 role_type = 1;
+    bool is_bid = 2;
+    string text = 3;
+    data.MysteryUserInfo user_info = 4;
+  }
+}
+message AuctionRankMessageExtra {
+  string im_type = 1;
+  repeated data.MysteryRankUserItem rank_user_items = 2;
+  int64 entry_price = 3;
+  int64 total_score = 4;
+}
+message AuctionStartMessageExtra {
+  string im_type = 1;
+}
+message AuctionSettleMessageExtra {
+  string im_type = 1;
+  repeated string top_user_ids = 2;
+  int64 entry_price = 3;
+  int64 top_price = 4;
+  int64 participate_num = 5;
+  repeated im.AuctionSettleMessageExtra.RewardUserInfo reward_user_info = 6;
+  message RewardUserInfo {
+    data.MysteryUserInfo user_info = 1;
+    int64 score = 2;
+  }
+}
+message NotifyEffectMessage {
+  im.Common common = 1;
+  repeated data.Image icons = 2;
+  data.Text text = 3;
+  im.NotifyEffectMessage.Background background = 4;
+  im.NotifyEffectMessage.DynamicConfig dynamic_config = 5;
+  data.CombinedText text_v2 = 6;
+  bool support_landscape = 7;
+  im.NotifyEffectMessage.SceneConfig scene_config = 10;
+  message Background {
+    data.Image background_image = 1;
+    string background_color = 10;
+  }
+  message DynamicConfig {
+    int32 stay_time = 1;
+    int32 max_stay_time = 2;
+    int32 display_effect_type = 3;
+  }
+  message SceneConfig {
+    string scene = 1;
+    int64 priority = 2;
+    bool need_aggregate = 3;
+    int64 aggregate_num = 4;
+    data.Text aggregate_text = 5;
+    string sub_scene = 6;
+    int64 max_wait_time = 7;
+  }
+}
+message GameToolCounterMessage {
+  im.Common common = 1;
+  string mini_app_id = 2;
+  int64 round_id = 3;
+  int64 update_time = 5;
+  int64 start_time = 6;
+  int64 expect_finish_time = 7;
+}
+message GameEntranceInfo {
+  int64 interact_type = 1;
+  string title = 2;
+  string desc = 3;
+  data.Image icon = 4;
+  string extra = 5;
+}
+message GameToolRoundMessage {
+  im.Common common = 1;
+  string mini_app_id = 2;
+  int64 round_id = 3;
+  int32 message_type = 4;
+  im.GameEntranceInfo entrance = 5;
+  bool should_show_auth = 6;
+  string creator_id = 7;
+  string notice_title = 8;
+  string notice_subtitle = 9;
+}
+message PaidLiveDataMessage {
+  im.Common common = 1;
+  im.PaidBusinessData paid_business_data = 2;
+}
+message PaidBusinessData {
+  int64 ret_type = 1;
+  int64 duration = 2;
+  int32 delivery = 3;
+  int64 id = 4;
+  int32 id_type = 5;
+  int64 ticket_id = 6;
+  int64 ticket_sku_id = 7;
+  int32 purchase_paid_live_type = 9;
+  int64 async_authentication_operate = 10;
+}
+message PaidLiveTypeModifyMessage {
+  im.Common common = 1;
+  im.PaidLiveTypeModifyData paid_live_type_modify_data = 2;
+}
+message PaidLiveTypeModifyData {
+  int64 room_id = 1;
+  data.PrivilegeInfo data = 2;
+  int32 operator_type = 3;
+}
+message PkActivePush {
+  im.PkActivePush.Matcher matcher_r = 1;
+  string match_reason = 2;
+  int64 wait_seconds = 3;
+  string sign_extra = 4;
+  data.VoteSetting vote_data = 5;
+  string battle_attached_info = 19;
+  message Matcher {
+    int64 user_id = 1;
+    data.Room room = 2;
+    repeated data.BattleRivalTag tags = 3;
+  }
+}
+message PkActivePushMessage {
+  im.Common common = 1;
+  im.PkActivePush pk_active_push = 2;
+}
+message PKIconBubbleMessage {
+  im.Common common = 1;
+  im.PKIconBubble bubble_info = 2;
+}
+message PKIconBubble {
+  data.Image display_icon = 1;
+  data.Text display_text = 2;
+  string schema = 3;
+  int32 bubble_type = 4;
+  string activity_name = 5;
+  int64 show_time = 6;
+  int64 show_count = 7;
+}
+message PlatformAdviseMessage {
+  im.Common common = 1;
+  data.Text advise_text = 2;
+  int64 duration = 3;
+  int64 priority = 4;
+}
+message PrivilegeScreenChatMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  string content = 3;
+  im.PublicAreaCommon public_area_common = 4;
+  int64 style = 5;
+  int64 activity_danmu_background = 6;
+  data.Text rtf_content = 7;
+  data.Text rtf_content_v2 = 8;
+}
+message PrivilegeVoiceWaveMessage {
+  im.Common common = 1;
+  int64 user_id = 2;
+  data.Image low_img = 3;
+  data.Image medium_img = 4;
+  data.Image high_img = 5;
+  int64 dress_id = 6;
+}
+message ProfileViewMessage {
+  im.Common common = 1;
+  data.Text title = 2;
+  data.Text sub_title = 3;
+  int64 show_duration = 4;
+  int32 source = 5;
+}
+message ProfitGameMessage {
+  im.Common common = 1;
+  int64 game_id = 2;
+  bytes frames = 3;
+}
+message ProfitInteractionScoreAnchorInfo {
+  string score = 1;
+  data.ProfitInteractionSetting interaction_setting = 2;
+  bool reach_score_display_threshold = 3;
+}
+message ProfitInteractionScoreMessage {
+  im.Common common = 1;
+  int32 interaction_score_status = 3;
+  int64 channel_id = 4;
+  int64 start_time = 5;
+  int32 interaction_score_action = 6;
+  string extra = 7;
+}
+message VsProgrammeStateControlMessage {
+  im.Common common = 1;
+  string pID = 2;
+  int32 state = 3;
+  repeated im.VsProgrammeStateControlMessage.PlayBackInfo playBackInfo_list = 4;
+  message PlayBackInfo {
+    string pID = 1;
+    string StartTime = 2;
+  }
+}
+message PromptMessage {
+  im.Common common = 1;
+  string content = 2;
+  data.User user = 3;
+  int32 duration = 4;
+}
+message PropsBGImgMessage {
+  im.Common common = 1;
+  data.PropsBGData bg = 2;
+  int32 ReviewStatus = 3;
+  string Prompts = 4;
+}
+message PublicAreaHoverMessage {
+  im.Common common = 1;
+  im.PublicAreaCommon public_area_common = 2;
+  string main_content = 3;
+  string secondary_content = 4;
+  data.Image hover_icon = 5;
+  int32 hover_height = 6;
+  string scene = 7;
+  int32 priority = 8;
+}
+message PullStreamUpdateMessage {
+  im.Common common = 1;
+  int32 push_stream_level = 2;
+  int32 random_seconds = 3;
+}
+message Word {
+  string content = 1;
+}
+message QuickComment {
+  im.Common common = 1;
+  repeated im.Word words = 2;
+  int32 duration = 3;
+}
+message AllQuizInfo {
+  int64 id = 1;
+  string title = 2;
+  int64 startTime = 3;
+  int64 duration = 4;
+  int64 status = 5;
+}
+message QuizBeginMessage {
+  im.Common common = 1;
+  int64 quizID = 2;
+  int32 status = 3;
+  repeated im.AllQuizInfo quizInfos = 4;
+  int64 errorCode = 5;
+  string extra = 6;
+}
+message QuizBetMessage {
+  im.Common common = 1;
+  int64 quiz_id = 2;
+}
+message QuizAnchorStatusMessage {
+  im.Common common = 1;
+  repeated data.AnchorHistoryItem items = 2;
+}
+message QuizAudienceStatusMessage {
+  im.Common common = 1;
+  repeated data.Quiz quiz_list = 2;
+}
+message RankListHourEnterMessage {
+  im.Common common = 1;
+  data.RankEnterInfo hour_enter_info = 2;
+}
+message RanklistHourEntranceMessage {
+  im.Common common = 1;
+  data.RanklistHourEntrance info = 2;
+}
+message RealPersonAuditMessage {
+  im.Common common = 1;
+  int64 action_type = 2;
+  string real_person_audit_stream_id = 3;
+  string real_person_audit_stream_rtmp_push_url = 4;
+  string real_person_audit_stream_rtmp_push_url_params = 5;
+}
+message RealTimePlayBackMessage {
+  im.Common common = 1;
+  bool realtime_playback_enabled = 2;
+  string reason = 3;
+  string message_text = 4;
+}
+message RoomAppConfigMessage {
+  im.Common common = 1;
+  im.AnchorFaceConfig anchor_face_config = 2;
+}
+message AnchorFaceConfig {
+  bool contour_enable = 1;
+  int64 frequency = 2;
+  int64 user_count = 3;
+}
+message RoomAuthInterventionVerifyMessage {
+  im.Common common = 1;
+  string name = 2;
+  int64 status = 3;
+  int32 unableStyle = 4;
+  string content = 5;
+  string switch_status_tip_msg = 6;
+  string switch_status_anchor_tip_msg = 7;
+}
+message RoomBackgroundMessage {
+  im.Common common = 1;
+  data.Image room_background = 2;
+}
+message RoomChannelAccessMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  data.User inviter = 3;
+  int64 type = 4;
+}
+message RoomChannelAssetMessage {
+  im.Common common = 1;
+  int64 asset_id = 2;
+}
+message RoomChannelChatMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  string content = 3;
+  data.Text rtf_content = 4;
+  int32 show_identity = 5;
+  bool mention = 6;
+  data.Text rtf_content_v2 = 7;
+}
+message RoomChannelEmojiChatMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  int64 emoji_id = 3;
+  data.Text emoji_content = 4;
+  string default_content = 5;
+  int32 show_identity = 6;
+}
+message RoomChannelInteractiveEmojiChatMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  string interactive_emoji_display_name = 3;
+  string default_content = 4;
+  int32 show_identity = 5;
+}
+message RoomChannelDisbandMessage {
+  im.Common common = 1;
+  string toast = 2;
+}
+message RoomChannelGiftMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  data.Text rtf_content = 3;
+}
+message RoomChannelKickOutMessage {
+  im.Common common = 1;
+  string toast = 2;
+  repeated data.RoomChannelInfo online_channel_list = 3;
+}
+message ReplyRoomChannelMessage {
+  im.Common common = 1;
+  bool permit = 2;
+  data.RoomChannelInfo channel_info = 3;
+  string toast = 4;
+}
+message RoomChannelSaveGroupMessage {
+  im.Common common = 1;
+  string con_id = 2;
+}
+message RoomChannelStateMessage {
+  im.Common common = 1;
+  int64 member_count = 2;
+  repeated data.User top_user_list = 3;
+  string channel_name = 4;
+  data.User need_approval_user = 5;
+  data.User owner = 6;
+}
+message RoomChannelSystemMessage {
+  im.Common common = 1;
+}
+message RoomChannelRoleMessage {
+  im.Common common = 1;
+  int32 new_role = 2;
+}
+message RoomConfigMessage {
+  im.Common common = 1;
+  string config_info = 2;
+  int64 config_type = 3;
+}
+message RoomDataSyncMessage {
+  im.Common common = 1;
+  int64 roomID = 2;
+  string syncKey = 3;
+  int64 version = 4;
+  bytes payload = 5;
+  string bizLogID = 6;
+}
+message RoomIntroMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  int64 style = 3;
+  string intro = 4;
+  repeated string label = 5;
+  int64 intro_video_item_id = 6;
+  string intro_video_title = 7;
+  repeated data.RoomIntroLabel selected_labels = 8;
+  repeated data.RoomIntroLabel intro_labels = 9;
+  im.PublicAreaCommon public_area_common = 10;
+}
+message RoomRankMessage {
+  im.Common common = 1;
+  repeated im.RoomRankMessage.RoomRank ranks = 2;
+  message RoomRank {
+    data.User user = 1;
+    string score_str = 2;
+    bool profile_hidden = 3;
+  }
+}
+message RoomStatsMessage {
+  im.Common common = 1;
+  string display_short = 2;
+  string display_middle = 3;
+  string display_long = 4;
+  int64 display_value = 5;
+  int64 display_version = 6;
+  bool incremental = 7;
+  bool is_hidden = 8;
+  int64 total = 9;
+  int64 display_type = 10;
+}
+message RoomStreamAdaptationMessage {
+  im.Common common = 1;
+  int32 adaptation_type = 2;
+  float adaptation_height_ratio = 3;
+  float adaptation_body_center_ratio = 4;
+}
+message RoomTicketMessage {
+  im.Common common = 1;
+  int32 action_type = 2;
+  int32 last_duration = 3;
+  int64 ticket_id = 4;
+  string ticket_explanation_card_jump_url = 5;
+  string ticket_panel_jump_url = 6;
+  string ticket_panel_6_jump_url = 7;
+  string ticket_panel_9_jump_url = 8;
+  int64 owner_id = 9;
+}
+message RoomTopMessage {
+  im.Common common = 1;
+  data.Image action_icon = 2;
+  im.Background background = 3;
+  int64 fold_duration = 4;
+  int64 display_duration = 5;
+  data.Text first_title = 6;
+  data.Text second_title = 7;
+}
+message Background {
+  string background_color = 1;
+}
+message RoomUnionLiveMessage {
+  im.Common common = 1;
+  data.UnionLiveInfo union_live_info = 2;
+}
+message SharePosterMessage {
+  im.Common common = 1;
+  im.SharePosterMessage.PosterData data = 2;
+  message PosterData {
+    repeated data.Image poster = 1;
+    repeated data.Image decorator = 2;
+  }
+}
+message ShelfCardAtmosphereMessage {
+  im.Common common = 1;
+  int64 room_id = 2;
+  int64 card_id = 3;
+  repeated data.Image img = 4;
+  int64 sale_num = 5;
+  int32 duration = 6;
+}
+message ShortTouchAreaMessage {
+  im.Common common = 1;
+  int32 message_type = 2;
+  data.ShortTouchArea short_touch_area_data = 3;
+}
+message ShowChatMessage {
+  im.Common common = 1;
+  int64 episode_id = 2;
+  string content = 3;
+  int64 agree_msg_id = 4;
+  bool visible_to_sender = 5;
+  int32 priority_level = 6;
+  int32 effect_type = 7;
+  data.User user = 20;
+  im.PublicAreaCommon public_area_common = 30;
+  im.LandscapeAreaCommon landscape_area_common = 31;
+  data.Image background_image = 40;
+  repeated string font_color_value = 41;
+  data.Image gift_image = 42;
+  im.OfficialCommentConfig official_comment_config = 43;
+  im.CommentRoleConfig comment_role = 44;
+  data.CommentMedal medal = 45;
+  int32 vs_message_type = 46;
+}
+message OfficialCommentConfig {
+  string background_color = 1;
+}
+message CommentRoleConfig {
+  string name = 1;
+  data.Image avatar = 2;
+}
+message ShowDouPlusNotifyMessage {
+  im.Common common = 1;
+  int32 event_type = 2;
+  int64 order_id = 10;
+  string order_wish_word = 11;
+  int64 enter_count = 30;
+}
+message ShowEffectMessage {
+  im.Common common = 1;
+  bool flash_operating_place = 2;
+}
+message ShowLinkedLiveRoomsMessage {
+  im.Common common = 1;
+  int64 episode_id = 2;
+  string entry_title = 3;
+  repeated im.ShowLinkedLiveRoomsMessage.ShowLinkedLiveRoomInfo linked_live_rooms = 4;
+  message ShowLinkedLiveRoomInfo {
+    int64 owner_user_id = 1;
+    int64 room_id = 2;
+    string room_title = 3;
+    data.Image avatar_thumb = 4;
+    data.Image avatar_medium = 5;
+    data.Image avatar_large = 6;
+  }
+}
+message ShowMultiCameraChangeMessage {
+  im.Common common = 1;
+  repeated data.VSCameraInfo camera_infos = 2;
+  int64 randomly_break_up_time = 3;
+}
+message ShowWatchInfoMessage {
+  im.Common common = 1;
+  string desc = 2;
+  string count = 3;
+  string count_with_backup = 4;
+  string format_count = 5;
+}
+message SkyEyeAnchorSetMessage {
+  im.Common common = 1;
+  data.Image title_image = 2;
+  string title = 3;
+  string top_tip = 4;
+  string bottom_tip = 5;
+}
+message SportsRealTimeMatchDataMessage {
+  im.Common common = 1;
+  string sports_match_data = 2;
+}
+message SportsQuizOption {
+  int64 option_id = 1;
+  string option_desc = 2;
+  int64 bet_amount = 3;
+  string bet_amount_str = 4;
+  double rate = 5;
+  string rate_str = 6;
+}
+message SportsQuiz {
+  int64 quiz_id = 1;
+  string title = 2;
+  int32 type = 3;
+  int32 quiz_status = 4;
+  int64 total_reward = 5;
+  repeated im.SportsQuizOption options = 6;
+  int64 win_option = 7;
+  int64 end_time = 8;
+  int64 bet_gold_ball = 9;
+  int64 selected_option = 10;
+  int64 bonus = 11;
+}
+message SportsQuizMessage {
+  im.Common common = 1;
+  string match_id = 2;
+  int32 quiz_msg_type = 3;
+  repeated im.SportsQuiz quiz = 4;
+}
+message StreamControlMessage {
+  im.Common common = 1;
+  string control_params = 2;
+}
+message SubscribeInfoMessage {
+  im.Common common = 1;
+  bool is_member = 2;
+}
+message SubscribeAssetMessage {
+  im.Common common = 1;
+}
+message SyncStreamInfoMessage {
+  int64 timestamp = 1;
+  string key = 2;
+  string info = 3;
+  im.Common common = 4;
+}
+message SyncStreamMessage {
+  im.Common common = 1;
+  repeated im.SyncStreamInfoMessage info_list = 2;
+}
+message TaskCenterCommonMessage {
+  im.Common common = 1;
+  int64 biz_type = 2;
+  string data = 3;
+}
+message TaskCenterCommonPersonalMessage {
+  im.Common common = 1;
+  int64 biz_type = 2;
+  string data = 3;
+}
+message TaskCenterEntranceMessage {
+  im.Common common = 1;
+  data.TouchPositionMeta meta = 2;
+  data.TreasureDetail detail = 3;
+  string extra = 4;
+}
+message TaskMessage {
+  im.Common common = 1;
+  repeated data.TaskRecord task_records = 2;
+  int32 action = 3;
+}
+message ToastMessage {
+  im.Common common = 1;
+  string content = 2;
+}
+message ToolBarControlMessage {
+  im.Common common = 1;
+  int32 event_type = 2;
+  int32 group_id = 3;
+  int32 component_type = 4;
+  int32 op_type = 5;
+  string text = 6;
+  string schema_url = 7;
+  data.Image icon = 8;
+  int64 show_type = 9;
+  string extra = 99;
+}
+message TopLeftBubbleMessage {
+  im.Common common = 1;
+  im.CommonBubbleConfig bubble_config = 2;
+}
+message UgLotteryStatusSyncMessage {
+  im.Common common = 1;
+  int64 lottery_id = 2;
+  int64 lottery_type = 3;
+  string icon = 4;
+  string title = 5;
+  string schema = 6;
+  string toast = 7;
+}
+message UnionAnchorMessage {
+  im.Common common = 1;
+  string text = 2;
+  int32 duration = 4;
+}
+message UnionGeneralMessage {
+  im.Common common = 1;
+  repeated int32 payload = 2;
+  int64 timestamp = 3;
+  int64 auth_type = 4;
+}
+message AnchorAppointmentNumUpdateMessage {
+  im.Common common = 1;
+  im.AnchorAppointmentNumUpdateMessage.Data data = 2;
+  message Data {
+    int64 CurrentNumber = 1;
+    int64 AnchorUID = 2;
+  }
+}
+message AppointmentNumberUpdateMessage {
+  im.Common common = 1;
+  im.AppointmentNumberUpdateMessage.Data data = 2;
+  message Data {
+    int64 CurrentNumber = 1;
+    int64 AnchorUID = 2;
+  }
+}
+message UpdateFanTicketMessage {
+  im.Common common = 1;
+  string room_fan_ticket_count_text = 2;
+  int64 room_fan_ticket_count = 3;
+  bool force_update = 4;
+}
+message CoverSuccessMessage {
+  im.Common common = 1;
+  int64 cover_type = 2;
+}
+message UpperRightWidgetDataMessage {
+  im.Common common = 1;
+  repeated data.UpperRightWidgetData upper_right_widget_data_list = 2;
+}
+message UserPrivilegeChangeMessage {
+  im.Common common = 1;
+  int32 user_privilege_type = 2;
+  int64 user_id = 3;
+  data.Image avatar_border = 4;
+  data.Image thumb_avatar_border = 5;
+}
+message VerifyDecisionMessage {
+  string decision_conf = 1;
+  string check_reason = 2;
+  im.Common common = 3;
+  int64 pop_time = 4;
+}
+message VideoShareMessage {
+  im.Common common = 1;
+  data.User user = 2;
+  int64 item_id = 3;
+  string item_id_str = 4;
+  int64 item_type = 5;
+  string item_type_str = 6;
+  string title = 7;
+  int64 author_id = 8;
+  im.PublicAreaCommon public_area_common = 9;
+}
+message VirtualGameActorChatMessage {
+  im.Common common = 1;
+  int64 user_id = 2;
+  int64 actor_id = 3;
+  string user_nick_name = 4;
+  int64 chat_request_time = 5;
+  int64 room_id = 6;
+  string content = 7;
+}
+message VirtualActorBatchCommandMessage {
+  im.Common common = 1;
+  int64 room_id = 2;
+  repeated im.VirtualGameActorCommandMessage command_message_list = 3;
+}
+message VirtualGameActorCommandMessage {
+  int64 command_id = 1;
+  string command_type = 2;
+  int64 user_id = 3;
+  int64 actor_id = 4;
+  string user_nick_name = 5;
+  int64 actor_create_time = 6;
+  int64 actor_remove_time = 7;
+  int64 command_request_time = 8;
+}
+message VsBusinessConfigureMessage {
+  im.Common common = 1;
+  data.BusinessConfigure business_configure = 2;
+  bool all_info = 3;
+  int64 scatter_time = 4;
+}
+message VsInteractiveMessage {
+  im.Common common = 1;
+  string extra = 2;
+}
+message VSLinkRoomMessage {
+  im.Common common = 1;
+  data.VSLinkInfo link_info = 2;
+  bool all_info = 3;
+  int64 scatter_time = 4;
+}
+message VsPanelMessage {
+  im.Common common = 1;
+  string extra = 2;
+}
+message VsScheduleMessage {
+  im.Common common = 1;
+  int32 action = 2;
+  int64 match_id = 3;
+  repeated int64 event_ids = 4;
+  int64 content_id = 5;
+  string match_id_str = 6;
+  string content_id_str = 7;
+  repeated string event_ids_str = 8;
+}
+message VsSwitchControlMessage {
+  im.Common common = 1;
+  int32 switch = 2;
+  bool on = 3;
+  string display_text = 4;
+  string extra = 20;
+}
+message FreshmanSupportMessage {
+  im.Common common = 1;
+  int64 number = 2;
+  int64 status = 3;
+  string icon = 4;
+  string extra = 5;
+}
+message MiniAppLineUpMessage {
+  im.Common common = 1;
+  string mini_app_id = 2;
+  string mini_app_name = 3;
+  int32 line_up_status = 4;
+  string content = 5;
+  int64 duration = 6;
+}
+message InteractOpenAppStatusMessage {
+  im.Common common = 1;
+  string app_id = 2;
+  int32 status = 3;
+  string display_text = 4;
+  string anchor_text = 5;
+}
+message InteractOpenChatMessage {
+  im.Common common = 1;
+  repeated im.InteractOpenChatMessage.ChatItem items = 2;
+  message ChatItem {
+    repeated data.AppUserInfo app_user_info = 1;
+    string sec_nick_name = 2;
+    string sec_avatar_url = 3;
+    string content = 4;
+    int32 timestamp = 5;
+  }
+}
+message ActivityCouponInvalidMessage {
+  im.Common common = 1;
+  string room_id = 2;
+  int32 invalid_type = 3;
+  string anchor_toast_content = 4;
+}
+message InteractOpenDiamondMessage {
+  im.Common common = 1;
+  string app_id = 2;
+  int64 start_id = 3;
+  int32 diamonds = 4;
+}
+message InteractOpenFollowingMessage {
+  im.Common common = 1;
+  repeated im.InteractOpenFollowingMessage.FollowItem items = 2;
+  message FollowItem {
+    repeated data.AppUserInfo app_user_info = 1;
+    string sec_nick_name = 2;
+    string sec_avatar_url = 3;
+    int32 action = 4;
+    int32 timestamp = 5;
+  }
+}
+message PerformanceFinishMessage {
+  im.Common common = 1;
+  string app_id = 2;
+  string task_id = 3;
+}
+message InteractOpenRewardMessage {
+  im.Common common = 1;
+  string app_id = 2;
+  int64 start_id = 3;
+  int32 reward_id = 4;
+  int32 reward_count = 5;
+  int32 reward_diamonds = 6;
+  string reward_name = 7;
+}
+message InteractScreenshotMessage {
+  im.Common common = 1;
+  string app_id = 2;
+  int64 recall_id = 3;
+}
+message InteractOpenViolationMessage {
+  im.Common common = 1;
+  string room_id = 2;
+  string app_id = 3;
+  int32 violation_type = 4;
+  string anchor_tips_title = 5;
+  string anchor_tips_content = 6;
+  string audience_tips_title = 7;
+  string audience_tips_content = 8;
+}
+message PreloadMessage {
+  im.Common common = 1;
+  int64 scene = 2;
+  string param = 3;
+}
+message RoomIndicatorMessage {
+  im.Common common = 1;
+  int64 biz_type = 2;
+  int64 status = 3;
+  im.CommonBizInfo biz_info = 4;
+}
+message CommonBizInfo {
+  string jump_schema = 1;
+  repeated im.BizContent contents = 2;
+  string extra = 3;
+}
+message HotText {
+  int64 number = 1;
+  string text_content = 2;
+}
+message BizContent {
+  int32 content_type = 1;
+  int64 number = 2;
+  string text_content = 3;
+  data.Image image_content = 4;
+  im.HotText hot_text_content = 5;
+}
+message TrafficSceneMessage {
+  im.Common common = 1;
+  int64 number = 2;
+  int64 status = 3;
+  string icon = 4;
+  int64 type = 5;
+  bool is_keep = 6;
+}
+message WelfareProjectOperateMessage {
+  im.Common common = 1;
+  int64 op_type = 2;
+  data.WelfareProjectInfo project = 3;
+}
+message WishFinishMessage {
+  im.Common common = 1;
+  data.Image gesture_image_single = 2;
+  data.Image gesture_image_double = 3;
+  int64 display_seconds = 4;
+  int64 effect_id = 5;
+}
+message AudienceGiftSyncData {
+  repeated data.GiftAudienceReceiverItem audience_receiver_list = 1;
+  int64 sync_type = 2;
+}
+message CameraShareStateSyncData {
+  int32 share_state = 1;
+}
+message RoomChannelLinkMicSyncData {
+  repeated data.ChannelListUser channel_link_users = 1;
+  int64 placeholder = 2;
+  string rtc_room_id_str = 3;
+}
+message ChatCarnivalSyncData {
+  im.ChatCarnivalMessage data = 1;
+}
+message Comment {
+  int64 comment_id = 1;
+  im.Comment.User comment_user = 2;
+  string text = 3;
+  int32 tag = 4;
+  bool public = 5;
+  int64 create_timestamp = 6;
+  int32 thumbup_number = 7;
+  repeated im.Comment children_comment = 8;
+  int32 audit = 9;
+  bool first_reply = 10;
+  im.Comment.DressInfo dress_info = 11;
+  message User {
+    int64 id = 1;
+    int64 short_id = 2;
+    string nickname = 3;
+    data.Image avatar_thumb = 5;
+    data.User.AuthenticationInfo authentication_info = 6;
+  }
+  message DressInfo {
+    int64 cover_id = 1;
+    int64 badge_id = 2;
+  }
+}
+message CommentsSyncData {
+  repeated string comments = 1;
+  int64 next_timestamp = 2;
+  int32 total_comment_number = 3;
+}
+message DoubleLikeDetailV2 {
+  bool double_flag = 1;
+  int32 seq_id = 2;
+  int32 renewals_num = 3;
+  int32 triggers_num = 4;
+}
+message DoubleLikeSyncData {
+  im.DoubleLikeDetailV2 doubleLikeStatus = 1;
+  data.Text self_display_text = 2;
+  data.Text normal_display_text = 3;
+}
+message FastChatSyncData {
+  int32 chat_support_type = 1;
+  string toast = 2;
+  string hint = 4;
+  string color = 5;
+  repeated string fast_chat = 3;
+  bool fast_chat_switch = 6;
+}
+message FixedChatSyncData {
+  string hint = 1;
+  im.FastChatInfo fast_chat_info = 2;
+  im.FixedChatInfo fixed_chat_info = 3;
+}
+message FastChatInfo {
+  bool fast_chat_switch = 1;
+  string bubble_color = 2;
+  repeated im.FastChatInfo.FastChatDetail fast_chat_list = 3;
+  message FastChatDetail {
+    int64 type = 1;
+    string content = 2;
+  }
+}
+message FixedChatInfo {
+  repeated string fixed_chat_list = 1;
+  repeated im.FixedChatInfo.EmojiDetail fixed_emoji_list = 2;
+  string title_color = 3;
+  string text_default_color = 4;
+  string text_selected_color = 5;
+  data.Image cancel_icon = 6;
+  message EmojiDetail {
+    int64 id = 1;
+    data.Image content = 2;
+  }
+}
+message GeneralCarnivalSyncData {
+  im.GeneralCarnivalMessage carnival_message = 1;
+  int64 MillSecondTimeStamp = 2;
+}
+message GeneralCarnivalMessage {
+  im.Common common = 1;
+  int64 seq_id = 2;
+  int64 user_start_timestamp_milliseconds = 3;
+  int64 user_start_milliseconds = 4;
+  int64 duration = 5;
+  int64 min_remaining_duration = 6;
+  string background_color = 7;
+  string word_color = 8;
+  data.Image title_image = 9;
+  int64 show_webp = 10;
+  string pre_content = 11;
+  string content = 12;
+  bool countdown_exit = 13;
+  string exit_content = 14;
+  int64 exit_countdown_duration = 15;
+  bool can_jump = 16;
+  string schema = 17;
+  int64 move_speed = 18;
+  int64 use_privilege_region = 20;
+  repeated im.GeneralCarnivalMessage.CarnivalEggItem egg_style = 21;
+  repeated int64 egg_show_range = 22;
+  int64 can_open_contour = 23;
+  message CarnivalDanmakuItem {
+    string content_color = 1;
+    im.FlexImageStruct background = 2;
+    int64 background_hight = 3;
+    int64 background_width = 4;
+    int64 use_rate = 5;
+    int64 font_size = 6;
+  }
+  message CarnivalDanmakuItemList {
+    repeated im.GeneralCarnivalMessage.CarnivalDanmakuItem danmaku_item_list = 1;
+  }
+  message CarnivalEggItem {
+    data.Image background = 1;
+    int64 background_hight = 2;
+    int64 background_width = 3;
+    int64 use_rate = 4;
+    int64 is_dynamic_egg = 5;
+    bool show_alone = 6;
+  }
+}
+message HighlightContainerSyncData {
+  repeated im.HighlightItem highlight_items = 1;
+  int64 sync_version = 2;
+  im.CarouselInfo carousel_info = 3;
+}
+message HighlightItem {
+  int64 item_id = 1;
+  int64 version = 2;
+  int64 end_time = 3;
+  im.Position position = 4;
+  int32 data_type = 100;
+  im.HighlightDataAppointment appointment_data = 102;
+  im.HighlightDataAnswer answer_data = 103;
+  im.HighlightDataComment comment_data = 104;
+  im.HighlightDataVideo video_data = 105;
+  im.HighlightDataMicroApp micro_app_data = 106;
+  im.HighlightDataImCommon im_common_data = 107;
+}
+message HighlightTempInfo {
+  string item_id = 1;
+  string item_cover = 2;
+  string item_name = 3;
+  string item_content = 4;
+  string schema = 5;
+}
+message Position {
+  double position_x = 1;
+  double position_y = 2;
+}
+message CarouselInfo {
+  int64 time = 1;
+  repeated int64 item_group = 2;
+}
+message OperateInfo {
+  data.Text creator_text = 1;
+  int64 creator_uid = 2;
+}
+message PinCommon {
+  data.Text top_title = 1;
+  im.OperateInfo operate_info = 2;
+}
+message PictureTextStyle {
+  data.Text text = 1;
+  data.Text sub_text = 2;
+  data.Image picture = 3;
+  string schema = 4;
+}
+message HighlightDataAppointment {
+  int64 appointment_timestamp = 1;
+  bool demotion = 2;
+  int64 anchor_uid = 3;
+  int64 current_number = 4;
+  string text = 5;
+  int64 appointment_id = 6;
+  int32 scheduled_time = 7;
+  int32 scheduled_date = 8;
+  repeated int32 scheduled_weekdays = 9;
+  int32 show_duration = 10;
+  string date_text = 11;
+  string time_text = 12;
+}
+message HighlightDataAnswer {
+  string scene = 1;
+  int64 answer_id = 2;
+  string question = 3;
+  string answer = 4;
+  int64 audience_number = 5;
+  string audience_number_str = 6;
+  string nick_name = 7;
+  int64 anchor_id = 8;
+  int64 commenter_id = 9;
+  int64 question_msg_id = 10;
+  int64 answer_msg_id = 11;
+  im.PinCommon pin_common = 255;
+}
+message HighlightDataComment {
+  string scene = 1;
+  int64 chat_id = 2;
+  string content = 3;
+  string nick_name = 4;
+  int64 commenter_id = 5;
+  int64 msg_id = 6;
+  int64 pre_id = 7;
+  im.PinCommon pin_common = 255;
+}
+message HighlightDataVideo {
+  string scene = 1;
+  int64 video_pin_id = 2;
+  string url = 3;
+  int64 item_id = 4;
+  int64 item_type = 5;
+  string title = 6;
+  string nick_name = 7;
+  int64 msg_id = 8;
+  int64 role = 9;
+  im.PinCommon pin_common = 255;
+}
+message HighlightDataMicroApp {
+  string scene = 1;
+  int64 pin_id = 2;
+  int64 msg_id = 3;
+  string micro_app_id = 4;
+  string micro_app_avatar = 5;
+  string micro_app_name = 6;
+  string micro_app_introduction = 7;
+  string schema = 8;
+  string nick_name = 9;
+  im.PinCommon pin_common = 255;
+}
+message HighlightDataImCommon {
+  string scene = 1;
+  int64 pin_id = 2;
+  int64 msg_id = 3;
+  string title = 4;
+  data.Text display_text = 5;
+  im.PictureTextStyle picture_text_style = 100;
+  im.PinCommon pin_common = 255;
+}
+message InfoBoxSyncData {
+  im.Common common = 1;
+  int64 scene = 2;
+  string sub_scene = 3;
+  int64 msg_type = 4;
+  int64 delay = 5;
+  string title = 6;
+  string fold_title = 7;
+  data.Text content = 8;
+  int64 drag_type = 9;
+  im.InfoBoxBackGround background = 10;
+}
+message InfoBoxBackGround {
+  int64 background_alpha = 1;
+  string background_color = 2;
+  data.Image background_image = 3;
+}
+message InputPanelComponentSyncData {
+  repeated im.PanelComponentItem data = 1;
+}
+message PanelComponentItem {
+  int32 type = 1;
+  int32 status = 2;
+  data.Image icon = 21;
+  string display_text = 22;
+  string schema_url = 23;
+}
+message WebcastInteractControlSyncData {
+  im.Common common = 1;
+  string room_id = 2;
+  string time_stamp = 3;
+  repeated im.ClientOperation anchor_operation = 4;
+  repeated im.ClientOperation audience_operation = 5;
+}
+message IntercomChangeSyncData {
+  int64 intercom_status = 1;
+  int64 close_reason = 2;
+}
+message KtvDressSyncData {
+  data.MidiSkinDressInfo dress_info = 1;
+  int64 song_id = 2;
+  int64 singer_id = 3;
+}
+message KtvMultiChorusSyncData {
+  data.MultiChorusUpdateMessage update_msg = 1;
+}
+message KtvStreamSingSyncData {
+  data.KtvSongStruct song = 1;
+  data.KtvAtmosphereVideoInfo video_info = 2;
+  int64 time_stamp = 3;
+  int32 action = 4;
+}
+message LikeEggSyncData {
+  string content = 1;
+  im.LikeEggTrayColor trayColor = 2;
+  int64 user_start_timestamp = 3;
+  int64 user_start_second = 4;
+  int64 duration = 5;
+  im.LikeEggJumpDetail jump_detail = 6;
+  string prepare_content = 7;
+  int64 prepare_duration = 8;
+  string finish_content = 9;
+  int64 finish_duration = 10;
+  im.Common common = 255;
+}
+message LikeEggJumpDetail {
+  int32 type = 1;
+  im.GroupPhotoJumpDetail photo_jump_detail = 2;
+  im.TemplatePhotoJumpDetail template_photo_jump_detail = 3;
+}
+message GroupPhotoJumpDetail {
+  data.Image group_photo = 1;
+  repeated im.FieldLocation location_list = 2;
+  int32 width = 4;
+  int32 height = 5;
+  string share_content = 6;
+}
+message TemplatePhotoJumpDetail {
+  repeated im.TemplateInfo template_list = 1;
+  string template_panel_title = 2;
+  string photo_panel_title = 3;
+  data.Image bg_photo = 4;
+}
+message TemplateInfo {
+  string template_id = 1;
+  data.Image template_photo = 2;
+  string author_name = 3;
+  string template_title = 4;
+  bool support_replace = 5;
+  string replace_content = 6;
+}
+message LikeEggTrayColor {
+  string background_color = 1;
+  string bar_color = 2;
+}
+message FieldLocation {
+  int32 location_x = 1;
+  int32 location_y = 2;
+}
+message RoomLinkMicSyncData {
+  repeated data.ListUser linked_users = 1;
+  data.LinkerBaseInfo linker_base_info = 3;
+  repeated data.LinkmicPositionItem locked_positions = 4;
+  repeated data.LinkmicPositionItem positions = 5;
+  int64 placeholder = 6;
+}
+message RoomLinkMicAnchorSettingsSyncData {
+  repeated data.LinkmicSetting settings = 1;
+}
+message LotteryInfoSyncData {
+  int64 lottery_id = 1;
+  int64 lottery_type = 5;
+  int64 lucky_count = 2;
+  int64 candidate_total_count = 3;
+  int64 last_candidate_total_count_surge_timestamp = 4;
+}
+message MatchDynamicIslandSyncData {
+  im.Common common = 1;
+  string data = 2;
+}
+message MicroAppStartSyncData {
+  string app_id = 1;
+  string audience_start_msg = 2;
+  string anchor_start_msg = 3;
+}
+message MoreLiveSyncData {
+  data.MoreLiveEntrance info = 1;
+}
+message OfChannelShowlistSyncData {
+  int64 channel_uid = 1;
+  int64 channel_anchor_id = 2;
+  string showlist_text = 3;
+  string showlist_schema = 4;
+  string showlist_name = 5;
+  string channel_name = 6;
+  int64 showlist_id = 7;
+}
+message PermissionCheckTriggerSyncData {
+  int64 trigger = 1;
+  int64 max_delay_time = 2;
+}
+message PreviewCommentSyncData {
+  string hot_comment = 1;
+  int64 hot_comment_time = 2;
+  int64 hot_comment_sequence_id = 3;
+}
+message PreviewControlSyncData {
+  int64 action = 1;
+}
+message PreviewExtendAreaSyncData {
+  data.Image extend_icon = 1;
+  string extend_pre_text = 2;
+  string extend_text = 3;
+  int32 extend_type = 4;
+  string extra = 5;
+  int32 use_marquee = 6;
+  int32 icon_type = 7;
+  repeated im.PreviewExtendAreaSyncData.Part right_part = 8;
+  string button_part = 9;
+  repeated im.PreviewExtendAreaSyncData.Part mid_part = 10;
+  bool need_delimiter = 11;
+  repeated im.PreviewExtendAreaSyncData.Part bottom_part = 12;
+  int32 ui_type = 13;
+  int32 version = 14;
+  im.PreviewExtendAreaSyncData.ActionConfig action_cfg = 17;
+  bool use_pass_through_extra_json = 18;
+  string pass_through_extra_json = 19;
+  string extra_business = 21;
+  message Part {
+    int32 fontSize = 1;
+    int32 interval = 2;
+    string text = 3;
+    bool cuttable = 4;
+    bool deleted = 5;
+    string font_color = 6;
+    bool bold = 7;
+  }
+  message ActionConfig {
+    int32 areaAction = 1;
+  }
+}
+message RiskAdviseSyncData {
+  int64 create_time = 1;
+  data.Text advise_text = 2;
+}
+message RoomChannelSettingsSyncData {
+  int64 channel_id = 1;
+  bool link_mic_switch = 2;
+  bool enter_approve_switch = 3;
+  bool member_invite_switch = 4;
+}
+message ShelfCardAtmosphereSyncData {
+  int64 room_id = 1;
+  int64 card_id = 2;
+  repeated data.Image img = 3;
+  int64 sale_num = 4;
+  int32 duration = 5;
+}
+message ShelfCardSupplementSyncData {
+  int64 room_id = 1;
+  int64 card_id = 2;
+}
+message ShelfSupplementInfo {
+  string context = 1;
+  string type_str = 2;
+  int64 amount = 3;
+  repeated data.Image user_img = 4;
+}
