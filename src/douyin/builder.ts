@@ -97,7 +97,7 @@ export const protoBuilder = (fileArray: string[], protoResult: anyObject, catego
             Object.keys(v).forEach(k=>{
                 content += buildMessage(context, k, v[k] as messageItem)
             })
-            const fileName = `${category}_${key}.proto`
+            const fileName = `${category}.${key}.proto`
             const p = protoDir ?
                 path.resolve(protoDir, fileName) :
                 fileName

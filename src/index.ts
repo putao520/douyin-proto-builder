@@ -6,6 +6,7 @@ buildDouyinProto(fileArray, "./douyin/in/live-schema.js", "live","webcast", true
 buildDouyinProto(fileArray, "./douyin/in/transport-schema.js", "transport","webcast", true)
 
 // 生成js文件
+// 生成后需要自己调整Import否则无法正确导入
 const cmd = `npx protoc --ts_out ./douyin/out --proto_path ./douyin/proto ${fileArray.join(" ")}`
 console.log(cmd)
 exec(cmd)
